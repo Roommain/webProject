@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><title>07-第七章 运算符 类型转换</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="07-第七章-运算符-类型转换">07-第七章 运算符 类型转换</h1>
+
+
+
+<h2 id="一算术运算">一、算术运算</h2>
+
+<p>加—————[<code>+</code>]  <br>
+减—————[<code>-</code>]  <br>
+乘—————[<code>*</code>]  <br>
+除—————[ <code>/</code> ]  <br>
+取模、取余 —[<code>%</code>]</p>
+
+<blockquote>
+  <h4 id="1-隐式类型转换">1. 隐式类型转换</h4>
+</blockquote>
+
+<p><code>+</code>  在有字符串的时候,会进行字符串<code>拼接</code> <br>
+  <code>-</code> <code>*</code> <code>/</code> <code>%</code> 会尽力把不是数字的转化为<code>数字</code></p>
+
+<blockquote>
+  <h4 id="2nan-not-a-number不是一个数字">2、<code>NaN</code>  ——————————–not a number(不是一个数字)</h4>
+</blockquote>
+
+<ul><li><code>不是数字的数字类型</code>（number类型）</li>
+<li>NaN<code>和自己都不相等</code></li>
+<li><code>isNaN(</code> obj <code>)</code>  判断是否为NaN,是返回<code>true</code>,否返回<code>false</code>;</li>
+</ul>
+
+<blockquote>
+  <h4 id="3显示类型转化化">3、显示类型转化化</h4>
+</blockquote>
+
+
+
+<h3 id="转数字"><a href="http://www" target="_blank"> 》 转数字</a></h3>
+
+<p><code>Number()</code>  可以用于任何数据类型转换成数值，<code>parseInt()</code>、<code>parseFloat()</code>:专门用于把字符串转换成数值 <br>
+都是忽略前导的空格</p>
+
+<p>1) <code>Number()</code>  </p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-number">1</span>）能把字符串转化为数字。
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-number">2</span>）如果字符串是空的（不包含任何字符），则将其转换为<span class="hljs-number">0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-number">3</span>）如果带非数字的字符串,返回<span class="hljs-literal">NaN</span>。
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-number">4</span>）<span class="hljs-literal">undefined</span>,返回<span class="hljs-literal">NaN</span>。
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-number">5</span>）<span class="hljs-literal">true</span>和<span class="hljs-literal">false</span>将分别转换为<span class="hljs-number">1</span>和<span class="hljs-number">0</span>。
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-number">6</span>）<span class="hljs-literal">null</span>值，返回<span class="hljs-number">0</span>。
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-string">'-100.02'</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-built_in">console</span>.log( a );            <span class="hljs-comment">//-100.02</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-string">'100px'</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-built_in">console</span>.log( a );           <span class="hljs-comment">//NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-string">''</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-built_in">console</span>.log( a );            <span class="hljs-comment">//0</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-literal">undefined</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span><span class="hljs-built_in">console</span>.log( a );            <span class="hljs-comment">//NaN</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-literal">true</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span><span class="hljs-built_in">console</span>.log( a );           <span class="hljs-comment">//1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">Number</span>( <span class="hljs-literal">null</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span><span class="hljs-built_in">console</span>.log( a );           <span class="hljs-comment">//0</span>
+</div></code></pre>
+
+<p>2) <code>parseInt()</code>  （取整）取 <code>非数字整前的数字</code> ，或<code>小数点前的数字</code>——-</p>
+
+<p>3)  <code>parseFloat()</code>  能取得 小数，<code>第二个小数点前的数字</code></p>
+
+
+
+<h3 id="转字符串"><a href="http://www" target="_blank"> 》 转字符串</a></h3>
+
+<p><code>String(</code>  obj  <code>)</code>; <br>
+obj.<code>toString()</code>;</p>
+
+
+
+<h2 id="二赋值运算">二、赋值运算</h2>
+
+
+
+<h4 id="title"><code>=</code>  <code>+=</code>  <code>-=</code>  <code>*=</code>  <code>/=</code>  <code>%=</code>  <code>++</code>  <code>--</code></h4>
+
+
+
+<h2 id="三比较运算">三、比较运算</h2>
+
+<p><code>&lt;</code>————–小于 <br>
+ <code>&gt;</code> ————-大于 <br>
+  <code>= =</code> ————- 等于 <br>
+<code>&lt;=</code> ————-小于等于 <br>
+ <code>&gt;=</code> ————- 大于等于 <br>
+ <code>!=</code> ————- 不等于 <br>
+<code>= = =</code>————- 全等，除了值的判断，还会进行unicode 编码的对比 <br>
+<code>!==</code>————-不全等 <br>
+返回boolean值 </p>
+
+
+
+<h2 id="四逻辑运算">四、逻辑运算</h2>
+
+<p><code>||</code>————-逻辑或 <br>
+<code>&amp;&amp;</code>————–逻辑与</p>
+
+<p>赋值操作</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs swift"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> <span class="hljs-built_in">c</span> = a || b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//如果a为true,则用a赋值，如果a为false,则用b赋值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-keyword">var</span> <span class="hljs-built_in">c</span> = a &amp;&amp; b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-comment">//如果a为true,则通过，用 b 赋值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//如果a为false,用 a 赋值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div></code></pre>
+
+<p>布尔值操作</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gcode"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span><span class="hljs-comment">( a || b )</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//如果a为true,则为true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//如果a为false,则看b</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">if</span><span class="hljs-comment">( a &amp;&amp; b )</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-comment">//如果a为true,则通过，看b,b为true则为true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-comment">//如果a为false,则false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div></code></pre>
+
+<p>多则运算及优先级</p>
+
+<hr>
+
+<p><code>!</code>————–取反</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ruby"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span>( !obj ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-regexp">//</span>首先会把obj转化为布尔值，如果 obj是<span class="hljs-literal">true</span>,则!obj为<span class="hljs-literal">false</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div></code></pre></div></body></html>

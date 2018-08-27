@@ -1,0 +1,222 @@
+<!DOCTYPE html><html><head><title>08-第八章 函数[自执行] [传参] [return] getComputedStyle()</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="08-第八章-函数自执行-传参-return-getcomputedstyle">08-第八章 函数[自执行] [传参] [return] getComputedStyle()</h1>
+
+<hr>
+
+
+
+<h2 id="一函数自执行">一、函数自执行</h2>
+
+<blockquote>
+  <p>函数自执行方式,即创建立即调用一次</p>
+</blockquote>
+
+<p>1 、函数后面加用<code>小括号,然后在用小括号包</code>起来</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{}())<span class="hljs-comment">//函数后面加用小括号包起来</span>
+</div></code></pre>
+
+<p>2、 函数<code>用小括号包起来</code>,然后<code>后面加小括号</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{})()<span class="hljs-comment">//用小括号包起来</span>
+</div></code></pre>
+
+<p>3、 函数后<a href="http://www" target="_blank">面加小括号</a>,然后在<a href="http://www" target="_blank">函数前面加</a> <code>+</code> <code>-</code>  <code>~</code> <code>！</code>其中的一个符号</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scilab"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//+</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{}<span class="hljs-params">()</span></span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scilab"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//-</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>-<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{}<span class="hljs-params">()</span></span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scilab"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//~</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>~<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{}<span class="hljs-params">()</span></span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scilab"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//!</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>!<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{}<span class="hljs-params">()</span></span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二函数传参">二、函数传参</h2>
+
+<hr>
+
+
+
+<h4 id="1-对应传参">1、 对应传参</h4>
+
+<blockquote>
+  <p><strong>形参</strong>:即形式参数，是用来接收函数调用时传递过来的数据，<code>命名与变量一致</code> <br>
+  <strong>实参</strong>:即真实参数，是给形参传递的具体数据，<code>任何数据类型都可以称为实参</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>function <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">( a,b)</span>{<span class="hljs-comment">//a,b为形参，且a 为 20，b为10，一一对应</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    console.<span class="hljs-built_in">log</span><span class="hljs-params">(a)</span>;<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    console.<span class="hljs-built_in">log</span>(b);<span class="hljs-comment">//10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    console.<span class="hljs-built_in">log</span>(a+b);<span class="hljs-comment">//30</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">(<span class="hljs-number">20</span>,<span class="hljs-number">10</span>)</span></span>;<span class="hljs-comment">//20,10为实参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2-不定参arguments">2、 不定参，arguments</h4>
+
+<blockquote>
+  <p>1、不定参：<code>实参个数不确定</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>function <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">( a,b)</span>{<span class="hljs-comment">//a,b为形参，且a 为 20，b为10，一一对应</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    console.<span class="hljs-built_in">log</span><span class="hljs-params">(a)</span>;<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    console.<span class="hljs-built_in">log</span>(b);<span class="hljs-comment">//10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    console.<span class="hljs-built_in">log</span>(a+b);<span class="hljs-comment">//30</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">(<span class="hljs-number">20</span>,<span class="hljs-number">10</span>)</span></span>;<span class="hljs-comment">//20,10为实参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div></code></pre>
+
+<blockquote>
+  <p>2、<code>arguments</code>所有函数都存在arguments， 是所有实参的集合，arguments是一个类数组，<code>arguments.length</code> 可以返回个数</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>function <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">( a,b)</span>{<span class="hljs-comment">//a,b为形参，且a 为 20，b为10，一一对应</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    console.<span class="hljs-built_in">log</span><span class="hljs-params">(a)</span>;<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">(<span class="hljs-number">20</span>,<span class="hljs-number">10</span>)</span></span>;<span class="hljs-comment">//20,10为实参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三函数中的return">三、函数中的return</h2>
+
+<hr>
+
+
+
+<h4 id="1函数中默认return的返回值为undefined">1、函数中<code>默认return的返回值为undefined</code></h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">( a,b)</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        a+b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-title">var</span> <span class="hljs-title">a</span> = <span class="hljs-title">fn</span><span class="hljs-params">()</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    console.log( a );<span class="hljs-comment">//undefined</span>
+</div></code></pre>
+
+
+
+<h4 id="2自定义返回值">2、自定义返回值</h4>
+
+<blockquote>
+  <p>1）、有时候我们需要函数中返回我们需要的值，这个时候<code>return很有用</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">( a,b)</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        a+b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-title">var</span> <span class="hljs-title">a</span> = <span class="hljs-title">fn</span><span class="hljs-params">()</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    console.log( a );<span class="hljs-comment">//undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div></code></pre>
+
+<blockquote>
+  <p>2）、return 返回的数据类型<code>可以是任意类型</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">( a,b)</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        a+b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{  alert(<span class="hljs-string">'ok'</span>) };
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">var</span> a = fn();
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    a();<span class="hljs-comment">//此时a就是返回的函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-comment">//等同于</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    fn()();
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+<blockquote>
+  <p>3）<code>return 然后的代码不再执行，整个函数结束</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"> a,b</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        a+b;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{};
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'ok'</span>);<span class="hljs-comment">//此代码不会再执行</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    fn();
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="四getcomputedstyle">四、<code>getComputedStyle()</code></h2>
+
+<hr>
+
+<blockquote>
+  <p><code>getComputedStyle(</code>obj,null<code>)</code>[cssStyle]获取计算后的样式对象,<strong>只读</strong></p>
+  
+  <ul><li>不要获取复合样式:如<code>background</code></li>
+  <li>不要获取未设置的样式:如<code>width</code>    谷歌是具体宽度,ie是auto</li>
+  </ul>
+</blockquote>
+
+<p>兼容：ie8及以下 obj.<code>currentStyle</code>[cssStyle]</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs kotlin"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">if</span>( window.getComputedStyle ) { 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">return</span> getComputedStyle(obj)[attr];      
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}<span class="hljs-keyword">else</span> { 
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">return</span> obj.currentStyle[attr];
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>} 
+</div></code></pre></div></body></html>

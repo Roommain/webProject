@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        body{
+            background: -webkit-linear-gradient(top,#8bc1de,#f9a887);
+        }
+        #box{
+            position: relative;
+            width: 1000px;
+            height: 550px;
+            margin: 100px auto 0;
+        }
+        #left{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(255,255,255,.8);
+        }
+        #right{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(0,0,0,.4);
+        }
+        #left .title{
+            margin: 100px 0 0 50px;
+            color: #f60;
+        }
+        #left .title span{
+            color: #000;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #left .title span:hover{
+            color: #ff852c;
+        }
+        #left ul{
+            margin: 20px 0 0 50px;
+        }
+        #left ul li{
+            float: left;
+            padding: 3px 10px;
+            margin: 5px;
+            border: 1px solid #000;
+            font-size: 14px;
+        }
+        #left ul li i{
+            margin-right: 5px;
+        }
+        #left ul li span{
+            cursor: pointer;
+        }
+        #right ul{
+            margin: 100px 0 0 50px;
+        }
+        #right ul li{
+            float: left;
+            padding: 3px 10px;
+            font-size: 14px;
+            color: #fff;
+            border: 1px solid #fff;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="left">
+        <div class="title">
+            热门目的地：
+            <span>马来西亚</span>
+            <span>泰国</span>
+            <span>三亚</span>
+            <span>新西兰</span>
+            <span>云南</span>
+        </div>
+        <ul>
+            <!--<li><i>泰国</i> | <span>×</span></li>
+            <li><i>新西兰</i> | <span>×</span></li>-->
+        </ul>
+    </div>
+    <div id="right">
+        <ul>
+            <!--<li>泰国</li>
+            <li>新西兰</li>-->
+        </ul>
+    </div>
+</div>
+<script>
+
+    var aSpan = document.getElementsByClassName("title")[0].children,
+        oLeftUl = document.querySelector("#left ul"),
+        oRightUl = document.querySelector("#right ul"),
+        length = aSpan.length;
+
+    //给热门标签加点击事件
+//    for (var i = 0; i < length; i++) {
+//        aSpan[i].ifAdd = false;
+//        aSpan[i].onclick = function () {
+//            if ( !this.ifAdd ){
+//                this.ifAdd = true;
+//                //获取点击的span的内容
+//                var val = this.innerHTML;
+//                //左边内容的生成
+//                createLeft.call(this,val);
+//                //右边内容的生成
+//                createRight.call(this,val);
+//            }
+//        };
+//    }
+
+
+    for (var i = 0;i<length;i++){
+        aSpan[i].ifAdd = false;
+        aSpan[i].addEventListener("click",function() {
+            if(!this.ifAdd){
+                this.ifAdd = true;
+                var val = this.innerHTML;
+                createLeft.call(this,val);
+                createRight.call(this,val);
+            }
+
+        })
+    }
+
+
+    //左边
+    function createLeft(val){
+        //判断是否已经生成过对应的左边节点
+        if ( !this.leftLi ){
+            //先创建li，把不需要加事件的内容填充好
+            this.leftLi = document.createElement("li");
+            this.leftLi.innerHTML = "<i>"+val+"</i> | ";
+
+            //将需要加事件的span单独拿出来创建并赋值好事件
+            var span = document.createElement("span");
+            span.innerHTML = "×";
+            var This = this;
+            span.onclick = function () {
+                oLeftUl.removeChild(This.leftLi);
+                oRightUl.removeChild(This.rightLi);
+                This.ifAdd = false;
+            };
+            //将span 添加进 li
+            this.leftLi.appendChild(span);
+        }
+        //将 li 添加进 ul
+        oLeftUl.appendChild(this.leftLi);
+    }
+
+    //右边
+    function createRight(val){
+
+        //判断是否生成过对应的右边节点
+        if ( !this.rightLi ){
+            this.rightLi = document.createElement("li");
+            this.rightLi.innerHTML = val;
+        }
+        oRightUl.appendChild(this.rightLi);
+    }
+
+</script>
+</body>
+</html>

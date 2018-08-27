@@ -1,0 +1,523 @@
+<!DOCTYPE html><html><head><title>27-第二十七章 面向对象OOP ECMAscrtipt5(三)</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="27-第二十七章-面向对象oop-ecmascrtipt5三">27-第二十七章 面向对象OOP ECMAscrtipt5(三)</h1>
+
+<hr>
+
+
+
+<h2 id="一-ecmascript-对象类型">一、 ECMAScript 对象类型</h2>
+
+<blockquote>
+  <p>在 ECMAScript 中，所有对象并非同等创建的。 <br>
+  一般来说，可以创建并使用的对象有三种：<code>本地对象</code>、<code>内置对象</code>和<code>宿主对象</code> 、<code>自定义对象</code>。</p>
+</blockquote>
+
+<p>本地对象包括：</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">Object</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-built_in">Function</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-built_in">Array</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-built_in">String</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-built_in">Boolean</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-built_in">Number</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-built_in">Date</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-built_in">RegExp</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-built_in">Error</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-built_in">EvalError</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-built_in">RangeError</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-built_in">ReferenceError</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span><span class="hljs-built_in">SyntaxError</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span><span class="hljs-built_in">TypeError</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span><span class="hljs-built_in">URIError</span> 
+</div></code></pre>
+
+<p>内置对象：</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>ECMA<span class="hljs-number">-262</span> 只定义了两个内置对象，即 Global（<span class="hljs-built_in">window</span>） 和 <span class="hljs-built_in">Math</span> （它们也是本地对象，根据定义，每个内置对象都是本地对象）。
+</div></code></pre>
+
+<p>宿主对象:</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scala"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>所有非本地对象都是宿主对象（host <span class="hljs-class"><span class="hljs-keyword">object</span><span class="hljs-title">），即由</span> <span class="hljs-title">ECMAScript</span> <span class="hljs-title">实现的宿主环境提供的对象。</span></span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>所有 <span class="hljs-type">BOM</span> 和 <span class="hljs-type">DOM</span> 对象都是宿主对象。
+</div></code></pre>
+
+
+
+<h2 id="二-对象中函数改写及this指向">二、 对象中函数改写及this指向</h2>
+
+<hr>
+
+<ul><li>对象中函数改写</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>       index:<span class="hljs-number">888</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>         <span class="hljs-keyword">get</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>             console.log(<span class="hljs-string">'this is  get'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>         },
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>         <span class="hljs-keyword">set</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>             console.log(<span class="hljs-string">'this is set'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>         }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>     obj.get();<span class="hljs-comment">//this is set</span>
+</div></code></pre>
+
+<blockquote>
+  <p>可以改写成如下</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>  index:<span class="hljs-number">888</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>   <span class="hljs-keyword">get</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        console.log(<span class="hljs-string">'this is  get'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    },
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">set</span>:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        console.log(<span class="hljs-string">'this is set'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span> obj.get();<span class="hljs-comment">//this is set</span>
+</div></code></pre>
+
+<hr>
+
+<ul><li>对象中this指向，谁调用指向谁</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>     <span class="hljs-attr">show</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>          <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);<span class="hljs-comment">//指向obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>      },
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>      <span class="hljs-attr">name</span>:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>          <span class="hljs-attr">getname</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>              <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);<span class="hljs-comment">//指向name</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>          }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>      }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>  obj.show();<span class="hljs-comment">//指向obj</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>  obj.name.getname();<span class="hljs-comment">//指向name</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三-ecmascript5-对象的属性方法">三 、ECMAScript5 对象的属性方法</h2>
+
+<hr>
+
+
+
+<h5 id="一对象属性">一、对象属性</h5>
+
+<p>1、<code>constructor</code>  <br>
+对创建对象的函数的引用（指针）。对于 Object 对象，该指针指向原始的 Object() 函数。 </p>
+
+<hr>
+
+
+
+<h5 id="二对象方法">二、对象方法</h5>
+
+<p>1、<code>hasOwnProperty(property)</code>  <br>
+obj.<code>hasOwnProperty(</code>name<code>)</code>来判断一个属性是否是自有属性，自身属性还是继承原型属性。必须用字符串指定该属性。返回true 或 false </p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">index</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>      <span class="hljs-keyword">this</span>.index = index;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>  fn.prototype.name = <span class="hljs-string">'二狗'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>  <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> fn(<span class="hljs-number">88</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>  <span class="hljs-built_in">console</span>.log( obj.hasOwnProperty(<span class="hljs-string">'index'</span>) );<span class="hljs-comment">//true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>  <span class="hljs-built_in">console</span>.log( obj.hasOwnProperty(<span class="hljs-string">'name'</span>) );<span class="hljs-comment">//false</span>
+</div></code></pre>
+
+<p>2、<code>isPrototypeOf(object)</code> </p>
+
+<blockquote>
+  <p>obj.<code>isPrototypeOf(</code> obj.prototype  <code>)</code> 判断该对象的原型是否为xxxxx。 返回true 或 false </p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>  Obj<span class="hljs-selector-class">.constructor</span><span class="hljs-selector-class">.prototype</span><span class="hljs-selector-class">.isPrototypeOf</span>(Obj) <span class="hljs-comment">//true</span>
+</div></code></pre>
+
+<p>3、<code>propertyIsEnumerable()</code> </p>
+
+<blockquote>
+  <p><code>obj.propertyIsEnumerable(</code>‘name’<code>)</code> 判断对象给定的属性<code>是否可枚举</code>，即是否可用 <code>for...in</code> 语句遍历到,返回true 或 false </p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs less"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">obj</span><span class="hljs-selector-class">.propertyIsEnumerable</span>(<span class="hljs-string">'name'</span>)
+</div></code></pre>
+
+<blockquote>
+  <p><strong>getter</strong><code>/setter</code> ，函数</p>
+</blockquote>
+
+<p>4.<code>getter</code>,<code>setter</code>:    返回property的值得方法，值：<code>function(){}</code>或 <code>undefined</code> 默认是<code>undefined</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs sqf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>       <span class="hljs-variable">_name</span>:<span class="hljs-string">'hello'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        get <span class="hljs-built_in">name</span>(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            console.<span class="hljs-built_in">log</span>(<span class="hljs-string">'get'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            return this.<span class="hljs-variable">_name</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        },
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        <span class="hljs-built_in">set</span> <span class="hljs-built_in">name</span>(val){
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>            console.<span class="hljs-built_in">log</span>(<span class="hljs-string">'set'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>            this.<span class="hljs-variable">_name</span> = val;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>           <span class="hljs-comment">// return val;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>    };
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>  console.<span class="hljs-built_in">log</span>(obj.<span class="hljs-built_in">name</span>);<span class="hljs-comment">//'get'  'hello' //获取值会触发get 函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>  console.<span class="hljs-built_in">log</span>(obj.<span class="hljs-built_in">name</span> = <span class="hljs-string">'二狗'</span>);<span class="hljs-comment">//'set'  '二狗' //设置值会触发set函数</span>
+</div></code></pre>
+
+<hr>
+
+<p>5.<code>__defineGetter__()</code>,<code>__defineSetter__()</code>  定义setter getter 函数</p>
+
+<blockquote>
+  <p>在对象定义后给对象添加getter或setter方法要通过两个特殊的方法<code>__defineGetter__</code>和<code>__defineSetter__</code>。这两个函数要求第一个是getter或setter的名称，以string给出，第二个参数是作为getter或setter的函数。 </p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>     <span class="hljs-attr">_name</span> : <span class="hljs-string">'二狗'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>  };
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>  obj.__defineGetter__(<span class="hljs-string">'name'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._name});<span class="hljs-comment">//定义 get name</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>  obj.__defineSetter__(<span class="hljs-string">'name'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>)</span>{ <span class="hljs-keyword">this</span>._name = val});<span class="hljs-comment">//set name</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>  <span class="hljs-built_in">console</span>.log( obj.name );<span class="hljs-comment">//'二狗'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>  <span class="hljs-built_in">console</span>.log( obj.name = <span class="hljs-string">'小黑'</span> );<span class="hljs-comment">//'小黑'</span>
+</div></code></pre>
+
+<hr>
+
+<p>6.<code>__lookupGetter__</code>,<code>__lookupSetter__</code>   返回getter setter所定义的函数</p>
+
+<p>语法：</p>
+
+<blockquote>
+  <p>1 obj.<strong>lookupGetter</strong>(sprop)</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs kotlin"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-keyword">var</span>  obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>       _name : <span class="hljs-string">'二狗'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">get</span> name(){     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._name;  },
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">set</span> name(<span class="hljs-keyword">val</span>){  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._name=<span class="hljs-keyword">val</span>;  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    console.log( obj.__lookupGetter__(<span class="hljs-string">'name'</span>) );
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-comment">//function get name(){return this._name;}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    console.log( obj.__lookupSetter__(<span class="hljs-string">'name'</span>) );<span class="hljs-comment">//'小黑'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    <span class="hljs-comment">//function set name(val){ return this._name=val; }</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="六ecmascript5-object的新属性方法">六、ECMAScript5 Object的新属性方法</h2>
+
+<hr>
+
+
+
+<h4 id="1objectdefinepropertyopropdescriptor-objectdefinepropertiesodescriptors">1、Object.defineProperty(O,Prop,descriptor) / Object.defineProperties(O,descriptors)</h4>
+
+<blockquote>
+  <p>定义对象属性</p>
+</blockquote>
+
+<ul><li><code>O</code> ——————————–为已有<code>对象</code></li>
+<li><code>Prop</code> —————————为<code>属性</code></li>
+<li><code>descriptor</code> —————–为属性<code>描述符</code></li>
+<li><code>descriptors</code> —————-多个属性<code>描述符</code>？</li>
+</ul>
+
+<hr>
+
+<blockquote>
+  <p>在之前的JavaScript中对象字段是对象属性，是一个键值对，而在ECMAScript5中引入property，property有几个特征 <br>
+  <code>Object.defineProperty</code> 及<code>Object.defineProperties</code> 定义默认为:</p>
+</blockquote>
+
+<ol><li rel="1"><p><code>value</code>：值，默认是<code>undefined</code></p></li>
+<li rel="2"><p><code>writable</code>：是否可写，默认是<code>false</code>,</p></li>
+<li rel="3"><p><code>enumerable</code>：是否可以被枚举(for in)，默认<code>false</code></p></li>
+<li rel="4"><code>configurable</code>：是否可以被删除，默认<code>false</code></li>
+</ol>
+
+<p>普遍定义的为</p>
+
+<ul><li>下面利用defineProperty为o对象定义age属性，并且添加<code>描述符</code></li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> o ={}
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>Object.defineProperty(o,<span class="hljs-string">'age'</span>, {
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>       <span class="hljs-keyword">value</span>: <span class="hljs-number">24</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>       writable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>       enumerable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>       configurable: <span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>   });
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>   alert(o.age);<span class="hljs-comment">//24</span>
+</div></code></pre>
+
+<hr>
+
+<ul><li>下面defineProperties为o对象添加 多个<code>描述符</code></li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-keyword">var</span> o ={}
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>  Object.defineProperties(o,{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>      age:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>           <span class="hljs-keyword">value</span>: <span class="hljs-number">24</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>              writable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>               enumerable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>               configurable: <span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>       },
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>       name:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>            <span class="hljs-keyword">value</span>: <span class="hljs-string">'hello'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>            writable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>            enumerable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>            configurable: <span class="hljs-literal">true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>       }
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>   });
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>   <span class="hljs-keyword">var</span> val = o.age;<span class="hljs-comment">//''get'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>   alert(val);<span class="hljs-comment">//24</span>
+</div></code></pre>
+
+<hr>
+
+<ul><li>下面defineProperties中特殊的get set </li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">name</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> <span class="hljs-keyword">this</span>._name = name;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">'二狗'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span> <span class="hljs-built_in">Object</span>.defineProperties(obj,{
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>     <span class="hljs-attr">index</span>:{<span class="hljs-attr">value</span>:<span class="hljs-number">1</span>},
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>     <span class="hljs-attr">_age</span>:{<span class="hljs-attr">value</span>:<span class="hljs-number">123</span>,<span class="hljs-attr">writable</span>:<span class="hljs-literal">true</span>},
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>     <span class="hljs-attr">age</span>:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>         <span class="hljs-comment">//此处不能写value了</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>         get:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'get'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._age;
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>         },
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>         <span class="hljs-attr">set</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'set'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>             <span class="hljs-keyword">this</span>._age = val;<span class="hljs-comment">//_age 属性必须是writable:true，否则为set函数失效</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>         }
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>         <span class="hljs-comment">/*此处get set 可以写成如下方式
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>         get(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>             console.log('get');
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>             return this._age;
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>         },
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>         set(val){
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>             console.log('set');
+</div><div class="hljs-line"><span class="hljs-comment line-number">28.</span>             this._age = val;//_age 属性必须是writable:true，否则为set函数失效
+</div><div class="hljs-line"><span class="hljs-comment line-number">29.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">30.</span>         }
+</div><div class="hljs-line"><span class="hljs-comment line-number">31.</span>         */
+</div><div class="hljs-line"><span class="hljs-comment line-number">32.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">33.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">34.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">35.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">36.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">37.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">38.</span> });
+</div><div class="hljs-line"><span class="hljs-comment line-number">39.</span> <span class="hljs-built_in">console</span>.log( obj.age );<span class="hljs-comment">// get 123</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">40.</span> obj.age = <span class="hljs-number">888</span>;<span class="hljs-comment">//set</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">41.</span> <span class="hljs-built_in">console</span>.log( obj.age );<span class="hljs-comment">// get 888</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">42.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2objectgetownpropertydescriptoroproperty">2、Object.getOwnPropertyDescriptor(O,property)</h4>
+
+<blockquote>
+  <p>获取对象的自有的指定的<code>属性描述符</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cal"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> Des = Object.getOwnPropertyDescriptor(obj,<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>alert(Des);//{value: undefined, writable: <span class="hljs-literal">true</span>, enumerable: <span class="hljs-literal">true</span>, configurable: <span class="hljs-literal">true</span>}
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3objectkeysoproperty">3、Object.keys(O,property)</h4>
+
+<blockquote>
+  <p>获取所有的可枚举的属性名，非继承,返回数组</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.kes( obj ); <span class="hljs-comment">//["hello"]</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="4objectgetownpropertynameso">4、Object.getOwnPropertyNames(O)</h4>
+
+<blockquote>
+  <p>获取所有自有的属性名，非继承</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs awk"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>console.log(Object.getOwnPropertyNames(obj)); <span class="hljs-regexp">//</span>[<span class="hljs-string">"hello"</span>, <span class="hljs-string">"index"</span>]
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="5objectcreateo-descriptors">5、<code>Object.create(</code>O, descriptors <code>)</code></h4>
+
+<blockquote>
+  <p><code>Object.create(</code>O,descriptors<code>)</code>这个方法用于<code>创建一个对象</code>，并把其prototype属性赋值为第一个参数，同时可以设置<code>多个descriptors</code> ，第二个参数为可选，</p>
+</blockquote>
+
+<ul><li>以第一个参数为原型创建一个对象，即让新对象继承O</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-keyword">var</span> obj =<span class="hljs-built_in">Object</span>.create({
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>     name:<span class="hljs-string">'小黑'</span>，
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     age:<span class="hljs-number">20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>});
+</div></code></pre>
+
+<ul><li>以第一个参数为原型创建一个对象,并且多个<code>属性描述符</code></li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cs"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = Object.create({
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    name:   <span class="hljs-string">'小黑'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    age:<span class="hljs-number">20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> },
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> {  
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        hello:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>            <span class="hljs-keyword">value</span>:<span class="hljs-string">'00000'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>            writable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>          enumerable: <span class="hljs-literal">true</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>          configurable: <span class="hljs-literal">true</span>},
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        index:{
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>            <span class="hljs-keyword">value</span>:<span class="hljs-string">'8888'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>            writable: <span class="hljs-literal">false</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>          enumerable: <span class="hljs-literal">false</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>          configurable: <span class="hljs-literal">false</span> }
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>});
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span> alert( obj.index);<span class="hljs-comment">//8888</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="6objectpreventextensionso-objectisextensible">6、<code>Object.preventExtensions(</code>O<code>)</code> / Object.isExtensible()</h4>
+
+<blockquote>
+  <p><code>Object.preventExtensions(</code>O<code>)</code> <code>阻止对象拓展</code>，即：不能增加新的属性，但是属性的值仍然可以更改，也可以把属性删除， <br>
+  <code>Object.isExtensible(</code>O<code>)</code>用于判断对象是否可拓展</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs awk"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        console.log(Object.isExtensible(o)); <span class="hljs-regexp">//</span>true
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        o.lastName = <span class="hljs-string">'Sun'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        console.log(o.lastName);    <span class="hljs-regexp">//</span>Sun ,此时对象可以拓展
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        Object.preventExtensions(o);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        console.log(Object.isExtensible(o)); <span class="hljs-regexp">//</span>false
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        o.lastName = <span class="hljs-string">"ByronSun"</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        console.log(o.lastName); <span class="hljs-regexp">//</span>ByronSun，属性值仍然可以修改
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        <span class="hljs-regexp">//</span><span class="hljs-keyword">delete</span> o.lastName;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        console.log(o.lastName); <span class="hljs-regexp">//u</span>ndefined仍可删除属性
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>         o.firstname = <span class="hljs-string">'Byron'</span>; <span class="hljs-regexp">//</span>Can<span class="hljs-string">'t add property firstname, object is not extensible 不能够添加属性</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="7objectsealo-objectissealed">7、<code>Object.seal(O)</code> / Object.isSealed()</h4>
+
+<blockquote>
+  <p><code>Object.seal(</code>O<code>)</code>方法用于把对象<code>密封</code>，也就是让对象既不可以拓展也不可以删除属性（把每个属性的<code>configurable</code>设为false）,单数属性值仍然可以修改，<code>Object.isSealed（）</code>由于判断对象是否被密封</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs awk"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        Object.seal(o);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        o.age = <span class="hljs-number">25</span>; <span class="hljs-regexp">//</span>仍然可以修改
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">delete</span> o.age; <span class="hljs-regexp">//</span>Cannot <span class="hljs-keyword">delete</span> property <span class="hljs-string">'age'</span> of <span class="hljs-comment">#&lt;Object&gt;</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="8objectfreezeo-objectisfrozen">8、<code>Object.freeze(O)</code> / Object.isFrozen()</h4>
+
+<hr>
+
+<blockquote>
+  <p>终极神器，完全<code>冻结对象</code>，在seal的基础上，属性值也不可以修改（每个属性的<code>wirtable</code>也被设为<code>false</code>）</p>
+</blockquote></div></body></html>

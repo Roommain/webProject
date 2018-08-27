@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        canvas{
+            display: block;
+            box-shadow: 0 0 15px #698;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas>
+
+</canvas>
+<script>
+    window.onload= function () {
+        var r = 8;
+        var t = 80;
+        var l = 30;
+        var c = document.getElementsByTagName("canvas")[0];
+        c.width = 1024;
+        c.height = 300;
+        var cxt = c.getContext("2d");
+        function number(x,y,num) {
+            cxt.fillStyle = "#698";
+            for(var i = 0;i<data[num].length;i++){
+                for(var j = 0;j<data[num][j].length;j++){
+                    if(data[num][i][j] == 1){
+                        cxt.beginPath();
+                        cxt.arc(x+j*18,y+i*18,r,0,2*Math.PI);
+                        cxt.closePath();
+                        cxt.fill();
+                    }
+                }
+            }
+
+        }
+        function render(h,m,s) {
+
+            number(l,t,parseInt(h/10));
+            number(l+135,t,parseInt(h%10));
+            number(l+270,t,10);
+            number(l+350,t,parseInt(m/10));
+            number(l+500,t,parseInt(m%10));
+            number(l+625,t,10);
+            number(l+700,t,parseInt(s/10));
+            number(l+845,t,parseInt(s%10));
+        }
+        ~function clock() {
+
+            cxt.clearRect(0,0,c.width,c.height);
+            var d = new Date();
+            var h = d.getHours();
+            var m = d.getMinutes();
+            var s = d.getSeconds();
+
+            render(h,m,s);
+            requestAnimationFrame (clock);
+        }();
+    }
+    
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/numData.js"></script>
+</body>
+</html>

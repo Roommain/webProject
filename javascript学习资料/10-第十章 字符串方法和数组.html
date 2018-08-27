@@ -1,0 +1,591 @@
+<!DOCTYPE html><html><head><title>10-第十章 字符串方法和数组</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="10-第十章-字符串方法和数组">10-第十章 字符串方法和数组</h1>
+
+<hr>
+
+<blockquote>
+  <p><code>String</code>即文本（字符串），字符串方法都<code>不改原字符串</code>； <br>
+  创建字符串的三种办法: <code>new String()</code>, <code>String()</code>, <code>直接量</code>，三种方式创建出来可以创建</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//一</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> str = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//二</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> str = <span class="hljs-built_in">String</span>(<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//三</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'hello'</span>; <span class="hljs-comment">//直接量</span>
+</div></code></pre>
+
+<p>string<code>.length</code> 属性可以返回字符串长度  <br>
+string[<code>index</code>] 通过下标获取字符串</p>
+
+<hr>
+
+
+
+<h2 id="一string方法">一、<code>String</code>方法</h2>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.length <span class="hljs-comment">//字符串中字符长度（个数）   </span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="方法一">方法一</h4>
+
+<hr>
+
+
+
+<h4 id="1-strconcat-strstr-字符串拼接">1 )str.<code>concat( str,str...)</code>  字符串拼接</h4>
+
+<p>用于把一个或<code>多个字符串连接 到一块</code>，<code>返回拼接好的字符串</code></p>
+
+<hr>
+
+
+
+<h4 id="2-strindexofvalueindex-查找字符串返回查找字符串首次出现的位置">2 ) str.<code>indexOf(</code>value,index <code>)</code>查找字符串，返回查找字符串首次出现的<code>位置</code>;</h4>
+
+<blockquote>
+  <p>方法对<code>大小写敏感</code>！ <br>
+          value 匹配字符 <br>
+          index 开始检索的位置, 合法值是 0 到 string.length - 1,默认0 <br>
+          匹配失败返回-1</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.indexOf(<span class="hljs-string">'he'</span>)
+</div></code></pre>
+
+<blockquote>
+  <p>str.<code>lastIndexOf(</code>value,index<code>)</code> 从后向前搜索,合法值是 0 到 string.length - 1,默认string.length - 1匹配失败返回-1</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="2-strcharatindex-返回指定索引的字符串">2 )str.<code>charAt(</code>index <code>)</code> 返回指定索引的字符串</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.charAt(<span class="hljs-number">3</span>)   
+</div></code></pre>
+
+<hr>
+
+
+
+<h5 id="3-strcharcodeatindex-返回指定索引的ascii编码">3 )str.<code>charCodeAt(</code>index <code>)</code>返回指定索引的ASCII编码</h5>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gcode"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var str =  <span class="hljs-string">'哈喽'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var a = str.charCodeAt<span class="hljs-comment">(1)</span>;    
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    alert<span class="hljs-comment">( a )</span>;
+</div></code></pre>
+
+<hr>
+
+
+
+<h5 id="4-stringfromcharcodeunicunicunic-返回指定ascii编码的字符串从字符编码创建一个字符串一个或多个-ascii编码的-值">4 )<code>String.fromCharCode(</code>unic,unic,unic <code>)</code>返回指定ASCII编码的字符串,从字符编码创建一个字符串。一个或多个 ASCII编码的 值</h5>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.length <span class="hljs-comment">//字符串中字符长度（个数）   </span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="5-strsubstringstartend-截取字符串从start-开始截止到end前不包含end">5 ) str.<code>substring(</code>start,end <code>)</code> <code>截取</code>字符串，<code>从start 开始，截止到end前</code>，不包含end</h4>
+
+<blockquote>
+  <p>如果没有end则从num开始整个查找； <br>
+      如果 start 比 stop 大，那么该方法在提取子串之前会先交换这两个参数。str.substring(1,4) <br>
+      ———-</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.length <span class="hljs-comment">//字符串中字符长度（个数）       </span>
+</div></code></pre>
+
+
+
+<h4 id="6-strslicestartend-截取字符串从start-开始截止到end前不包含end">6 ) str.<code>slice(</code>start,end <code>)</code> <code>截取</code>字符串，<code>从start 开始，截止到end前</code>，不包含end</h4>
+
+<hr>
+
+<blockquote>
+  <p>a)和substring用法一样,从左往右截取 <br>
+  b)start / end可以为负值，负值时，倒着从最后数 <br>
+  c)start 和 end任何时候都不会交换位置，能截取才有值，截取不到则无值</p>
+</blockquote>
+
+
+
+<h4 id="7-strtolocaleuppercase-strtolocalelowercase">7 ) str.<code>toLocaleUpperCase()</code>/ str.<code>toLocaleLowerCase()</code></h4>
+
+<blockquote>
+  <p>str.<code>toLocaleUpperCase()</code> 把字符串转换为大写。 <br>
+    str.<code>toLocaleLowerCase()</code> 把字符串转换为小写。</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="方法二-可用于字符串亦可以用正则regexp">方法二 可用于字符串亦可以用正则(<code>RegEXP</code>)</h4>
+
+<hr>
+
+<blockquote>
+  <p>以下方法 可以用正则（RegExp）代替字符串进行匹配，</p>
+</blockquote>
+
+
+
+<h4 id="2-strmatch">2 ) str.<code>match(</code> <code>)</code></h4>
+
+<blockquote>
+  <p>str.<code>match(</code> value/RegExp <code>)``查找</code>指定的值，返回<code>匹配的值</code>。未找到返回<code>null</code>.正则可以找一个或多个表达式 </p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs processing"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-built_in">str</span> = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">str</span>.<span class="hljs-built_in">match</span>(<span class="hljs-string">'o'</span>)<span class="hljs-comment">//字符串 </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    var  <span class="hljs-built_in">str</span> = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-built_in">str</span>.<span class="hljs-built_in">match</span>(/o/i)<span class="hljs-comment">//正则 </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2-strsearch">2 ) str.<code>search(</code> <code>)</code></h4>
+
+<blockquote>
+  <p>str.<code>search(</code> value/RegExp <code>)</code>返回 检索字符串首次出现的位置;未找到返回<code>-1</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.search(<span class="hljs-string">'o'</span>)<span class="hljs-comment">//字符串中字符长度（个数）   </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3-strreplace">3 ) str.<code>replace(</code> <code>)</code></h4>
+
+<blockquote>
+  <p>str<code>.replace(</code> value/RegExp,new <code>)</code>    用一些字符<code>替换</code>另一些字符,new可以是字符串，<code>也可以是函数</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs axapta"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-keyword">str</span> = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">str</span>.replace(<span class="hljs-string">'o'</span>,<span class="hljs-string">'千寻'</span>)<span class="hljs-comment">//字符串中字符长度（个数）   </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  str = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//字符串中字符长度（个数） </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">return</span> <span class="hljs-string">'帅气'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-keyword">var</span>  call = str.replace(<span class="hljs-regexp">/o/g</span>,fn)<span class="hljs-comment">//字符串中字符长度（个数）       </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    alert( call );
+</div></code></pre>
+
+
+
+<h4 id="4-strsplit">4 ) str.<code>split(</code> <code>)</code></h4>
+
+<blockquote>
+  <p>str.<code>split(</code>value/RegExp,length-1<code>)</code>  方法用于把一个字符串<code>分割</code>成<code>字符串数组</code>, 返回分割后的数组</p>
+</blockquote>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs applescript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>第二个参数是可选参数，是指定返回数组的长度，最大为str.<span class="hljs-built_in">length</span><span class="hljs-number">-1</span> ，不写默认str.<span class="hljs-built_in">length</span><span class="hljs-number">-1</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs processing"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var  <span class="hljs-built_in">str</span> = <span class="hljs-string">'hello world'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">str</span>.<span class="hljs-built_in">split</span>(<span class="hljs-string">'o'</span>,<span class="hljs-built_in">str</span>.length)<span class="hljs-comment">//字符串中字符长度（个数）   </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二array-数组">二、Array() 数组</h2>
+
+<hr>
+
+<blockquote>
+  <p>创建数组的三种办法: <code>new Array()</code>, <code>Array()</code>, <code>[]</code> ，三种方式创建出来都是一样的</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs haxe"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//一</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> <span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-type">Array</span>();
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//二</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> <span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">Array</span>();
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-comment">//三</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span> <span class="hljs-keyword">var</span> arr = [];<span class="hljs-comment">//直接量</span>
+</div></code></pre>
+
+<p>1、 <code>arr.length</code>可以访问数组的长度</p>
+
+<p>2、创建即指定数组长度Array(  <code>length</code> )及 new Array(  <code>length</code> ),length是 数字的时候，创建的并不是数组的项，而是数组的长度，项的内容为<code>undefined</code></p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs haxe"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  arr = <span class="hljs-keyword">new</span> <span class="hljs-type">Array</span>(<span class="hljs-number">2</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>arr.length <span class="hljs-comment">// 2</span>
+</div></code></pre>
+
+<p>3、<code>[]</code> 通过数组索引，访问值</p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> arr[<span class="hljs-number">0</span>];<span class="hljs-comment">//1</span>
+</div></code></pre>
+
+<p>4、<code>修改数组</code>指定索引下的值</p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>arr[<span class="hljs-number">2</span>] = <span class="hljs-number">8888</span>;
+</div></code></pre>
+
+<p>5、在数组后面<code>添加项</code></p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    arr[arr.length] = <span class="hljs-number">8888</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    console.log(arr);
+</div></code></pre>
+
+<p>6、<code>arr.indexOf(</code> item  <code>)</code> 查找项</p>
+
+<ul><li>数组去重</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>var arr2 = [];
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>for(var i=<span class="hljs-number">0</span>;i&lt;arr.length;i++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    if( arr2.indexOf( arr[i] ) == <span class="hljs-number">-1</span> ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        arr2.push(arr[i]);
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>alert(arr2);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三array-数组方法">三、Array() 数组方法</h2>
+
+<hr>
+
+
+
+<h4 id="1unshift">1、<code>unshift( )</code></h4>
+
+<blockquote>
+  <p>arr.unshift( item1,item1,….  )  向数组的<code>头部</code>添加一个或更多元素，并返回（新的长度）。</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="2arrpush">2、<code>arr.push(  )</code></h4>
+
+<blockquote>
+  <p>arr.push( item1,item1,…. )  向数组的<code>尾部</code>添加一个或更多元素，并返回（新的长度）。</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="3arrshift">3、<code>arr.shift(  )</code></h4>
+
+<blockquote>
+  <p>arr.shift(  )  删除数组的<code>第一个</code>元素（返回删除对象）;。</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="4arrpop">4、<code>arr.pop(  )</code></h4>
+
+<blockquote>
+  <p>arr.pop(  ) 删除数组的<code>最后一个</code>元素（返回删除对象）。</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="5arrspliceindexhowmanyitem1itemx-删除添加-元素然后只返回删除对象">5、arr.splice(index,howmany,item1,…..,itemX) （删除/添加） 元素，然后（只返回删除对象）。</h4>
+
+<blockquote>
+  <p><code>index</code>      必需。整数，规定添加/删除项目的索引，可以使用负数,<code>如果是添加，原有元素会往高位移动</code>。 <br>
+  <code>howmany</code>   必需。要删除的项目数量。如果设置为 <code>0</code>，则不会删除项目。 <br>
+  <code>item1, ..., itemX</code>可选。向数组添加的新项目。</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//一 删除</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     arr.splice(<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)；
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//二 添加</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     arr.splice(<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,'hello')；
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//二 删除添加</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     arr.splice(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,'hello')；
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="6-arrsort-排序">6、 arr.<code>sort()</code>        排序</h4>
+
+<blockquote>
+  <p>arr.<code>sort(function(a,b){ return a-b;})</code>  ————————————————-<code>修改原数组</code></p>
+  
+  <ul><li>默认arr.sort() 以首字符编码大小排序</li>
+  <li>数组length小于10以<code>冒泡排序</code> <br>
+  <ul>
+  <li>冒泡排序下依次比较， <br>
+  return  <code>&gt;0</code>  调换位置，<code>=0</code>不调换位置，<code>&lt;0</code> 不调换位置</li></ul></li>
+  <li>数组length大于10以<code>二分排序</code></li>
+  </ul>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="7-arrreverse-反转数组">7、 arr.<code>reverse()</code>        反转数组</h4>
+
+<blockquote>
+  <p>reverse()  颠倒  数组中元素的顺序—————————————————————-<code>修改原数组</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="三array-数组方法-1">三、Array() 数组方法</h2>
+
+<p>!!!!以上方法不创建新的创建，而是<code>--------------------------直接修改原有的数组</code>,同时索引会变化</p>
+
+<hr>
+
+
+
+<h4 id="8arrconcat-数组拼接">8、arr.<code>concat()</code> 数组拼接</h4>
+
+<blockquote>
+  <p>arr.concat(arr1,arr2,…,arrN) : <code>数组拼接</code> 连接两个或更多的数组，（<code>并返回拼接成的新数组</code>）</p>
+  
+  <ul><li>该数组是通过把所有 arrX 参数添加到 arr 中生成的。</li>
+  <li>如果要进行 concat() 操作的参数是数组，那么添加的是数组中的元素，而不是数组  ——<code>不修改原数组</code></li>
+  </ul>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>  <span class="hljs-comment">// 情况一，</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        var a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert(a.concat(<span class="hljs-number">4</span>,<span class="hljs-number">5</span>));
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>   <span class="hljs-comment">// 情况二，不会改变a1,而是生成一个新的数组！！！</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            var a1 = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            var a2 = [<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            alert(a1.concat(a2));
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="9-arrslice-截取">9 arr.<code>slice()</code>     截取</h4>
+
+<blockquote>
+  <p><code>arr.slice(</code>start,end<code>)</code>方法从已有的数组中返回选定的元素。————————<code>不修改原数组</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="10arrjoin-拼接成字符串">10、arr.<code>join()</code>    拼接成字符串</h4>
+
+<blockquote>
+  <p>——————————————————————————————————–<code>不修改原数组</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="11arrayisarray-判断是不是数组">11.<code>Array.isArray(  )</code> 判断是不是数组</h4>
+
+<blockquote>
+  <p><code>Array.isArray(</code> object <code>)</code>   //返回一个布尔值</p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="四ecmascript5-的遍历数组方法">四、ECMAscript5 的遍历数组方法</h2>
+
+<blockquote>
+  <p>以下下方法<code>都能实现遍历</code>，<code>语法也都一样</code>，只是<code>返回值不一样</code>—————————————不修改原数组 <br>
+  array.<code>xxxx(</code>     function(<code>currentValue</code>,<code>index</code>,<code>arr</code> ), <code>thisValue</code>  <code>)</code> </p>
+</blockquote>
+
+<p>参数  描述 <br>
+<strong><code>currentValue</code></strong>  ———————必须。当前元素的<code>值</code> <br>
+<strong><code>index</code></strong>  ——————————–可选。当期元素的<code>索引</code>值 <br>
+<strong><code>arr</code></strong>————————————可选。当期元素属于的<code>数组对象</code> <br>
+<strong><code>thisValue</code></strong> ————————–可选。对象作为该执行回调时使用，传递给函数，<code>用作 "this" 的值</code>。 <br>
+如果省略了 thisValue ，”this” 的值为 “undefined”</p>
+
+<p>function(currentValue, index,arr)   必须。函数，数组中的每个元素都会执行这个函数</p>
+
+<hr>
+
+
+
+<h4 id="1foreach">1、<code>forEach()</code></h4>
+
+<blockquote>
+  <p>arr.<code>forEach()</code> 从头至尾遍历数组  ——————————————————————————–无返回值</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="2map-返回值数组">2、<code>map()</code> 返回值数组</h4>
+
+<blockquote>
+  <p>arr.<code>map()</code> 返回一个数组，包含函数所有返回值—————————————————————-返回数组</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> _new = arr.map(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     <span class="hljs-keyword">return</span> x * x;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>})
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3filter-true数组">3、<code>filter()</code>  true数组</h4>
+
+<blockquote>
+  <p>arr.<code>filter()</code>  返回值是一个 return 值为true或能转化为true的值——————————————–返回数组</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> _new = arr.filter(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     <span class="hljs-keyword">return</span> x &gt; <span class="hljs-number">3</span> ;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>})
+</div></code></pre>
+
+<hr>
+
+<blockquote>
+  <p><code>every() ,some()</code> 是数组逻辑判定：返回<code>true</code>或<code>false</code></p>
+</blockquote>
+
+
+
+<h4 id="4every">4、<code>every()</code></h4>
+
+<blockquote>
+  <p>arr.<code>every()</code> 针对所有元素，即都为true 则返回true———————————————————————————–返回值</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> _new = arr.every(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{ <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">10</span>;})   <span class="hljs-comment">// true  都小于10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> _new = arr.every(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{ <span class="hljs-keyword">return</span> x%<span class="hljs-number">2</span> == <span class="hljs-number">0</span>;}) <span class="hljs-comment">//false 是不是都是偶数</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="4some">4、<code>some()</code></h4>
+
+<blockquote>
+  <p>arr.<code>some()</code>  是否存在 即有一个是true则为true———————————————————————————–返回值</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> _new = arr.some(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span></span>{ <span class="hljs-keyword">return</span> x%<span class="hljs-number">2</span> === <span class="hljs-number">0</span>;})   <span class="hljs-comment">// true  有偶数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<hr></div></body></html>

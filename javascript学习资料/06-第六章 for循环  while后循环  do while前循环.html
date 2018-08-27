@@ -1,0 +1,161 @@
+<!DOCTYPE html><html><head><title>06-第六章 for循环  while后循环  do while前循环</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="06-第六章-for循环-while后循环-do-while前循环">06-第六章 for循环  while后循环  do while前循环</h1>
+
+
+
+<h2 id="一-for循环">一 、for循环</h2>
+
+
+
+<h4 id="1-for-循环">1. for( ){} 循环</h4>
+
+<blockquote>
+  <p>for( 初始值;判断条件;步幅){  code }</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i =<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++ ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//i初始值为0；i是否小写5；每次循环后i加1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-comment">//code</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//4</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div></code></pre>
+
+<p>– 执行顺序 –</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs coq"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">for</span>( ①;②;③ ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        ④
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>     执行顺序为: ①-&gt;②-&gt;④-&gt;③-&gt;②-&gt;④-&gt;③-&gt;②
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>     特别提示：i 在最后为<span class="hljs-number">5</span>但是不会再执行<span class="hljs-keyword">for</span>循环里面的代码
+</div></code></pre>
+
+
+
+<h4 id="2-continue-跳过本次循环">2. continue 跳过本次循环</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> i =<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++ ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">if</span>(i==<span class="hljs-number">3</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">continue</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        }   
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        <span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//0、1 、2、 4</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>     因为在i为<span class="hljs-number">3</span>的时候跳过了此次循环，所有<span class="hljs-number">3</span>没有被打印出来
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+
+
+<h4 id="3-break-跳出循环">3. break 跳出循环</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    for( var i =<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;i++ ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        if(i==<span class="hljs-number">3</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            break;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        }   
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        console.log(i);<span class="hljs-comment">//0、1 、2、 4</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>     }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>     因为在i为<span class="hljs-number">3</span>的时候跳过了循环，后续代码不在执行，所以<span class="hljs-number">3</span> <span class="hljs-number">4</span>没有被打印出来
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+
+
+<h4 id="4break-的运用">4.break 的运用</h4>
+
+
+
+<h4 id="5-死循环">5. 死循环</h4>
+
+<hr>
+
+
+
+<h2 id="二-变量自增">二 、变量自增</h2>
+
+<p> <code>i++</code>,<code>++i</code>,<code>i--</code>,<code>--i</code></p>
+
+<p>i++ ,先赋值后自增</p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gcode"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var a = <span class="hljs-number">20</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>var b =a++;<span class="hljs-comment">//先把a的值赋值给b，然后加 1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> alert<span class="hljs-comment">( b )</span>;<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> alert<span class="hljs-comment">( a )</span>;<span class="hljs-comment">//21</span>
+</div></code></pre>
+
+<p>++i ,先自增后赋值</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gcode"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var a = <span class="hljs-number">20</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var b =++a;<span class="hljs-comment">//先加 1,然后把a的值赋值给b，</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     alert<span class="hljs-comment">( b )</span>;<span class="hljs-comment">//21</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>     alert<span class="hljs-comment">( a )</span>;<span class="hljs-comment">//21</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三-for循环与自定义属性案例">三 、for循环与自定义属性案例</h2>
+
+<hr>
+
+
+
+<h2 id="四-嵌套for-循环">四 、嵌套for 循环</h2>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'outer'</span>,i);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> j=<span class="hljs-number">0</span>;j&lt;<span class="hljs-number">10</span>;j++){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'inter'</span>,i);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}   
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="五-while-后循环-do-while前循环">五 、while 后循环 do while前循环</h2>
+
+<hr>
+
+
+
+<h4 id="1while后循环">1.while后循环</h4>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-title">while</span><span class="hljs-params">( 条件)</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-comment">//这里写要执行的代码，条件满足不断执行</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-selector-tag">code</span>    
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>条件满足才会执行code代码
+</div></code></pre>
+
+
+
+<h4 id="2while前循环">2.while前循环</h4>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs armasm"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-symbol">do</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-meta">code</span> <span class="hljs-number">1</span> //<span class="hljs-meta">code</span> <span class="hljs-number">1</span>会先执行一遍，然后在根据条件决定是否再执行<span class="hljs-meta">code</span> <span class="hljs-number">1</span><span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}<span class="hljs-meta">while</span>( 条件)<span class="hljs-comment">;</span>
+</div></code></pre></div></body></html>

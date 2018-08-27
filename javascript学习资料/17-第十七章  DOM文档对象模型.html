@@ -1,0 +1,182 @@
+<!DOCTYPE html><html><head><title>17-第十七章  DOM文档对象模型</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="17-第十七章-dom文档对象模型">17-第十七章  DOM文档对象模型</h1>
+
+<blockquote>
+  <p>DOM(Document Object Model) 文档树对象模型</p>
+</blockquote>
+
+<hr>
+
+<h2 id="一节点属性">一、节点属性</h2>
+
+
+
+<h4 id="1childnodes-children">1、childNodes \ <code>children</code></h4>
+
+<blockquote>
+  <p>Ele.childNodes ————————–子节点集合 <br>
+  元素.childNodes : 只读 属性 子节点列表集合 <br>
+  标准下：   包含了文本和元素类型的节点，也会包含非法嵌套的子节点 <br>
+  非标准下：只包含元素类型的节点，ie7以下不会包含非法嵌套子节点 <br>
+  childNodes     只包含一级子节点，不包含后辈孙级</p>
+</blockquote>
+
+<p><code>ele.children</code>————————–   获取第一级子元素 <br>
+<code>nodeType</code> : 只读 属性    当前元素的节点类型 共12种</p>
+
+<ul><li>元素节点: 1</li>
+<li>属性节点: 2    wrap.attributes[0].nodeType</li>
+<li>文本节点: 3</li>
+</ul>
+
+<p><code>nodeName</code> 节点名称</p>
+
+<p>元素节点属性</p>
+
+<ul><li>ele.<code>tagName</code>  元素标签名称</li>
+</ul>
+
+<p>有关属性节点操作</p>
+
+<ul><li>获取 ： obj.getAttributeNode()  方法获取指定的属性节点。</li>
+<li>创建 ：   document.<code>createAttribute(name)</code>    创建拥有指定名称的属性节点，并返回新的 Attr 对象。</li>
+<li>添加 ： obj.setAttributeNode()  方法向元素中添加指定的属性节点。</li>
+</ul>
+
+
+
+<h4 id="1firstchild-firstelementchild-第一个子节点">1、firstChild \ <code>firstElementChild</code> 第一个子节点</h4>
+
+<blockquote>
+  <p>ele.firstChild : 只读 属性  <br>
+               标准下：firstChild会包含文本类型的节点 <br>
+               非标准下：只包含元素节点</p>
+  
+  <p>ele.<code>firstElementChild</code> : 只读 属性  标准下获取第一个元素类型的子节点 <br>
+      非标准下：无</p>
+</blockquote>
+
+
+
+<hr>
+
+
+
+<h4 id="2lastchild-lastelementchild-最后一个子节点">2、lastChild \ <code>lastElementChild</code> —————————————————最后一个子节点</h4>
+
+<blockquote>
+  <p>兼容性同上</p>
+</blockquote>
+
+
+
+<hr>
+
+
+
+<h4 id="3nextsibling-nextelementsibling-下一个兄弟节点">3、nextSibling \ <code>nextElementSibling</code> ——————————————<code>下一个兄弟</code>节点</h4>
+
+<blockquote>
+  <p>兼容性同上</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="4previoussibling-previouselementsibling-上一个兄弟节点">4、previousSibling \ <code>previousElementSibling</code> ——————————-<code>上一个兄弟</code>节点</h4>
+
+<blockquote>
+  <p>兼容性同上</p>
+</blockquote>
+
+
+
+<hr>
+
+
+
+<h4 id="5parentnode获取父节点">5、<code>parentNode</code>———————————————————————获取父节点</h4>
+
+
+
+<hr>
+
+
+
+<h4 id="6offsetparent-最近定位父级">6、<code>offsetParent</code> ——————————————————————最近定位父级</h4>
+
+<hr>
+
+
+
+<h4 id="7childelementcount-子元素节点个数">7、<code>childElementCount</code>  子元素节点个数</h4>
+
+<blockquote>
+  <p>元素类型子节点数量，等同于 <code>children.length</code> </p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="二创建节点">二、创建节点</h2>
+
+<hr>
+
+<p>1、<code>document.createElement('')</code>  创建元素节点    </p>
+
+<blockquote>
+  <p>innerHTML += 添加元素的问题，<code>原本子元素没有了</code>，不是原本的元素了</p>
+</blockquote>
+
+<p>2、<code>document.createTextNode(str)</code>  创建文本节点</p>
+
+<p>3、 element<code>.cloneNode()</code>  参数<code>true克隆元素及后代</code>不会克隆属性及事件，false克隆本元素 </p>
+
+<hr>
+
+
+
+<h2 id="三元素节点操作">三、元素节点操作</h2>
+
+
+
+<h5 id="1parentinsertbeforenew-node-在已有元素前插入">1、parent.<code>insertBefore(</code>new, node<code>)</code>        在已有元素<code>前插入</code></h5>
+
+<blockquote>
+  <p>插入子元素 ,在指定的子元素前面插入</p>
+</blockquote>
+
+
+
+<h5 id="2parentappendchildnew-在已有元素后插入">2、parent.<code>appendChild(</code>new<code>)</code>      在已有元素<code>后插入</code></h5>
+
+<blockquote>
+  <p>插入插入子元素，在指定的子元素前面插入 <br>
+  例子：留言板插入内容</p>
+</blockquote>
+
+
+
+<h5 id="3parentremovechild节点删除一个节点">3、parent.<code>removeChild(</code>节点<code>)</code>删除一个节点</h5>
+
+<blockquote>
+  <p>删除DOM元素</p>
+</blockquote>
+
+
+
+<h5 id="4parentreplacechildnew-old替换节点">4、parent.<code>replaceChild(</code>new, old<code>)</code>替换节点</h5>
+
+<blockquote>
+  <p>换元素 </p>
+</blockquote></div></body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+        }
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        canvas{
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas width="460" height="460"></canvas>
+    <audio src="img/second.mp3"></audio>
+<script>
+    var c = document.getElementsByTagName("canvas")[0];
+    var audio = document.getElementsByTagName("audio")[0];
+    var cxt = c.getContext("2d");
+
+    var width = c.width;
+    var height = c.height;
+    var secShadow = 0;
+    var r = width/2;
+    cxt.translate(r,r);
+
+    var img = new Image();
+    img.src = "img/owl.jpg";
+    
+    function drBg() {
+        cxt.lineWidth = 4;
+        cxt.beginPath();
+        cxt.arc(0,0,r,0,6.3);
+        cxt.clip();
+        cxt.save();
+        cxt.drawImage(img,-r,-r,width,height);
+
+        cxt.restore();
+        cxt.stroke();
+        cxt.closePath();
+
+        drNumber();
+    }
+    //画时数字
+    function drNumber() {
+        var hourArr = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+        hourArr.forEach(function (number,i) {
+            cxt.lineWidth = 1;
+            cxt.strokeStyle = 'blue';
+            cxt.font = '22px Arial';
+            cxt.textAlign = "center";
+            cxt.textBaseline = 'middle';
+            var x = Math.sin( (i+1)*30*Math.PI/180 )*(r-30);
+            var y = -Math.cos( (i+1)*30*Math.PI/180 )*(r-30);
+            cxt.strokeText(number,x,y);
+
+            drDot();
+        })
+    }
+    //分钟
+    function drDot() {
+        for(var i = 0;i<60;i++){
+            var x = Math.sin( (i+1)*6*Math.PI/180 )*(r-30);
+            var y = -Math.cos( (i+1)*6*Math.PI/180 )*(r-30);
+
+            cxt.beginPath();
+            cxt.save();
+            if( (i+1) %5 != 0 ){
+                cxt.arc(x,y,2,0,2*Math.PI);
+            }
+
+            if( i+1 == secShadow ){
+                cxt.save();
+                cxt.fillStyle = 'gold';
+                cxt.shadowColor = 'blue';
+                cxt.shadowBlur = 8;
+                cxt.fill();
+                cxt.restore();
+            }else{
+                cxt.save();
+                cxt.fillStyle = 'blue';
+                cxt.fill();
+                cxt.restore();
+            }
+        }
+    }
+
+    //时钟线
+    function drHour(hour,min) {
+        cxt.save();
+        cxt.beginPath();
+        cxt.lineWidth = 14;
+        cxt.strokeStyle = '#255';
+        cxt.lineCap = 'round';
+
+        var rad = 2*Math.PI / 12 * hour;
+        var rad_min = 2*Math.PI / 12 / 60 * min;
+        cxt.rotate( rad + rad_min );
+        cxt.moveTo(0,12);
+        cxt.lineTo(0,-92);
+        cxt.stroke();
+        cxt.restore();
+        cxt.closePath();
+
+    }
+
+    function drMin(min,sec) {
+        cxt.save();
+        cxt.beginPath();
+        cxt.lineWidth = 6;
+        cxt.strokeStyle = 'gold';
+        cxt.fillStyle = 'gold';
+
+        var rad = 2 * Math.PI / 60 * min;
+        var rad_min = 2 * Math.PI / 60 / 60 * sec;
+
+        cxt.rotate(rad+rad_min);
+
+        cxt.moveTo(0,-138);
+        cxt.lineTo(-6,18);
+        cxt.lineTo(6,18);
+        cxt.fill();  // 技艺
+        cxt.restore();
+        cxt.closePath();
+
+    }
+
+//秒针
+    function drSec(sec) {
+        cxt.save();
+        cxt.beginPath();
+        cxt.lineWidth = 6;
+        cxt.fillStyle = 'red';
+
+        var rad = 2 * Math.PI / 60 * sec;
+
+        cxt.rotate(rad);
+
+        cxt.moveTo(0,-184);
+        cxt.lineTo(-6,18);
+        cxt.lineTo(6,18);
+        cxt.fill();
+        cxt.restore();
+        cxt.closePath();
+
+        drEye(sec);
+        audio.play();
+    }
+//眼睛
+    function drEye(sec) {
+        cxt.save();
+        cxt.beginPath();
+        var rad = 2 * Math.PI / 60 * sec;
+        cxt.globalAlpha = 0.4;
+
+        var x1 = -36;
+        var y1 = -51;
+        var r1 = 12;
+
+        var x2 = 37;
+        var y2 = -51;
+        var r2 = 14;
+
+        cxt.arc(x1+9*Math.sin(rad),y1-9*Math.cos(rad),r1,0,2*Math.PI);
+        cxt.arc(x2+12*Math.sin(rad),y2-12*Math.cos(rad),r2,0,2*Math.PI);
+        cxt.fill();
+
+        cxt.restore();
+        cxt.closePath()
+    }
+
+    drClock();
+    function drClock() {
+        cxt.clearRect(-r,-r,width,height);
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        var second = 0;
+        if( sec < 10 ){
+            sec = '0' + sec;
+        }
+        if(min<10){
+            min = '0'+min;
+        }
+        secShadow = sec;
+        drBg();
+        drHour(hour,min);
+        drMin(min,sec);
+        drSec(sec);
+
+        document.title = hour + ':' + min + ':' + sec;
+
+        requestAnimationFrame(drClock);
+    }
+
+    img.onload = function () {
+        drBg();
+    }
+
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

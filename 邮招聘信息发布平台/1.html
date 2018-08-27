@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        .ai_demo{width: 250px; height: 250px;
+
+            background-color: red;
+            position: relative;
+        }
+
+        .ai_demo1{width: 250px; height: 250px;
+            background-color: hotpink;
+            position: relative;
+            z-index: 1;
+        }
+        .ai_demo:hover .price{
+            width: 250px; height: 250px;
+            background-color: rgba(0,0,0,0.5);
+            position: absolute; top: 0; left: 0;
+        }
+        .ai_demo1:hover .price1{
+            z-index: 1;
+            width: 250px; height: 250px;
+            background: #000; opacity: .5;
+            position: absolute; top: 0; left: 0;
+        }
+        #box{
+            width: 500px;
+            height: 250px;
+            margin: 10px auto;
+        }
+        #box ul li{
+            float: left;
+        }
+        #box .dian{
+            display: none;
+            z-index: 5;
+            width: 100px;
+            height: 50px;
+            background-color: #0caf92;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -50px;
+        }
+        #box .dian p {
+            line-height: 50px;
+            text-align: center;
+        }
+        #box .ai_demo:hover .dian{
+            display: block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>
+            <div class="ai_demo" >
+                <div class="price">
+                    <div class="dian">
+                        <p>点击进入</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="ai_demo1" >
+                <div class="price1">
+                    <div class="dian">
+                        点击进入
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+<script>
+
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

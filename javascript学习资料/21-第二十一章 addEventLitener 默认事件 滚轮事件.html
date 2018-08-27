@@ -1,0 +1,217 @@
+<!DOCTYPE html><html><head><title>21-第二十一章 addEventLitener 默认事件 滚轮事件</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="21-第二十一章-addeventlitener-默认事件-滚轮事件">21-第二十一章 addEventLitener 默认事件 滚轮事件</h1>
+
+<hr>
+
+
+
+<h2 id="一事件event对象">一、事件event对象</h2>
+
+<blockquote>
+  <p>Event对象 <br>
+  用来获取事件的详细信息：<code>鼠标位置</code>、<code>键盘按键</code></p>
+</blockquote>
+
+<hr>
+
+<p>兼容</p>
+
+<ul><li><strong>标准下</strong> : 事件对象是通过事件函数的<code>第一个参数</code></li>
+</ul>
+
+<blockquote>
+  <p>传入 如果一个函数是被事件调用的那么，这个函数定义的第一个参数就是事件对象</p>
+  
+  <ul><li><strong>ie</strong>: event是一个内置全局对象</li>
+  </ul>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  obj.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">ev</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> ev = ev || <span class="hljs-built_in">window</span>.event;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span>(<span class="hljs-params">ev</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">var</span> ev = ev || <span class="hljs-built_in">window</span>.event;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}
+</div></code></pre>
+
+<p>Event对象的兼容：ev = <code>ev</code> || <code>window.event</code>;</p>
+
+<p>Event对象下的获取鼠标位置：e.<code>clientX</code> e.<code>clientY</code></p>
+
+<hr>
+
+
+
+<h2 id="二事件冒泡">二事件冒泡</h2>
+
+<blockquote>
+  <p>事件冒泡指子元素触发事件的时候，会 <code>冒泡</code>（触发）父级的相同的事件 <br>
+  非标准：ev.<code>stopPopagation()</code>; <br>
+  非标准：ev.<code>cancelBubble=true</code>;</p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="三-注册处理事件">三 注册处理事件</h2>
+
+
+
+<h4 id="1标准objaddeventlistener事件名称事件函数是否捕获">1、标准：obj.<code>addEventListener(</code>事件名称，事件函数，是否捕获<code>)</code>;</h4>
+
+<p>是否捕获  <br>
+            <code>false</code>冒泡 <br>
+            <code>true</code>捕获 <br>
+                先捕获后冒泡  <br>
+1.有捕获 <br>
+2.事件名称<code>没有on</code> <br>
+3.事件执行的顺序是<code>正序</code> <br>
+4.<code>this</code>触发该<code>事件的对象</code></p>
+
+
+
+<h4 id="2低版ieobjattachevent事件名称事件函数">2、低版ie：obj.<code>attachEvent(</code>事件名称，事件函数<code>)</code>;</h4>
+
+<p>1.没有捕获 <br>
+2.事件名称<code>有on</code> <br>
+3.事件函数执行的顺序：标准ie-》<code>正序</code>   非标准ie-》<code>倒序</code> <br>
+4.<code>this</code>指向<code>window</code></p>
+
+
+
+<h4 id="3-移除-objremoveeventlistener事件名称事件函数">3、 移除 obj.<code>removeEventListener(</code>事件名称，事件函数<code>)</code></h4>
+
+
+
+<h4 id="4-移除-objectdetachevent事件名称function">4、 移除 object.<code>detachEvent(</code>事件名称,function<code>)</code>;</h4>
+
+<hr>
+
+<hr>
+
+
+
+<h2 id="四拖拽">四、拖拽</h2>
+
+<ul><li><code>onmousedown</code> </li>
+<li><code>onmousemove</code></li>
+<li><code>onmouseup</code></li>
+</ul>
+
+
+
+<h2 id="五默认事件">五、默认事件</h2>
+
+<hr>
+
+<p>右键菜单 :  <code>oncontextmenu</code></p>
+
+<p>解决：文字选中再的问题 <br>
+标准：解决办法 <code>return false</code> (阻止默认事件) <br>
+非标准ie：全局捕获</p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs autohotkey"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>`onselectstart=<span class="hljs-string">"return false"</span>` 处理文字选中
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> 或者添加`ondragstart=<span class="hljs-string">"return false"</span>` 处理图片拖动
+</div></code></pre>
+
+<p>标准下阻止默认事件，可以拖拽图片啦</p>
+
+<hr>
+
+<h2 id="六鼠标滚轮事件">六、鼠标滚轮事件</h2>
+
+<p>Ie/chrome : <code>onmousewheel</code>  <br>
+event.<code>wheelDelta</code> <br>
+上：120 <br>
+下：-120 <br>
+firefox : <code>DOMMouseScroll</code>  必须用<code>addEventListener()</code>添加</p>
+
+<p>fire:event.<code>detail</code> <br>
+上：-3 <br>
+下：3 <br>
+滚轮属性：event<code>.wheelDelta</code> \ <code>event.detail</code></p>
+
+<p><strong>兼容</strong>：</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>                obj.onmousewheel = handle;<span class="hljs-comment">//兼容ie chrome</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>                obj.addEventListener?obj.addEventListener(<span class="hljs-string">'DOMMouseScroll'</span>,handle,boolean):<span class="hljs-literal">false</span>;   <span class="hljs-comment">//兼容firefox</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>             <span class="hljs-comment">//滚动函数event对象处理</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>             <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span>(<span class="hljs-params">e</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>                e = e || <span class="hljs-built_in">window</span>.event;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                e.wheel = e.wheelDelta?e.wheelDelta:-e.detail*<span class="hljs-number">40</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>            }
+</div></code></pre>
+
+<p>阻止默认事件： <br>
+标准：<code>event.preventDefault()</code> <br>
+非标准：<code>event.returnValue = false</code>;</p>
+
+<blockquote>
+  <p>return false阻止的是  obj.on事件名称=fn 所触发的默认行为 <br>
+  addEventListener绑定的事件需要通过event下面的event.<code>preventDefault()</code>; <br>
+  detachEvent绑定的事件需要通过event下面的event.<code>returnValue=false</code>;</p>
+</blockquote>
+
+<p>鼠标滚轮与自定义滚动条结合   </p>
+
+
+
+<h2 id="七全兼容添加删除事件-封装">七、全兼容添加/删除事件 封装</h2>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs typescript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-comment">//添加事件</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEvent</span>(<span class="hljs-params">obj,<span class="hljs-keyword">type</span>,fn,<span class="hljs-built_in">boolean</span></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-built_in">boolean</span> = <span class="hljs-built_in">boolean</span> || <span class="hljs-literal">false</span>;<span class="hljs-comment">//处理捕获冒泡</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            obj[<span class="hljs-keyword">type</span>+fn.name]=handle;<span class="hljs-comment">//添加方法</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            obj.addEventListener?obj.addEventListener(<span class="hljs-keyword">type</span>,obj[<span class="hljs-keyword">type</span>+fn.name],<span class="hljs-built_in">boolean</span>):obj.attachEvent(<span class="hljs-string">'on'</span>+<span class="hljs-keyword">type</span>,obj[<span class="hljs-keyword">type</span>+fn.name]);
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            <span class="hljs-comment">//滚轮事件</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">type</span>==<span class="hljs-string">'mousewheel'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>                <span class="hljs-comment">//obj['on'+type]= handle;//chrome 及ie</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>                obj.addEventListener?obj.addEventListener(<span class="hljs-string">'DOMMouseScroll'</span>,obj[<span class="hljs-keyword">type</span>+fn.name],<span class="hljs-built_in">boolean</span>):<span class="hljs-string">''</span>;<span class="hljs-comment">//兼容火狐</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>            <span class="hljs-comment">//处理e</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>           <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span>(<span class="hljs-params">e</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>                e = e|| <span class="hljs-built_in">window</span>.event;
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>                e.wheel = e.wheelDelta?e.wheelDelta:e.detail*(<span class="hljs-number">-40</span>);<span class="hljs-comment">//处理滚轮方向</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>                fn.call(obj,e);
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>                e.preventDefault?e.preventDefault():e.returnValue = <span class="hljs-literal">false</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>       }
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">28.</span><span class="hljs-comment">//移除事件</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">29.</span>       <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeEvent</span>(<span class="hljs-params">obj,<span class="hljs-keyword">type</span>,fn,<span class="hljs-built_in">boolean</span></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">30.</span>             <span class="hljs-built_in">boolean</span> = <span class="hljs-built_in">boolean</span> || <span class="hljs-literal">false</span>;<span class="hljs-comment">//处理捕获冒泡</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">31.</span>             obj.removeEventListener?obj.removeEventListener(<span class="hljs-keyword">type</span>,obj[<span class="hljs-keyword">type</span>+fn.name],<span class="hljs-built_in">boolean</span>):obj.detachEvent(<span class="hljs-string">'on'</span>+<span class="hljs-keyword">type</span>,obj[<span class="hljs-keyword">type</span>+fn.name]);
+</div><div class="hljs-line"><span class="hljs-comment line-number">32.</span>            <span class="hljs-comment">//滚轮事件</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">33.</span>            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">type</span>==<span class="hljs-string">'mousewheel'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">34.</span>                obj.removeEventListener?obj.removeEventListener(<span class="hljs-string">'DOMMouseScroll'</span>,obj[<span class="hljs-keyword">type</span>+fn.name],<span class="hljs-built_in">boolean</span>):<span class="hljs-string">''</span>;<span class="hljs-comment">//兼容火狐</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">35.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">36.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">37.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">38.</span>       }
+</div></code></pre></div></body></html>

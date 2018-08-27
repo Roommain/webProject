@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><title>01-第一章 初识Javasript</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="01-第一章-初识javasript">01-第一章 初识Javasript</h1>
+
+
+
+<h2 id="一学前准备">一、学前准备</h2>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs cal"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>学习基础：<span class="hljs-keyword">DIV</span>+CSS基础扎实
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>开发工具：喜欢用啥就用啥
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二-学习方法">二 、学习方法</h2>
+
+<ol><li rel="1">上课时间；<a href="http://4444" target="_blank">周一二 四五六晚20.30</a></li>
+<li rel="2"> <a href="http://www" target="_blank"></a>主讲老师QQ:<a href="http://3002772060" target="_blank">3002722088</a></li>
+<li rel="3">作业提交邮箱 :<a href="http://3002772060" target="_blank">3002722088@qq.com</a> <br>
+4.作业格式：<a href="http://wwww" target="_blank">问题/优-第几节课-名字</a>     </li>
+</ol>
+
+<hr>
+
+
+
+<h2 id="三javascriptjs是什么">三、JavaScript（JS）是什么</h2>
+
+<ul><li>JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言。</li>
+<li><p>JavaScript通常用来操作HTML页面，响应用户操作，验证传输数据等</p></li>
+<li><p>java和JavaScript有什么关系？java和JavaScript没有关系 </p></li>
+<li>jQuery和JavaScript有什么关系？jQuery是由JS编写的一个js库。</li>
+</ul>
+
+
+
+<hr>
+
+
+
+<h2 id="四js代码写在哪里">四、JS代码写在哪里？</h2>
+
+<p>1 JavaScript代码可以写在页面的</p>
+
+<ul><li><a href="http://js" target="_blank">内嵌 js</a>，                               </li>
+<li><a href="http://js" target="_blank">外链 js文件里面，利用src属性引入</a>  </li>
+<li><p><a href="http://js" target="_blank">标签属性里面（不推荐）</a>；</p>
+
+<ol>
+<li rel="1"><p>script标签中的属性<code>type="text/javascript"</code>或language=”javascript”，HTML5新规则下可以什么都不用加；</p></li>
+<li rel="1"><p>script标签可以放置于任何位置，不同的位置要注意加载顺序，通常放在head或body结束之前；                              </p></li></ol></li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="五-写js代码需要注意什么">五、 写JS代码需要注意什么</h2>
+
+<blockquote>
+  <ol><li rel="1">严格<code>区分大小写</code>；</li>
+  <li rel="2">语句字符都是半角字符；（字符串里面可以使任意字符）</li>
+  <li rel="3">某些完整语句后面要写分号 (<code>;</code>)；</li>
+  <li rel="4">代码要<code>缩进</code>，缩进要对齐。</li>
+  </ol>
+</blockquote>
+
+<hr>
+
+<h2 id="六-js里的系统弹窗代码">六、 JS里的系统弹窗代码</h2>
+
+<blockquote>
+  <ul><li>.<code>alert('内容')</code>; </li>
+  <li>.<code>confirm('确定？')</code>;</li>
+  <li>.<code>prompt('请输入您的姓名：')</code>; <br>
+  console.log( )</li>
+  </ul>
+</blockquote>
+
+
+
+<h2 id="七变量">七、变量</h2>
+
+
+
+<blockquote>
+  <p>很多时候，当我们重复使用某个元素或者某个数据时，内容可能太长或者数据要进行改变，这时就需要定义变量来代替他们。</p>
+</blockquote>
+
+语法：`var` + `变量名`
+
+
+
+<ul><li>var <code>声明</code></li>
+<li>变量命名规则：</li>
+</ul>
+
+
+可以使用`$` , `_`  ,`字母`， `数字`，[ [不能以数字开头][1]  ] ,[[字母严格区分大小写][1]]], [ [见名知意][1] ]
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> abc; <span class="hljs-comment">//申明不赋值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> obj = <span class="hljs-number">123</span>;<span class="hljs-comment">//申明立即赋值</span>
+</div></code></pre>
+
+<p>一个var可以声明多个变量，变量不一定要马上赋值</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    var a,b,c,d;<span class="hljs-comment">//一次声明多个变量</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    var a = <span class="hljs-number">1</span>,b = <span class="hljs-number">2</span>, c = <span class="hljs-number">3</span>,d = <span class="hljs-number">4</span>;<span class="hljs-comment">//一次声明多个申明即赋值的变量</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<hr>
+
+<hr>
+
+
+
+<h2 id="八-js中的注释">八 、Js中的注释</h2>
+
+<ul><li>单行 <code>//</code></li>
+<li>多行 <code>/* */</code></li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="九获取元素">九、获取元素</h2>
+
+<ol start="1"><li rel="1">获取元素 <br>
+<ul>
+<li>特殊的标签 <br>
+<ul>
+<li><code>document.body</code></li>
+<li><code>document.head</code></li>
+<li><code>document.title</code></li></ul></li>
+<li>一般标签 <br>
+<ul>
+<li><code>document.getElementById()</code>          匹配<strong>ID</strong>名称…                        </li>
+<li>ele.<code>getElementsByTagName()</code>          匹配<strong>标签名</strong>是…的集合<a href="http://maxiang.info/client_zh;" target="_blank">动态方法</a></li>
+<li><code>document.getElementsByName()</code>                匹配<strong>name</strong>是…的集合   <a href="http://maxiang.info/client_zh;" target="_blank">动态方法</a></li>
+<li>ele<code>.getElementsByClassName()</code>    匹配<strong>class</strong>名称…的集合 <a href="http://maxiang.info/client_zh;" target="_blank">动态方法</a></li>
+<li>ele.<code>querySelector()</code>;                      匹配<strong>css选择器</strong>的第一个</li>
+<li>ele.<code>querySelectorAll()</code>;                匹配<strong>css选择器</strong>匹配的所有集合 <br>
+<code>.</code> 及<code>[]</code>的运用</li></ul></li></ul></li>
+</ol>
+
+<hr>
+
+<h2 id="十获取和修改元素html">十、获取和修改元素HTML</h2>
+
+<ul><li><p>元素HTML内容 <br>
+         <code>ele.innerHTML</code>                      获取元素HTML <br>
+         ele.innerHTML = ‘字符串’;     修改元素HTML</p></li>
+<li><p>元素文本内容 <br>
+   标准 <br>
+   <code>ele.textContent</code>               获取元素文本 <br>
+    ele.textContent = ‘字符串’;        修改元素文本 <br>
+   非标准(ie低版本) <br>
+    <code>ele.innerText</code>                 获取元素文本 <br>
+    ele.innerText = ‘字符串’;          修改元素文本</p>
+
+<ol>
+<li rel="3">document.write()  ————————-能解析HTML <br>
+<ul>
+<li>往body后追加东西，需要注意的是当文档流关闭后，会直接覆盖整个文档 <br>
+关于文档流关闭，和<code>window.onload</code>的讲解</li></ul></li></ol></li>
+</ul></div></body></html>

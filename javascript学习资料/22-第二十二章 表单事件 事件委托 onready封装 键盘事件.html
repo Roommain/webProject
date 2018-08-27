@@ -1,0 +1,122 @@
+<!DOCTYPE html><html><head><title>22-第二十二章 表单事件 事件委托 onready封装 键盘事件</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="22-第二十二章-表单事件-事件委托-onready封装-键盘事件">22-第二十二章 表单事件 事件委托 onready封装 键盘事件</h1>
+
+<hr>
+
+
+
+<h2 id="一-表单中的操作">一、 表单中的操作</h2>
+
+<hr>
+
+<p>1、 焦点事件 设置焦点方式：<a href="http://888" target="_blank">点击</a> <a href="http://888" target="_blank">tab</a> <a href="http://888" target="_blank">js</a></p>
+
+<ul><li><code>onfocus</code>    获取焦点事件        <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 以及 <code>&lt;select&gt;</code> <code>&lt;a/&gt;</code> 元素</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">obj</span><span class="hljs-selector-class">.focus</span>() 给指定的元素设置焦点
+</div></code></pre>
+
+<ul><li><code>onblur</code>      失去焦点事件     <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 以及 <code>&lt;select&gt;</code> <code>&lt;a/&gt;</code> 元素</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">obj</span><span class="hljs-selector-class">.blur</span>()取消指定元素的焦点
+</div></code></pre>
+
+<p>2、 <code>onchange</code> 内容改变触发 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 以及 <code>&lt;select&gt;</code> 元素</p>
+
+<p>3、<code>onsubmit</code> 事件 <br>
+    submit() 提交表单 <br>
+4、<code>onreset</code> 事件 <br>
+    reset() 重置表单</p>
+
+<hr>
+
+
+
+<h2 id="二-事件委托">二、 事件委托</h2>
+
+<p>标准：e.target 指向事件触发对象 <br>
+ 非标准：e.srcElement 指向事件触发对象</p>
+
+<hr>
+
+
+
+<h2 id="三-windowonready封装">三、 window.onready封装</h2>
+
+<p>一、文档的<code>onreadystatechange</code> 事件，</p>
+
+<blockquote>
+  <p>当文档的readyState 属性发生变化的时候触发 <br>
+  readyState 属性返回当前文档的状态（载入中……）。 <br>
+      该属性返回以下值: <br>
+      uninitialized - 还未开始载入 <br>
+      loading - 载入中 <br>
+      <code>interactive</code> - 已加载，文档与用户可以开始交互 <br>
+      <code>complete</code> - 载入完成</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">window</span>.onready = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>            <span class="hljs-comment">///兼容FF,Google</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.addEventListener) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>                <span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>                    <span class="hljs-comment">//console.log(document.readyState);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>                    <span class="hljs-built_in">document</span>.removeEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, <span class="hljs-built_in">arguments</span>.callee, <span class="hljs-literal">false</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>                    callback();
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                }, <span class="hljs-literal">false</span>)
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>             <span class="hljs-comment">//兼容IE</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.attachEvent) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>                <span class="hljs-built_in">document</span>.attachEvent(<span class="hljs-string">'onreadystatechange'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>                    <span class="hljs-comment">//console.log(document.readyState);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>                      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">document</span>.readyState == <span class="hljs-string">"interactive"</span>) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>                                <span class="hljs-built_in">document</span>.detachEvent(<span class="hljs-string">"onreadystatechange"</span>, <span class="hljs-built_in">arguments</span>.callee);
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>                                callback();
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>                       }
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>                })
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>        <span class="hljs-comment">//window.onload= function(){ alert('onload');}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        <span class="hljs-built_in">window</span>.onready(
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>            <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{ alert(<span class="hljs-string">'ok'</span>); }
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>        );
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="四-键盘事件">四、 键盘事件</h2>
+
+<hr>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs coffeescript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>不是所有元素都能够接收键盘事件，能够响应用户输入的元素，能够接收焦点的元素就能够接收键盘事件,<span class="hljs-built_in">document</span>能够响应
+</div></code></pre>
+
+<p><code>keydown</code>：用户在键盘上按下某按键是发生。一直按着某按键则会不断触发（opera浏览器除外）。 <br>
+<code>keypress</code>：用户按下一个按键，并产生一个字符时发生（也就是不管类似shift、alt、ctrl之类的键，就是说用户按了一个能在屏幕上输出字符的按键keypress事件才会触发）。一直按着某按键则会不断触发。 <br>
+<code>keyup</code>：用户释放某一个按键是触发。</p>
+
+<p>event.<code>keyCode</code> : 数字类型 键盘按键的值 键值 <br>
+    <code>ctrlKey</code>,<code>shiftKey</code>,<code>altKey</code> 布尔值</p>
+
+<p>当一个事件发生的时候，如果ctrl || shift || alt 是按下的状态，返回<code>true</code>，否则返回<code>false</code></p></div></body></html>

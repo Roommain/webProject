@@ -1,0 +1,253 @@
+<!DOCTYPE html><html><head><title>09-第九章 作用域  js预解析 闭包</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="09-第九章-作用域-js预解析-闭包">09-第九章 作用域  js预解析 闭包</h1>
+
+<hr>
+
+
+
+<h2 id="一作用域">一、作用域</h2>
+
+<hr>
+
+<blockquote>
+  <p>作用域：脚本的有效范围，作用范围。分两大类：<code>全局(script)</code>和<code>局部（function ）</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h3 id="1全局script域">1.全局(script)域</h3>
+
+<p>1) 直接定义在script标签下的<code>变量</code>及<code>函数</code>，他们都作用在一个域，<code>全局作用域</code>，so..</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dust"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">var</span> a = <span class="hljs-number">123</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert( <span class="hljs-built_in">window</span>.a );<span class="hljs-comment">//123</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span>(<span class="hljs-params"></span>)</span><span class="hljs-template-variable">{}</span><span class="xml"><span class="javascript">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        alert( <span class="hljs-built_in">window</span>.abc );<span class="hljs-comment">//function abc()</span><span class="hljs-template-variable">{}</span><span class="xml"><span class="undefined">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<p>2) 直接定义在script标签下的<code>变量</code> 称之为<code>全局变量</code>,script标签下的<code>函数</code>，<code>称之为全局函数</code></p>
+
+<p>3)全局<code>变量</code>及<code>函数</code> 都是<code>window的一个属性</code>,都能通过<code>window.变量名</code>访问</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dust"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">var</span> a = <span class="hljs-number">123</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert( <span class="hljs-built_in">window</span>.a );<span class="hljs-comment">//123</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span>(<span class="hljs-params"></span>)</span><span class="hljs-template-variable">{}</span><span class="xml"><span class="javascript">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        alert( <span class="hljs-built_in">window</span>.abc );<span class="hljs-comment">//function abc()</span><span class="hljs-template-variable">{}</span><span class="xml"><span class="undefined">
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h3 id="2局部function-域">2.局部（function ）域</h3>
+
+<p>1 ) <code>任何一个function(){},都会开启一个局部作用域</code>， <br>
+2 ) 定义在function(){} 内部的变量称之为 <code>局部变量</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">20</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>      alert(a);<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    }
+</div></code></pre>
+
+<p>3）<code>作用域链</code> ：局部作用域内部可以访问<code>父级作用域变量</code>及<code>全局作用域变量</code>，也可以访问父级的函数，及全局函数 ( 往上爬)</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>      <span class="hljs-keyword">var</span> a=<span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }
+</div></code></pre>
+
+<p>4）<code>局部变量会覆盖父级（全局）变量</code>，函数亦如此</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>      <span class="hljs-keyword">var</span> a=<span class="hljs-number">20</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>      alert( a );<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二javascript解析">二、javascript解析</h2>
+
+<hr>
+
+<blockquote>
+  <p><strong>javascript解析</strong> 即<code>读取代码过程</code></p>
+</blockquote>
+
+
+
+<h4 id="1javascript解析-是-致上而下">1）javascript解析 是 <code>致上而下</code></h4>
+
+
+
+<h4 id="2-预解析正式解析前的工作预解析过程会出现-变量提升函数提升">2 )  预解析:正式解析前的工作，预解析过程会出现 <code>变量提升</code>，<code>函数提升</code></h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        alert( b );<span class="hljs-comment">//undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-keyword">var</span> b = <span class="hljs-number">10</span> ;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>   }
+</div></code></pre>
+
+<p>a ) <strong>变量提升</strong>：在作用域内声明的<code>变量会被提升到作用域的顶部</code>，且对其赋值<code>undefined</code>,这个过程称之为<code>变量提升</code>，上面代码等同于下面</p>
+
+<blockquote>
+  <p>还可以访问父级的<code>参数</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">var</span> b = <span class="hljs-literal">undefined</span>；
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert( b );<span class="hljs-comment">//undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">var</span> b = <span class="hljs-number">10</span> ;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>   }
+</div></code></pre>
+
+<p>b )<strong>函数提升</strong>：在作用域内的函数定义<code>函数会被提升到作用域的顶部</code>，其值为其函数本身,这个过程称之为<code>函数提升</code>，上面代码等同于下面</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lua"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert( fn );//<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        //code....
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>   }
+</div></code></pre>
+
+<p>d) var和函数重名<code>函数优先</code>，留下函数，函数和函数重名 后面定义的覆盖前面的-<code>后来居高</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>alert(a);<span class="hljs-comment">//function a(){alert('a2');}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> a = <span class="hljs-number">123</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    alert(<span class="hljs-string">'a1'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    alert(<span class="hljs-string">'a2'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>a();<span class="hljs-comment">//报错</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>alert(a);<span class="hljs-comment">//123</span>
+</div></code></pre>
+
+<p>c )<strong>不会提升的函数</strong>：在作用域内的函数表达式<code>函数不会被提升到作用域的顶部</code>，so ~</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        alert( fn );<span class="hljs-comment">//undefined</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-comment">//code....</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        <span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>   }
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三案例">三、案例</h2>
+
+<hr>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> x = <span class="hljs-number">5</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    alert(x);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">var</span> x = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>alert(x);
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    alert(a);<span class="hljs-comment">//function a(){var a = 20;alert(a);}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> a  = <span class="hljs-number">10</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    alert(a);<span class="hljs-comment">//10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        alert( 20 );
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-title">alert</span><span class="hljs-params">(a)</span>;<span class="hljs-comment">//10</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">30</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    alert(a);<span class="hljs-comment">//30</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-keyword">var</span> a = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span><span class="hljs-params">()</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>        var a = 20;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        alert(a);
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>    <span class="hljs-title">alert</span><span class="hljs-params">(a)</span>;<span class="hljs-comment">//function a(){var a = 20;alert(a);}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>    a();<span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>    alert(a);<span class="hljs-comment">//function a(){var a = 20;alert(a);}</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="五闭包">五、闭包</h2>
+
+
+
+<h4 id="1js垃圾回收机制">1、js<code>垃圾回收机制</code></h4>
+
+<blockquote>
+  <p>js 中的 <code>变量</code> <code>函数</code> 不再使用后，会被自动<code>js垃圾回收机制</code>回收</p>
+</blockquote>
+
+
+
+<h4 id="2形成闭包条件">2、形成<code>闭包</code>条件</h4>
+
+<blockquote>
+  <p>条件一： <code>函数内部嵌套函数</code> <br>
+  条件二： 内部函数引用外部函数的 <code>变量</code> <code>参数</code> <br>
+   使用 <code>return</code>  返回了 此内部函数,上面的 <code>变量</code> 和<code>参数</code> 不会被回收</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">x</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">5</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">innerFn</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-built_in">console</span>.log(x);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-built_in">console</span>.log(a);
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">return</span> innerFn;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-keyword">var</span> c = fn(<span class="hljs-number">20</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>c();<span class="hljs-comment">// 20 //5</span>
+</div></code></pre></div></body></html>

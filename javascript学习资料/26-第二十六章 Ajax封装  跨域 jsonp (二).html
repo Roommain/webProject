@@ -1,0 +1,161 @@
+<!DOCTYPE html><html><head><title>26-第二十六章 Ajax封装  跨域 jsonp (二)</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="26-第二十六章-ajax封装-跨域-jsonp-二">26-第二十六章 Ajax封装  跨域 jsonp (二)</h1>
+
+<hr>
+
+
+
+<h4 id="一ajax封装">一、Ajax封装</h4>
+
+<hr>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>            ajax({
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>                <span class="hljs-attr">type</span>:<span class="hljs-string">'POST'</span>,<span class="hljs-comment">//请求类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>                url:<span class="hljs-string">'data.json'</span>,<span class="hljs-comment">//请求路径</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>                asyn:<span class="hljs-literal">true</span>,<span class="hljs-comment">//是否异步</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>                data:{<span class="hljs-comment">//数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>                    username:<span class="hljs-string">'千寻'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                    <span class="hljs-attr">password</span>:<span class="hljs-string">'888'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>                },
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>                <span class="hljs-attr">dataType</span>:<span class="hljs-string">'text'</span>,<span class="hljs-comment">//请求数据类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>                success:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>)</span>{<span class="hljs-comment">//请求成功处理函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>                    <span class="hljs-built_in">console</span>.log( response );
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>                   <span class="hljs-keyword">var</span> response = <span class="hljs-built_in">JSON</span>.parse(response);
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>                    <span class="hljs-built_in">console</span>.log( response[<span class="hljs-number">2</span>].name );
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>                },
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>                <span class="hljs-attr">error</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">status</span>)</span>{<span class="hljs-comment">//请求失败处理函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>                    <span class="hljs-built_in">console</span>.log(status);
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>            })
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span><span class="hljs-comment">//ajax 封装</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ajax</span>(<span class="hljs-params">obj</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">27.</span>            <span class="hljs-keyword">var</span> type = obj.type||<span class="hljs-string">'GET'</span>,<span class="hljs-comment">//请求类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">28.</span>            url = obj.url,<span class="hljs-comment">//url处理</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">29.</span>            asny = obj.asny!==<span class="hljs-literal">true</span>,<span class="hljs-comment">//异步处理</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">30.</span>            data = <span class="hljs-string">''</span>,<span class="hljs-comment">//预设写入数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">31.</span>            dataType = obj.dataType||<span class="hljs-string">'json'</span>,<span class="hljs-comment">//请求类型</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">32.</span>            success = obj.success,<span class="hljs-comment">//回调函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">33.</span>            error = obj.error;<span class="hljs-comment">//错误处理函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">34.</span>            <span class="hljs-keyword">for</span>(key <span class="hljs-keyword">in</span> obj.data){<span class="hljs-comment">//数据处理</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">35.</span>                data += key+<span class="hljs-string">'='</span>+obj.data[key]+<span class="hljs-string">'&amp;'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">36.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">37.</span>            data = <span class="hljs-built_in">encodeURI</span>(data);
+</div><div class="hljs-line"><span class="hljs-comment line-number">38.</span>            <span class="hljs-comment">//console.log(data);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">39.</span>            <span class="hljs-keyword">var</span> xhr=<span class="hljs-keyword">new</span> XMLHttpRequest();
+</div><div class="hljs-line"><span class="hljs-comment line-number">40.</span>            <span class="hljs-comment">//console.log(xhr);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">41.</span>            <span class="hljs-keyword">if</span>(<span class="hljs-built_in">window</span>.XMLHttpRequest){
+</div><div class="hljs-line"><span class="hljs-comment line-number">42.</span>                xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+</div><div class="hljs-line"><span class="hljs-comment line-number">43.</span>            }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">44.</span>                <span class="hljs-keyword">try</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">45.</span>                   xhr = <span class="hljs-keyword">new</span> ActiveXObject(<span class="hljs-string">'Msxml2.XMLHTTP.6.0'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">46.</span>                }<span class="hljs-keyword">catch</span>(e){
+</div><div class="hljs-line"><span class="hljs-comment line-number">47.</span>                   xhr = <span class="hljs-keyword">new</span> ActiveXObject(<span class="hljs-string">'Msxml2.XMLHTTP.3.0'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">48.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">49.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">50.</span>            <span class="hljs-comment">//如果是GET请求方式,设置数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">51.</span>            <span class="hljs-keyword">if</span>(type.toUpperCase() == <span class="hljs-string">'GET'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">52.</span>                <span class="hljs-keyword">var</span> date = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();<span class="hljs-comment">//添加一个时间用来处理，GET方式缓存的问题</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">53.</span>                <span class="hljs-comment">//console.log(date);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">54.</span>                url = url+<span class="hljs-string">'?'</span>+data+date;
+</div><div class="hljs-line"><span class="hljs-comment line-number">55.</span>                data =<span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">56.</span>            }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(dataType.toUpperCase() == <span class="hljs-string">'XML'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">57.</span>                data =<span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">58.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">59.</span>            xhr.open(type,url,asny);<span class="hljs-comment">//请求架设</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">60.</span>            xhr.setRequestHeader(<span class="hljs-string">'content-Type'</span>,<span class="hljs-string">'application/x-www-form-urlencoded'</span>);<span class="hljs-comment">//设置请求头信息</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">61.</span>            <span class="hljs-comment">//console.log(data);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">62.</span>            xhr.send(data);<span class="hljs-comment">//发送数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">63.</span>            xhr.onreadystatechange= <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{<span class="hljs-comment">//监听请求</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">64.</span>                <span class="hljs-comment">//readyState 为XMLHttpRequest对象的状态</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">65.</span>                <span class="hljs-comment">//status 为服务器返回的http状态码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">66.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">67.</span>                <span class="hljs-keyword">if</span>(xhr.readyState== <span class="hljs-number">4</span> &amp;&amp; xhr.status==<span class="hljs-number">200</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">68.</span>                    <span class="hljs-keyword">var</span> response;
+</div><div class="hljs-line"><span class="hljs-comment line-number">69.</span>                    <span class="hljs-keyword">if</span>(dataType === <span class="hljs-string">'json'</span> || dataType === <span class="hljs-string">'text'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">70.</span>                        <span class="hljs-keyword">if</span>(dataType === <span class="hljs-string">'json'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">71.</span>                            <span class="hljs-comment">//解析json数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">72.</span>                            response = <span class="hljs-built_in">JSON</span>.parse(xhr.responseText);
+</div><div class="hljs-line"><span class="hljs-comment line-number">73.</span>                        }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">74.</span>                            <span class="hljs-comment">//普通数据</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">75.</span>                             response = xhr.responseText;
+</div><div class="hljs-line"><span class="hljs-comment line-number">76.</span>                        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">77.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">78.</span>                    }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">79.</span>                        response = xhr.responseXML;
+</div><div class="hljs-line"><span class="hljs-comment line-number">80.</span>                    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">81.</span>                    success&amp;&amp;success(response);
+</div><div class="hljs-line"><span class="hljs-comment line-number">82.</span>                }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">83.</span>                    error&amp;&amp;error(xhr.status);
+</div><div class="hljs-line"><span class="hljs-comment line-number">84.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">85.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">86.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">87.</span>        }
+</div></code></pre>
+
+
+
+<h4 id="二跨域">二、跨域</h4>
+
+<p>iframe 跨域 <br>
+json 跨域</p>
+
+
+
+<h4 id="三jsonp">三、jsonp</h4>
+
+<p>jsonp,大家已经知道json是什么了，那么p是什么？p是填充的意思,json的填充</p>
+
+<blockquote>
+  <p>jsonp返回的数据形式是 <code>callback({age:30,name:'二狗'})</code> 而不是<code>{age:30,name:'二狗'}</code>是用括号包裹,前面的名称就是‘<code>填充</code>’，也就是jsonp的p.</p>
+  
+  <ul><li>为什么前面有一段字母呢？因为script接受的数据如果是一个json没办法保存，而调用一个函数,{}数据作为实参传递,这样就可以拿到json中的数据</li>
+  </ul>
+</blockquote>
+
+<p>jsonp前端代码看起来像这样</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callback</span>(<span class="hljs-params">data</span>)</span>{ <span class="hljs-comment">//定义接收数据的处理函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            <span class="hljs-built_in">console</span>.log( data);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">'./8-1jsonp.php?jsonp=callback'</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    //我需要后台返回一个callback({数据})这样的一个值，实质就是调用上面的函数
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div></code></pre>
+
+<blockquote>
+  <p>jsonp中8-1jsonp.php后台中的代码</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dust"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="xml"><span class="php"><span class="hljs-meta">&lt;?php</span>
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    $val = $_GET[<span class="hljs-string">'jsonp'</span>];<span class="hljs-comment">//获取jsonp的值：callback,</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    $arr = <span class="hljs-keyword">array</span>(
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-string">"name"</span>=&gt;<span class="hljs-string">"千寻"</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-string">"age"</span>=&gt;<span class="hljs-number">50</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    );<span class="hljs-comment">//php中的json</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    <span class="hljs-keyword">echo</span> $val.<span class="hljs-string">"("</span>.json_encode($arr).<span class="hljs-string">")"</span>;<span class="hljs-comment">//JSON对象进行转字符串处理</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-comment">//就是返回 callback(</span><span class="hljs-template-variable">{name:'千寻'，age:50}</span><span class="xml"><span class="php">)
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-meta">?&gt;</span>
+</div></code></pre></div></body></html>

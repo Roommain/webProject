@@ -1,0 +1,17 @@
+@media screen and ( max-width: 990px ){
+    #box .l-fe{
+        width: 100%;
+        height: 250px;
+        background-color: #f9a887;
+        z-index: 2;
+    }
+    #box .r-ri{
+        margin: 260px auto 0;
+        width: 100%;
+        background-color: #3bdbf9;
+    }
+    hr{
+        display: none;
+    }
+
+}

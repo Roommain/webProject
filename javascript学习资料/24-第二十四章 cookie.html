@@ -1,0 +1,148 @@
+<!DOCTYPE html><html><head><title>24-第二十四章 cookie</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="24-第二十四章-cookie">24-第二十四章 cookie</h1>
+
+<hr>
+
+
+
+<h2 id="cookie">cookie</h2>
+
+<p>cookie : <code>存储数据</code>，当用户访问了某个网站（网页）的时候，我们就可以通过cookie来向访问者电脑上存储数据</p>
+
+<blockquote>
+  <p>1.不同的浏览器存放的cookie位置不一样，也是不能通用的 <br>
+  2.cookie的存储是以<code>域名形式</code>进行区分的 <br>
+  3.cookie的数据可以设置名字的 <br>
+  4.一个域名下存放的cookie的个数是有限制的，不同的浏览器存放的个数不一样 <br>
+  5.每个cookie存放的内容大小也是有限制的，不同的浏览器存放大小不一样</p>
+</blockquote>
+
+
+
+<h4 id="1访问cookie">1、访问cookie</h4>
+
+<p>要在服务器环境下</p>
+
+<blockquote>
+  <p>我们通过<code>document.cookie</code>来获取当前网站下的cookie的时候，得到的字符串形式的值，他包含了当前网站下所有的cookie。他会把所有的cookie通过一个<code>分号</code>+<code>空格</code>的形式串联起来</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">consol</span><span class="hljs-selector-class">.log</span>( <span class="hljs-selector-tag">document</span><span class="hljs-selector-class">.cookie</span> );
+</div></code></pre>
+
+
+
+<h4 id="2存储cookie">2.存储cookie</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs coffeescript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">'数据名=值'</span>;
+</div></code></pre>
+
+
+
+<h4 id="3设置cookie过期时间">3.设置cookie过期时间</h4>
+
+<blockquote>
+  <p><code>cookie默认是临时存储的</code>，当浏览器关闭进程的时候自动销毁   ,如果我们想长时间存放一个cookie。需要在设置这个cookie的时候同时给他设置一个过期的时间</p>
+  
+  <ul><li>过期时间必须是一个日期对象转<code>换成的字符串</code>（时间戳.<code>toGMTString()</code>）</li>
+  </ul>
+</blockquote>
+
+<p><strong>document.cookie = ‘数据名=值; <code>expires</code>=过期时间’;</strong></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> oDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>oDate.setDate( oDate.getDate() + <span class="hljs-number">5</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>oDate.toGMTString();<span class="hljs-comment">//转换为日期字符串</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-built_in">document</span>.cookie=<span class="hljs-string">'age=20; expires='</span>+oDate;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-comment">/*-- document.cookie='sex=man\n你好'; */</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//转码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span><span class="hljs-keyword">var</span> content= <span class="hljs-built_in">encodeURI</span>(<span class="hljs-string">'man\n你好'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span><span class="hljs-built_in">document</span>.cookie=<span class="hljs-string">'sex='</span>+content+<span class="hljs-string">';expires='</span>+oDate;
+</div></code></pre>
+
+<p>要找到对应的数据值，可以使用多种方式，比如正则：<code>案例1</code></p>
+
+
+
+<h4 id="4cookie封装">4.cookie封装</h4>
+
+<ul><li>设置cookie封装</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setCookie</span>(<span class="hljs-params">obj,time</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>       <span class="hljs-keyword">for</span>(key <span class="hljs-keyword">in</span> obj){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>           <span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>           d.setDate( d.getDate()+time );
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>           <span class="hljs-built_in">document</span>.cookie = key+<span class="hljs-string">'='</span>+obj[key]+<span class="hljs-string">'; expires='</span>+d.toUTCString();
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>       }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>   }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs css"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">setCookie</span>({
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>            <span class="hljs-attribute">name</span>:<span class="hljs-string">'hello'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            sex:<span class="hljs-string">'man'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            love:<span class="hljs-string">'逛街'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            work:<span class="hljs-string">'future'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        },5);
+</div></code></pre>
+
+<ul><li>获取cookie封装</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCookie</span>(<span class="hljs-params">obj</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>            <span class="hljs-keyword">var</span> cookie = <span class="hljs-built_in">document</span>.cookie;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            <span class="hljs-comment">// name=hello;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">var</span> result = {};
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            <span class="hljs-keyword">for</span>(key <span class="hljs-keyword">in</span> <span class="hljs-built_in">arguments</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>                <span class="hljs-keyword">var</span> val = <span class="hljs-string">'\\b'</span>+<span class="hljs-built_in">arguments</span>[key]+<span class="hljs-string">'=(\\w*)+'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>                <span class="hljs-keyword">var</span> reg =<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(val,<span class="hljs-string">'i'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                val = reg.exec(cookie);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>                result[<span class="hljs-built_in">arguments</span>[key]] = val? <span class="hljs-built_in">decodeURI</span>(val[<span class="hljs-number">1</span>]):<span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>            <span class="hljs-keyword">return</span> result;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>   <span class="hljs-built_in">console</span>.log( getCookie(<span class="hljs-string">'age'</span>,<span class="hljs-string">'name'</span>) );
+</div></code></pre>
+
+<ul><li>移除cookie</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeCookie</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            <span class="hljs-keyword">for</span>(key <span class="hljs-keyword">in</span> <span class="hljs-built_in">arguments</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>                <span class="hljs-keyword">var</span> json ={};
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>                json[<span class="hljs-built_in">arguments</span>[key]]=<span class="hljs-literal">null</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>                setCookie(json,<span class="hljs-number">-1</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> removeCookie(<span class="hljs-string">'name'</span>);
+</div></code></pre></div></body></html>

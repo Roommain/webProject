@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        #box div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+<script>
+    
+    var aDiv = document.getElementById("box").getElementsByTagName("div");
+    var length = aDiv.length;
+
+    for(var i = 0;i<length;i++){
+        aDiv[i].style.background = "radial-gradient(circle ,#fff,"+rColor()+")";
+        aDiv[i].vx = (Math.random()*10+2);
+        aDiv[i].vy = (Math.random()*10+2);
+
+    }
+
+
+    var maxx = window.innerWidth - 100;
+    var maxy = window.innerHeight - 100;
+
+    (function m() {
+        for(var i = 0;i<length;i++){
+
+            var dom = aDiv[i];
+            var left = dom.offsetLeft + dom.vx;
+            var top = dom.offsetTop + dom.vy;
+
+
+            if(left<=0 || left>=maxx){
+                dom.vx = -dom.vx;
+                dom.style.background = "radial-gradient(circle ,#fff,"+rColor()+")";
+                left = Math.max(left ,0);
+                left = Math.min(left ,maxx);
+            }
+            if(top<=0 || top>=maxy){
+                dom.style.background = "radial-gradient(circle ,#fff,"+rColor()+")";
+                dom.vy = -dom.vy;
+                top = Math.max(top ,0);
+                top = Math.min(top ,maxy);
+
+            }
+
+            dom.style.left = left + "px";
+            dom.style.top = top + "px";
+        }
+
+
+        requestAnimationFrame(m);
+
+
+    })();
+    
+    function rColor() {
+        var r =Math.floor(Math.random()*256);
+        var g = Math.floor(Math.random()*256);
+        var b = Math.floor(Math.random()*256);
+        return "rgb("+r+","+g+","+b+")";
+    }
+
+
+    
+    
+</script>
+</body>
+</html>

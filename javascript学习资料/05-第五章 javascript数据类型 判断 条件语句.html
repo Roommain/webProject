@@ -1,0 +1,170 @@
+<!DOCTYPE html><html><head><title>05-第五章 javascript数据类型 判断 条件语句</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="05-第五章-javascript数据类型-判断-条件语句">05-第五章 javascript数据类型 判断 条件语句</h1>
+
+
+
+<h3 id="一-javascript数据类型">一 、javascript数据类型</h3>
+
+<blockquote>
+  <p>六大数据类型 <code>Number String Boolean Function Object  Undefined</code></p>
+</blockquote>
+
+<ol start="1"><li rel="1">Number  数字 </li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> <span class="hljs-built_in">num</span> = <span class="hljs-number">123</span>;
+</div></code></pre>
+
+<ol start="2"><li rel="2">String      字符串</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">var</span> str = <span class="hljs-string">'ok'</span>
+</div></code></pre>
+
+<ol start="3"><li rel="3">Boolean    布尔值                    <code>true/false</code></li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>  onoff = <span class="hljs-literal">true</span> ;
+</div></code></pre>
+
+<ol start="4"><li rel="4">Function 函数</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//一 函数表达式</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> abc = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//二 函数定义</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div></code></pre>
+
+<ol start="5"><li rel="5">Object 对象</li>
+</ol>
+
+<blockquote>
+  <p>（<code>节点对象、自定义对象、array(数组)、json、null、系统对象</code>） 简单介绍array  json\</p>
+</blockquote>
+
+<ol start="6"><li rel="6">Undefined 未定义</li>
+</ol>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">typeof</span> obj 判断类型
+</div></code></pre>
+
+
+
+<h3 id="二判断语句">二、判断语句</h3>
+
+<blockquote>
+  <p>判断语句返回<code>Boolean</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs haml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    =<span class="ruby">= 判断值
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    &gt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    &lt;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    &lt;=
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    &gt;=
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    !=<span class="ruby">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>    =<span class="ruby">== 全等于 除了判断值，还会判断数据类型
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    !=<span class="ruby">= 不全等
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h3 id="三-if-条件语句">三、 if 条件语句</h3>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">if</span>( 条件 ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>         <span class="hljs-selector-tag">code</span> <span class="hljs-comment">// 这是条件 满足时执行的代码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    } 
+</div></code></pre>
+
+<p>如果（）括号里面是<code>true</code>则运行{} 中代码</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>     <span class="hljs-keyword">if</span>( 条件 ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>         <span class="hljs-selector-tag">code</span> <span class="hljs-number">1</span> <span class="hljs-comment">// 这是条件 满足时执行的代码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>     }<span class="hljs-keyword">else</span>{ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>         <span class="hljs-selector-tag">code</span> <span class="hljs-number">2</span> <span class="hljs-comment">// 这是条件 不满足时执行的代码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>      }
+</div></code></pre>
+
+<p>如果（）括号里面是<code>false</code>  则运行 else 大括号中的 <code>code 2</code>—code1/code2总有一个会运行</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">if</span>( 条件一 ){ 
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-selector-tag">code</span> <span class="hljs-number">1</span> <span class="hljs-comment">// 这是条件一 满足时执行的代码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(  条件二 ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>         <span class="hljs-selector-tag">code</span> <span class="hljs-number">2</span> <span class="hljs-comment">//这是条件二 满足时执行的代码</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    }<span class="hljs-keyword">else</span>{ <span class="hljs-selector-tag">code</span> <span class="hljs-number">3</span> }     
+</div></code></pre>
+
+<p>如果（）括号里面是<code>false</code>  则运行 dlse 大括号中的 <code>code 2</code>—code1/code2总有一个会运行</p>
+
+<blockquote>
+  <p>if()中的条件会<strong>强制转化为布尔值</strong>，为false数据: <code>false</code> <code>0</code> <code>''</code> <code>null</code> <code>undefined</code> <code>NaN</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h3 id="四-三目运算">四、 三目运算</h3>
+
+
+
+<h3 id="五switch-case-条件语句">五、switch case 条件语句</h3>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-keyword">switch</span>( today  ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">case</span>  <span class="hljs-number">1</span> : <span class="hljs-comment">//判断 today是否是 1，是则执行code 1</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        code <span class="hljs-number">1</span>; 
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">break</span>;<span class="hljs-comment">//break用于打断（阻止）后续代码的执行</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<span class="hljs-comment">//判断 today是否是 2，是则执行code 2</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>       code <span class="hljs-number">2</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>       <span class="hljs-keyword">break</span>;<span class="hljs-comment">//break用于打断（阻止）后续代码的执行</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>       code <span class="hljs-number">3</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>       <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>       code <span class="hljs-number">4</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>       <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>       code <span class="hljs-number">5</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>       <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>    <span class="hljs-keyword">default</span>: <span class="hljs-comment">//判断 today是否是 2，是则执行code 2</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        code <span class="hljs-number">6</span>; 
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>       <span class="hljs-keyword">break</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>}
+</div></code></pre>
+
+<ul><li><code>break</code>                                break 语句。它用于跳出 switch() 语句，来阻止代码自动地向下一个 case 运行</li>
+<li><code>default</code>                           关键词来规定匹配不存在时做的事情</li>
+</ul></div></body></html>

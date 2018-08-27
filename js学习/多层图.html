@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .clearFix:after{
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        li{
+            list-style-type: none;
+        }
+        #box{
+            width: 430px;
+            height: 204px;
+            margin: 50px auto;
+        }
+        #box .le{
+            float: left;
+            width: 100px;
+            height: 100px;
+
+        }
+        #box .le ul li{
+            width: 100%;
+            height: 30px;
+            margin-bottom: 5px;
+            background-color: #cc3366;
+            text-align: center;
+            line-height: 30px;
+            font-size: 12px;
+            color: white;
+            cursor: pointer;
+        }
+        #box .ri{
+            position: relative;
+            float: right;
+            width: 326px;
+            height: 100%;
+        }
+        #box .ri .ri-a>li{
+            position: absolute;
+            display: none;
+        }
+        #box .ri .ri-a .en{
+            display: block;
+        }
+        #box .ri .img>li{
+            position: absolute;
+            display: none;
+        }
+        #box .ri .xia{
+            position: absolute;
+            left: 5px;
+            top: 175px;
+            width: 150px;
+            height: 30px;
+        }
+        #box .ri .xia>li{
+            width: 25px;
+            height: 25px;
+            margin-right: 5px;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            float: left;
+            background-color: #999;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+        #box .le .on,#box .ri .ri-a .xia .on{
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="clearFix">
+        <div class="le">
+            <ul>
+                <li class="on">豪车</li>
+                <li>小吃</li>
+                <li>风景</li>
+            </ul>
+        </div>
+        <div class="ri">
+            <ul class="ri-a">
+                <li class="list en">
+                    <ul class="img">
+                        <li class="en"><img src="img/1.jpg" alt=""></li>
+                        <li><img src="img/2.jpg" alt=""></li>
+                        <li><img src="img/3.jpg" alt=""></li>
+                        <li><img src="img/4.jpg" alt=""></li>
+                    </ul>
+                    <ul class="xia">
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                </li>
+                <li class="list">
+                    <ul class="img">
+                        <li class="en"><img src="img/m1.jpg" alt=""></li>
+                        <li><img src="img/m2.jpg" alt=""></li>
+                        <li><img src="img/m3.jpg" alt=""></li>
+                        <li><img src="img/m4.jpg" alt=""></li>
+                    </ul>
+                    <ul class="xia">
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                </li>
+                <li class="list">
+                    <ul class="img">
+                        <li class="en"><img src="img/s1.jpg" alt=""></li>
+                        <li><img src="img/s2.jpg" alt=""></li>
+                        <li><img src="img/s3.jpg" alt=""></li>
+                        <li><img src="img/s4.jpg" alt=""></li>
+                    </ul>
+                    <ul class="xia">
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var box = document.getElementById("box");
+        var le = box.getElementsByClassName("le")[0];
+        var li = le.getElementsByTagName("li");
+        var ri = box.getElementsByClassName("ri")[0];
+        var list = ri.getElementsByClassName("list");
+        var length = li.length;
+        var index1 = 0;
+
+
+
+        for(var i=0;i<length;i++){
+            li[i].index = i;
+            li[i].onmouseenter = function () {
+                list[index1].classList.remove("en");
+                li[index1].classList.remove("on");
+
+                index1 = this.index;
+
+                list[index1].classList.add("en");
+                li[index1].classList.add("on");
+            }
+        }
+
+
+
+//        arrImg[0] = box.getElementsByClassName("img")[0];
+//        arrIli[0] = arrImg[0].getElementsByTagName("li");
+//        arrXia[0] = box.getElementsByClassName("xia")[0];
+//        arrXli[0] = arrImg[0].getElementsByTagName("li");
+//
+//        arrImg[1] = box.getElementsByClassName("img")[1];
+//        arrXia[1] = box.getElementsByClassName("xia")[1];
+//        arrIli[1] = arrImg[1].getElementsByTagName("li");
+//        arrXli[1] = arrImg[1].getElementsByTagName("li");
+//
+//        arrImg[2] = box.getElementsByClassName("img")[2];
+//        arrXia[2] = box.getElementsByClassName("xia")[2];
+//        arrIli[2] = arrImg[2].getElementsByTagName("li");
+//        arrXli[2] = arrImg[2].getElementsByTagName("li");
+
+        var aImg= box.getElementsByClassName("img");
+        var aXia= box.getElementsByClassName("xia");
+
+        var length1 = aImg.length;
+
+        var arrIli = [];
+        var arrXli = [];
+
+        for (i = 0; i < length1; i++) {
+            arrIli[i] = aImg[i].getElementsByTagName("li");
+            arrXli[i] = aXia[i].getElementsByTagName("li");
+            arrXli[i].showJ = 0;//用来表示当前显示的是第几个
+            for (var j = 0,ll = arrXli[i].length; j < ll; j++) {
+                arrXli[i][j].indexI = i;//存储时间函数里面需要用到的i
+                arrXli[i][j].indexJ = j;//存储时间函数里面需要用到的j
+                arrXli[i][j].onmouseenter = function () {
+                    var i = this.indexI , j = arrXli[i].showJ;
+                    if ( j !== this.indexJ ){
+                        arrIli[i][j].classList.remove("en");
+                        arrXli[i][j].classList.remove("on");
+
+                        arrXli[i].showJ = j = this.indexJ;
+
+                        arrIli[i][j].classList.add("en");
+                        arrXli[i][j].classList.add("on");
+                    }
+                };
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html><html><head><title>18-第十八章 、CSSOM视图模式(CSS Object Model View)</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="18-第十八章-cssom视图模式css-object-model-view">18-第十八章 、CSSOM视图模式(CSS Object Model View)</h1>
+
+<blockquote>
+  <p>文档及其内容的视觉属性，包括<code>布局框定位</code>、<code>视区宽度</code>和<code>元素滚动</code></p>
+</blockquote>
+
+<hr>
+
+
+
+<h2 id="一window视图属性">一、Window视图属性</h2>
+
+<hr>
+
+
+
+<h4 id="1innerwidthinnerheight">1、<code>innerWidth</code>/<code>innerHeight</code></h4>
+
+<blockquote>
+  <p><code>window.innerWidth</code>  window窗口的内部宽度， <br>
+  不包括用户界面元素，比如窗框 <br>
+  <code>window.innerHeight</code>内部高度</p>
+</blockquote>
+
+
+
+<h2 id="二-document文档视图">二 、Document文档视图</h2>
+
+<hr>
+
+
+
+<h4 id="1documentdocumentelementclientwidth">1、document.<code>documentElement.clientWidth</code></h4>
+
+<blockquote>
+  <p>document.documentElement.clientWidth==&gt;浏览器窗口可视宽度  <br>
+  document.documentElement.clientHeight==&gt;浏览器窗口可视高度  <br>
+        ====》 可获取文档没有内容时候高度 <br>
+      没有定义W3C的标准，则 IE为：  <br>
+                  document.documentElement.clientWidth ==&gt; 0  <br>
+                document.documentElement.clientHeight ==&gt; 0 </p>
+</blockquote>
+
+
+
+<hr>
+
+<hr>
+
+<hr>
+
+
+
+<h2 id="二元素视图属性">二、元素视图属性</h2>
+
+
+
+<h4 id="1clientwidth-clientheight-可视宽高">1、<code>clientWidth</code>/ <code>clientHeight</code>  可视宽高</h4>
+
+<blockquote>
+  <p>clientWidth对象的——————–<code>width  + padding</code> <br>
+     clientHeight 对象的——————height + padding  <br>
+       ==&gt; 不包含子元素（一致）</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="2offsetwidth-offsetheight-可视宽高">2、<code>offsetWidth</code>/ <code>offsetHeight</code>  可视宽高</h4>
+
+<blockquote>
+  <p>offsetHeight:对象<code>height  + padding + border</code>   </p>
+  
+  <p>offsetWidth: 对象width  + padding + border <br>
+  ==&gt; 不包含子元素（一致）</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="3scrollwidth-scrollheight-可视宽高">3、<code>scrollWidth</code>/ <code>scrollHeight</code>  可视宽高</h4>
+
+<blockquote>
+  <p>scrollWidth对象的<code>width  + padding</code> <br>
+  <code>scrollHeight</code>应该等用于<code>scrollTop + clientHeight</code> <br>
+  如果元素没有隐藏的部分，则相关的值应该等用于clientWidth和clientHeight <br>
+  scrollHeight对象的height + padding <br>
+  ==&gt; 包含<code>子元素内容</code>,<code>子元素定位,</code>overflow:hidden`（一致） </p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="4offsetparent-定位父级">4、<code>offsetParent</code>  定位父级</h4>
+
+<blockquote>
+  <p>获取元素<code>最近的定位父级</code> 如果没有定位父级 则参考<code>body</code>（ 元素必须是定位元素） </p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="5-offsettopoffsetleft">5、 <code>offsetTop</code>/<code>offsetLeft</code></h4>
+
+<blockquote>
+  <p><code>offsetLeft</code>:获取对象相对于<code>offsetParent</code>(left)位置</p>
+  
+  <p><code>offsetTop</code>:获取对象相对于offsetParent(top)位置</p>
+</blockquote>
+
+<p>获取元素的距离文档顶部的距离</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs nginx"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-attribute">var</span> iTop = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-attribute">var</span> obj = oDiv3;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-attribute">while</span> (obj) {
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-attribute">iTop</span> += obj.offsetTop;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-attribute">obj</span> = obj.offsetParent;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="6scrolltopscrollleft-滚动宽滚动高">6、<code>scrollTop</code>/<code>scrollLeft</code>   滚动宽,滚动高</h4>
+
+<blockquote>
+  <p><code>可读可写</code>，有内容溢出元素才有效果  <br>
+  ele.<code>scrollTop</code>  元素Y轴滚动的距离 <br>
+  ele.<code>scrollLeft</code>   元素X轴滚动的距离</p>
+  
+  <h4 id="设置时不能给px-单位否则会出错">设置时<code>不能给px</code> 单位，否则会出错！！！！！！！！！！！！！！！！！！！！！！！！！！！！！</h4>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>document.getElementsByTagName(<span class="hljs-string">"body"</span>)[<span class="hljs-number">0</span>].scrollTop = <span class="hljs-number">100</span>;
+</div></code></pre>
+
+<hr>
+
+<p>document.<code>body.scrollTop</code>/ <code>scrollLeft</code></p>
+
+<blockquote>
+  <p>网页被卷去的高： document.body.scrollTop</p>
+  
+  <p>网页被卷去的左： document.body.scrollLeft <br>
+  <code>！！！</code>IE,firfox：document.<code>documentElement.scrollTop</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var <span class="hljs-built_in">box</span> = document.getElementById('<span class="hljs-built_in">box</span>');
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        var num = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        function <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span>{
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-comment">//num++;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            <span class="hljs-built_in">box</span>.<span class="hljs-title">scrollTop</span> = ++num; 
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            document.<span class="hljs-built_in">title</span> = <span class="hljs-built_in">box</span>.scrollTop;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            requestAnimationFrame(<span class="hljs-function"><span class="hljs-keyword">fn</span>)</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="四元素方法">四、元素方法</h2>
+
+<hr>
+
+
+
+<h4 id="1getboundingclientrect">1、<code>getBoundingClientRect():</code></h4>
+
+<blockquote>
+  <p>getBoundingClientRect():得到矩形元素的界线，返回的是一个对象，包含 <code>top, left, right,  bottom</code>四个属性值，大小都是相对于浏览器窗口top,left 的距离。 <br>
+  返回内容类似于：</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs coq"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>{ <span class="hljs-built_in">top</span>: <span class="hljs-number">143</span>, <span class="hljs-built_in">right</span>: <span class="hljs-number">1196</span>, <span class="hljs-built_in">bottom</span>: <span class="hljs-number">164</span>, <span class="hljs-built_in">left</span>: <span class="hljs-number">889</span>}
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2scrollintoview">2、<code>scrollIntoView():</code></h4>
+
+<blockquote>
+  <p>ele.<code>scrollIntoView()</code>   让元素滚动到可视区域（HTML5标准),参数 <code>true</code> 与浏览器对齐，<code>false</code>元素在窗口居中显示</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="3eventclientxeventclienty">3、<code>event.clientX</code>/<code>event.clientY</code></h4>
+
+<blockquote>
+  <p>相对于window，为鼠标相对于<code>浏览器窗口</code>的偏移 <br>
+  <code>event.clientX</code>鼠标在文档的水平座标 </p>
+</blockquote>
+
+
+
+<h2 id="eventclienty-鼠标在文档的垂直座标"> <code>event.clientY</code> 鼠标在文档的垂直座标</h2></div></body></html>

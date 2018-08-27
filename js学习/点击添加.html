@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Anthor" content="阿飞老师" />
+    <title>Title</title>
+    <style>
+        *{ margin:0; padding:0; font-family:"Microsoft yahei",serif;}
+        li{ list-style-type: none;}
+        #box{
+            width: 300px;
+            border: 1px solid #000;
+            margin: 100px auto;
+        }
+        #box .wrap {
+            height: 26px;
+            background: #000;
+        }
+        #box .wrap .title{
+            float: left;
+            margin-left: 7px;
+            margin-right: 3px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+            line-height: 26px;
+        }
+        #inp{
+            display: none;
+            float: left;
+        }
+        #txt{
+            float: left;
+            width: 120px;
+            height: 18px;
+            border: none;
+            margin-top: 3.5px;
+            font-size: 12px;
+        }
+        #btn{
+            float: left;
+            width: 40px;
+            height: 19px;
+            background: #f60;
+            color: #fff;
+            border: none;
+            margin-top: 4px;
+            font-size: 12px;
+        }
+        #add{
+            float: right;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            line-height: 26px;
+            margin-right: 7px;
+            cursor: pointer;
+        }
+        #list{
+            width: 290px;
+            padding: 0 5px;
+        }
+        #list li{
+            height: 26px;
+            border-bottom: 1px dotted #aaa;
+            font-size: 12px;
+            line-height: 26px;
+        }
+        #list li span{
+            cursor: pointer;
+        }
+        #list li span:hover{
+            color: #f60;
+        }
+    </style>
+</head>
+<body>
+<!--
+    1. 布局
+-->
+
+<div id="box">
+
+    <div class="wrap">
+        <span class="title">最新动态</span>
+        <p id="inp">
+            <input id="txt" type="text">
+            <input id="btn" type="button" value="添加">
+        </p>
+        <span id="add">+</span>
+    </div>
+
+    <ul id="list">
+        <li>11111</li>
+        <li>22222</li>
+    </ul>
+
+</div>
+
+<script>
+
+
+    var oAdd = document.getElementById("add"),
+        oInp = document.getElementById("inp"),
+        oBtn = document.getElementById("btn"),
+        oTxt = document.getElementById("txt"),
+        oList = document.getElementById("list");
+
+    //点击 + 号，让输入框和按钮显示
+    oAdd.onclick = function(){
+        if(oInp.style.display == "none"){
+            oInp.style.display = "block";
+        }else {
+            oInp.style.display = "none";
+        }
+
+    };
+
+    //点击 添加 ，让input的文本添加到ul里面去
+//    oBtn.onclick = function(){
+//        var val = oTxt.value;//先存起来
+//
+//        oList.innerHTML += "<li><span>" + val + "</span></li>";//添加li到ul里面
+//
+//        oTxt.value = "";//清空input输入框的内容
+//        //val = "";//千万不要理解成提取公因式，这样是错的
+//
+//        oInp.style.display = "none"; //让输入框和按钮消失
+//    };
+
+
+    oBtn.addEventListener("click",function(){
+        var val = oTxt.value;
+        oList.innerHTML += "<li><span>" + val + "</span></li>";
+        oTxt.value = " ";
+        oInp.style.display = "none";
+    })
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

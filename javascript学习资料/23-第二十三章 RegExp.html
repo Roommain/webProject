@@ -1,0 +1,384 @@
+<!DOCTYPE html><html><head><title>23-第二十三章 RegExp</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="23-第二十三章-regexp">23-第二十三章 RegExp</h1>
+
+<hr>
+
+
+
+<h2 id="一-什么是正则表达式">一、 什么是正则表达式</h2>
+
+<blockquote>
+  <p>正则表达式是描述字符模式的对象。</p>
+  
+  <ul><li>正则表达式用于对字符串模式匹配及检索替换，是对<code>字符串</code>执行模式匹配的强大工具。</li>
+  </ul>
+</blockquote>
+
+<ul><li>而<code>String</code>和<code>RegExp</code>都定义了使用正则表达式进行强大的模式匹配和文本检索与替换的函数。</li>
+<li>正则表达式主要用来验证客户端的输入数据。可以节约大量的服务器端的系统资源，并且提供更好的用户体验。</li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="二创建正则表达式">二、创建正则表达式</h2>
+
+
+
+<h4 id="1直接量">1、直接量</h4>
+
+<p>语法：Reg = /pattern/modifiers;</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ebnf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-attribute">var Reg</span> = /box/gi;
+</div></code></pre>
+
+
+
+<h4 id="2new-regexp">2、new RegExp</h4>
+
+<p>语法 Reg = <code>new RegExp(</code>  pattern , modifiers <code>)</code>; <br>
+pattern ，modifiers此时是<code>字符串</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> Reg = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(“box”,”gi”);
+</div></code></pre>
+
+<ul><li>何种方法创建都是一样的</li>
+<li>pattern     <code>模式 模板</code>，要匹配的内容</li>
+<li>modifiers  <code>修饰符</code></li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="三正则表达式用法及区别">三、正则表达式用法及区别</h2>
+
+
+
+<h4 id="1string中正则表达式方法">1、String中正则表达式方法</h4>
+
+<table>
+<thead>
+<tr>
+  <th align="left">方法</th>
+  <th align="right">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="left"><code>match(</code>Reg<code>)</code></td>
+  <td align="right">返回RegExp匹配的包含全部<code>字符串</code>的数组或<code>null</code></td>
+</tr>
+<tr>
+  <td align="left"><code>search(</code>Reg<code>)</code></td>
+  <td align="right">返回RegExp匹配字符串首次出现的<code>位置</code></td>
+</tr>
+<tr>
+  <td align="left"><code>replace(</code>Reg，newStr<code>)</code></td>
+  <td align="right">用<code>newStr</code>替换RegExp匹配结果，并返回新字符串</td>
+</tr>
+<tr>
+  <td align="left"><code>split(</code>Reg<code>)</code></td>
+  <td align="right">返回字符串按指定RegExp拆分的数组</td>
+</tr>
+</tbody></table>
+
+
+<p>使用</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stata"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = 'hello';
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> <span class="hljs-keyword">Reg</span> = /<span class="hljs-keyword">e</span>/i;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>str.<span class="hljs-built_in">match</span>(<span class="hljs-keyword">Reg</span>);
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2regexp对象的方法">2、RegExp对象的方法</h4>
+
+<p>方  法    </p>
+
+<table>
+<thead>
+<tr>
+  <th align="left">方法</th>
+  <th align="right">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="left"><code>exec（）</code></td>
+  <td align="right">在字符串中执行匹配搜索，返回首次匹配结果<code>数组</code>,</td>
+</tr>
+<tr>
+  <td align="left"><code>test（）</code></td>
+  <td align="right">在字符串中测试模式匹配，返回<code>true</code>或<code>false</code></td>
+</tr>
+</tbody></table>
+
+
+<p>使用</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs pony"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">var</span> pattern = <span class="hljs-function"><span class="hljs-keyword">new</span> <span class="hljs-title">RegExp</span>(“box”,”gi”);
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-title">pattern</span>.<span class="hljs-title">test</span>(str);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-title">pattern</span>.<span class="hljs-title">exec</span>(str);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div></code></pre>
+
+<hr>
+
+<blockquote>
+  <p>注意区别正则方法和字符串方法使用避免混淆</p>
+</blockquote>
+
+<p>正则方法：pattern.<code>test(</code>str<code>)</code>; 方法的主体是<code>正则表达式</code> <br>
+字符串方法：str.<code>match(</code>pattern<code>)</code>;方法的主体是<code>字符串</code></p>
+
+<hr>
+
+
+
+<h2 id="四修饰符">四、修饰符</h2>
+
+<blockquote>
+  <p>修饰符用于<code>执行区分大小写</code>和<code>全局</code>匹配:</p>
+</blockquote>
+
+<ul><li><code>i</code> <code>忽略大小</code>写匹配</li>
+<li><code>g</code> <code>全局匹配</code>，默认只匹配第一个元素，就不在进行匹配</li>
+<li><code>m</code>  执行<code>多行匹配</code></li>
+</ul>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">var</span> patt =  <span class="hljs-regexp">/pattern/i</span>;         <span class="hljs-comment">//忽略大小写匹配</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">var</span> patt =  <span class="hljs-regexp">/pattern/g</span>;         <span class="hljs-comment">//全局匹配</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">var</span> patt =  <span class="hljs-regexp">/pattern/m</span>;         <span class="hljs-comment">//执行多行匹配</span>
+</div></code></pre>
+
+
+
+<hr>
+
+
+
+<h2 id="四pattern-模式">四、pattern 模式</h2>
+
+<hr>
+
+
+
+<h4 id="1基本匹配">1、基本匹配</h4>
+
+<p>xxx   ———————————匹配<code>xxx</code>字符</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ebnf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-attribute">var Reg</span> = /abc/;
+</div></code></pre>
+
+<p><code>x|y|z</code> —————————-匹配<code>x</code>或<code>y</code>或<code>z</code>字符</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs coq"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var Reg = /abc|<span class="hljs-type">bac</span>|<span class="hljs-type">cba</span>/;
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2">2、[]</h4>
+
+<p><code>[abc]</code>———————————–匹配abc之中的<code>任何一个</code>字符 <br>
+<strong>非</strong> <br>
+<code>[^abc]</code>———————————匹配<code>非</code>a<code>非</code>b<code>非</code>c字符的 <br>
+<strong>到</strong></p>
+
+<p><code>[0-9]</code> ———————————匹配<code>0至9</code>之间的数字 <br>
+<code>[a-z]</code> ———————————匹配<code>小写a至小写z</code>的字符 <br>
+<code>[A-Z]</code> ———————————匹配<code>大写A至大写Z</code>的字符 <br>
+ 匹配中文 <code>[\u4e00-\u9fa5]</code></p>
+
+<p>还可以组合</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ebnf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-attribute"> var Reg</span>  = /hello [0-9a-zA-z]/;
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3元字符转义字符">3、元字符(<code>转义字符</code>)</h4>
+
+<p><code>.</code> —————————————–匹配<code>单个字符</code>，除了换行和行结束符 <br>
+<code>\w</code>—————————————匹配<code>单词字符</code>,<code>数字</code>,<code>_</code>(下划线) <br>
+<code>\W</code>—————————————匹配<code>非</code>（<code>单词字符</code>和<code>_</code>(下划线)） <br>
+<code>\d</code>    —————————————匹配<code>数字</code> <br>
+<code>\D</code>    —————————————匹配<code>非数字</code> <br>
+<code>\s</code>    —————————————匹配空白字符（<code>空格</code>） <br>
+<code>\S</code>    —————————————匹配<code>非空格</code>字符 <br>
+<code>\b</code>    —————————————匹配<code>单词边界</code>  ( 除了 （字)字母 数字_   都算单词边界) <br>
+<code>\B</code>    —————————————匹配<code>非单词边界</code> <br>
+<code>\n</code>    —————————————匹配<code>换行符</code></p>
+
+<p>特殊的转译字符<code>.</code> <code>\</code> <code>/</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/\./</span>;<span class="hljs-comment">//匹配.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/\\/</span>;<span class="hljs-comment">//匹配\</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/\//</span>;<span class="hljs-comment">//匹配/</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="4量词">4、量词</h4>
+
+<p><code>n?</code>———————————匹配<code>0个或一个</code>n的字符串 <br>
+<code>n*</code>———————————匹配<code>0个或多个</code>字符串(<code>任意个</code>) <br>
+<code>n+</code>———————————匹配<code>至少一个</code>n字符串 <br>
+<code>n{X}</code>——————————匹配包含<code>X个n</code>的序列的字符串 <br>
+<code>n{X,Y}</code>————————–匹配包含<code>至少X或至多Y个</code>n的序列的字符串 <br>
+<code>n{x,}</code>—————————-匹配<code>至少X个</code>n的序列字符串</p>
+
+<p><code>^n</code>———————————匹配<code>以n开头</code>的字符串 <br>
+<code>n$</code>———————————匹配<code>以n结尾</code>的字符串</p>
+
+<hr>
+
+
+
+<h4 id="5贪-婪-惰-性">5、贪  婪  惰  性</h4>
+
+<blockquote>
+  <p><strong>贪婪</strong>: <code>尽可能多</code>的匹配 <br>
+  <strong>惰性</strong>: <code>尽可能少</code>的匹配 <br>
+  前提条件都是要匹配到内容</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+  <th align="center">—— 贪  婪 ——</th>
+  <th align="center">—— 惰  性 ——</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="center"><code>+</code></td>
+  <td align="center">+<code>?</code></td>
+</tr>
+<tr>
+  <td align="center"><code>?</code></td>
+  <td align="center">?<code>?</code></td>
+</tr>
+<tr>
+  <td align="center"><code>*</code></td>
+  <td align="center">*<code>?</code></td>
+</tr>
+<tr>
+  <td align="center">{<code>n</code>}</td>
+  <td align="center">{n}<code>?</code></td>
+</tr>
+<tr>
+  <td align="center">{<code>n</code>,<code>m</code>}</td>
+  <td align="center">{n,m}<code>?</code></td>
+</tr>
+<tr>
+  <td align="center">{<code>n,</code>}</td>
+  <td align="center">{n,}<code>?</code></td>
+</tr>
+</tbody></table>
+
+
+<hr>
+
+
+
+<h4 id="6子组子表达式">6、子组(子表达式)</h4>
+
+<p>子组:使用<code>()</code>小括号,指定一个子表达式后,称之为分组</p>
+
+<ul><li><code>捕获型</code></li>
+<li><code>非捕获型</code></li>
+</ul>
+
+<p><strong>1）、捕获型</strong></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> str = <span class="hljs-string">'abcdefg'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> reg = <span class="hljs-regexp">/(abc)d/</span>;<span class="hljs-comment">//匹配abcd</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">var</span> val = reg.exec( str);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-built_in">console</span>.log( val );   <span class="hljs-comment">//["abcd", "abc", index: 0, input: "abcdefg"]</span>
+</div></code></pre>
+
+<p>索引0 为匹配的结果 <br>
+索引1 为第一个子表达式 匹配结果 <br>
+index :首次匹配成功的索引值， <br>
+input: <strong>匹配目标</strong></p>
+
+<hr>
+
+<table>
+<thead>
+<tr>
+  <th align="left">—— 字符 ——</th>
+  <th align="center"></th>
+  <th align="right">引用</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td align="left"><code>(pattern)</code></td>
+  <td align="center">匹配pattern并<code>捕获结果</code>，<code>自动设置组号</code>,是从1开始的正整数</td>
+  <td align="right"><code>\num</code></td>
+</tr>
+</tbody></table>
+
+
+<p>引用是<code>值的引用，匹配结果的引用</code>不是匹配形式引用</p>
+
+<hr>
+
+<p><strong>1）、非捕获型</strong></p>
+
+<ul><li><code>(？:pattern)</code>  </li>
+<li><code>(?=pattern)</code> 零宽度正向预言</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs less"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">Windows</span> (?=<span class="hljs-number">2000</span>) <span class="hljs-comment">//匹配windows且后面跟2000</span>
+</div></code></pre>
+
+<p>匹配 “Windows2000” 中的 “Windows”  <br>
+不匹配 “Windows3.1” 中的 “Windows”。</p>
+
+<ul><li><code>(?!pattern)</code>  零宽度负向预言</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs less"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-selector-tag">Windows</span> (?!<span class="hljs-number">2000</span>)<span class="hljs-comment">//匹配windows且后面非2000</span>
+</div></code></pre>
+
+<p>匹配 “Windows3.1” 中的 “Windows” <br>
+ 不匹配 “Windows2000” 中的 “Windows”。</p></div></body></html>

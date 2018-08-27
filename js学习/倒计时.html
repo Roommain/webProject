@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        #box{
+            width: 200px;
+            margin: 50px auto;
+        }
+        #txt span{
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <p>距离2018你的生日还有：</p>
+    <p id="txt"></p>
+</div>
+<script>
+
+    var oTxt = document.getElementById("txt");
+    var targetDate = new Date(2018,10,28);
+
+    setInterval(fn(), 1000);
+
+    function fn() {
+
+        var nowDate = new Date();
+
+        //两者之间的毫秒数差值
+        var mins = targetDate - nowDate ;
+
+        //化为秒数
+        mins = Math.floor(mins/1000);
+
+        var d = Math.floor(mins/60/60/24);//得到天
+        var h = Math.floor( mins/60/60 ) % 24;//得到小时
+        var m = Math.floor(mins/60) % 60;//得到分钟
+        var s = mins % 60;//得到秒
+
+        d = addZero(d);
+        h = addZero(h);
+        m = addZero(m);
+        s = addZero(s);
+
+        oTxt.innerHTML = "<span>"+d+"</span>天<span>"+h+"</span>时<span>"+m+"</span>分<span>"+s+"</span>秒";
+
+
+        return fn;
+    }
+
+    function addZero(n) {
+        return n<10?"0"+n:n;
+    }
+
+
+</script>
+</body>
+</html>

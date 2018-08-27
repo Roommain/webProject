@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: #00ae00;
+        }
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        .num-edit{
+            padding: 10px 0;
+        }
+        .num-edit span{
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .num-edit input{
+            padding: 5px;
+            width: 50px;
+            border: 1px solid #ccc;
+        }
+        .aa{
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+    <div>000000</div>
+    <div class="box">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</div>
+
+<div class="aa">
+    <p class="num-edit">
+        <span class="del">-</span>
+        <input type="number" name="">
+        <span class="add">+</span>
+    </p>
+</div>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<!--<script type="text/javascript" src="js/jquery.js"></script>-->
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+
+//    var $editBtn = $(".del,.add");
+//
+//    $editBtn.on('click',function(){
+//
+//
+//        var $that = $(this),
+//            $parent = $that.parent(),
+//            $input = $parent.find("input");
+//        var num = parseInt($input.val()) || 0;
+//
+//        if($that.index()){
+//            $input.val(num+1)
+//        }else{
+//            if (num>0){
+//                $input.val(num-1)
+//            }
+//        }
+//    });
+
+var test=1.2;
+console.log(typeof test);
+
+
+//    $("#box div").on("click",function() {
+//        $(this).remove();
+//    });
+
+//    $(function() {
+//        console.log(document.getElementById("box"))
+//    });
+//
+//    $("#box .box").css("background-color","red","width","100px","height","100px");
+
+//    console.log($(box));
+
+//     var jsdom = document.createElement("div");
+//     var jqdom = $("<div><span>1</span><span>2</span><span>3</span></div>");
+//     var domhtml = "<div><span>1</span><span>2</span><span>3</span></div>";
+//
+//     console.log($(domhtml)[0])
+//
+//    document.body.appendChild($(domhtml)[0])
+
+
+//添加节点
+//    var dom = $("<div></div>",{
+//        id : "aa",
+//        class : "box",
+//        html : "<span>1</span><span>2</span><span>3</span>",
+//        css : {
+//            width:100,
+//            height:100,
+//            backgroundColor:"red"
+//        },
+//        click : function() {
+//            console.log("666666")
+//        }
+//    });
+//    console.log(dom[0]);
+//document.body.appendChild(dom[0])
+
+//    $(window).load(function() {
+//        console.log(123)
+//    });
+
+
+//    var $box = $("#box");
+//    $box.eq(2).css("background","red");
+//    $box.on("click",function() {
+//        console.log(1111)
+//        $(this).addClass("on");
+//    })
+
+
+//for( var i =0;i<5;i++ ){
+//
+//    //i初始值为0；i是否小写5；每次循环后i加1
+//    console.log(i);//  0  1  2  3  4
+//}
+
+
+//
+//var arr = {
+//    age:20,
+//    name:"咸鱼",
+//    sex:"男"
+//};
+
+//for(var attr in wq){//attr是属性，attr可以换成任意变量名
+////    console.log(attr);//  输出的是 属性名：age  name  sex
+//    console.log(attr);
+//    console.log(wq[attr]);
+////    console.log(wq[attr]);//属性相对应的值  20  咸鱼  男
+//}
+
+//for (var key in arr){
+//    console.log(arr[key]);
+//}
+
+//for (var value of arr){
+//    console.log(value);
+//}
+</script>
+
+</body>
+</html>

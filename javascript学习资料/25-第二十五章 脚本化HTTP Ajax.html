@@ -1,0 +1,173 @@
+<!DOCTYPE html><html><head><title>25-第二十五章 脚本化HTTP Ajax</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="25-第二十五章-脚本化http-ajax">25-第二十五章 脚本化HTTP Ajax</h1>
+
+<hr>
+
+
+
+<h2 id="一-ajax概述">一、 Ajax概述</h2>
+
+<blockquote>
+  <p>AJAX = <code>Asynchronous JavaScript and XML</code>（异步的 <code>JavaScript</code> 和 <code>XML</code>）。功能：在不刷新页面的情况下，实现与后台的数据交互</p>
+</blockquote>
+
+<p>AJAX 不是新的编程语言，而是一种使用现有标准的新方法。 <br>
+Ajax技术核心是<code>XMLHttpRequest</code>对象(简称XHR)</p>
+
+<ul><li>1 运行在服务器</li>
+<li>2 不能跨域</li>
+<li>3  </li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="二xmlhttprequest-对象方法">二、XMLHttpRequest 对象方法</h2>
+
+
+
+<h4 id="一-创建xmlhttprequest-对象">一 、创建XMLHttpRequest 对象</h4>
+
+<blockquote>
+  <p>创建 <code>new XMLHttpRequest()</code></p>
+  
+  <p>ie 6以下版本<code>new ActiveXObject('Msxml2.XMLHttp.3.0')</code> 或 <code>new ActiveXObject('Msxml2.XMLHTTP.6.0')</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs haxe"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">new</span> <span class="hljs-type">XMLHttpRequest</span>() || <span class="hljs-keyword">new</span> <span class="hljs-type">ActiveXObject</span>(<span class="hljs-string">'Msxml2.XMLHTTP.3.0'</span>)||<span class="hljs-keyword">new</span> <span class="hljs-type">ActiveXObject</span>(<span class="hljs-string">'Msxml2.XMLHTTP.6.0'</span>); 
+</div></code></pre>
+
+
+
+<h4 id="二-openmethodurlasynchusernamepassword">二 、<code>Open(``method</code>,<code>url</code>,<code>asynch</code>,[username],[password]<code>)</code></h4>
+
+<blockquote>
+  <p>指定和服务器端交互的HTTP方法，URL地址，即其他请求信息； <br>
+                  <strong>Method</strong>:     http请求方法，一般使用”<code>GET</code>“,”<code>POST</code>“. <br>
+                  <strong>url</strong>：        请求的<code>服务器的地址</code>； <br>
+                  <strong>asynch</strong>： 是否采用异步方法，<code>true为异步</code>，<code>false为同步</code>； <br>
+                  后边两个可以不指定，<strong>username</strong>和<strong>password</strong>分别表示<code>用户名</code>和<code>密码</code>，提供http认证机制需要的用户名和密码。</p>
+</blockquote>
+
+<hr>
+
+<ul><li><code>GET</code> <br>
+GET请求是最常见的请求类型，最常用于向服务器查询某些信息。必要时，可以将查询字符串参数追加到URL的末尾，以便提交给服务器。</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs processing"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>xhr.<span class="hljs-built_in">open</span>(<span class="hljs-string">'get'</span>, <span class="hljs-string">'demo.php?rand='</span> + Math.<span class="hljs-built_in">random</span>() + <span class="hljs-string">'&amp;name=Koo'</span>, <span class="hljs-keyword">true</span>);
+</div></code></pre>
+
+<p>注意: 特殊字符(eg:<code>&amp;</code>等)，传参产生的问题可以使用<code>encodeURIComponent()</code>进行编码处理，中文字符的返回及传参，可以将页面保存和设置为<code>utf-8</code>格式即可。或者使用提交url通用方法。</p>
+
+<ul><li><code>POST</code> <br>
+POST请求可以包含非常多的数据，我们在使用表单提交的时候，很多就是使用的POST传输方式。 <br>
+xhr.open(‘post’, ‘demo.php’, true); <br>
+而发送POST请求的数据，不会跟在URL的尾巴上，而是通过<code>send()方法向服务器提交数据</code>。 <br>
+xhr.send(‘name=Lee&amp;age=100’); <br>
+一般来说，向服务器发送POST请求由于解析机制的原因，需要进行特别的处理。因为POST请求和Web表单提交是不同的，需要使用XHR来模仿表单提交。</li>
+</ul>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ada"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>xhr.setRequestHeader(<span class="hljs-symbol">'Content</span>-<span class="hljs-keyword">Type</span>', <span class="hljs-symbol">'application</span>/x-www-form-urlencoded');
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="三-setrequestheaderstring-headerstring-value如果是post方式需要设置请求头">三 、<code>SetRequestHeader(</code>String header,String Value<code>)</code>如果是POST方式，需要设置<code>请求头</code></h4>
+
+<blockquote>
+  <p>设置HTTP请求中的指定头部header的值为value. <br>
+                  此方法需在open方法以后调用，一般在post方式中使用。</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs ada"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>xhr.setRequestHeader(<span class="hljs-symbol">'Content</span>-<span class="hljs-keyword">Type</span>', <span class="hljs-symbol">'application</span>/x-www-form-urlencoded');
+</div></code></pre>
+
+
+
+<h4 id="四-senddata">四、 <code>send(</code>data<code>)</code></h4>
+
+<blockquote>
+  <p>向服务器发出请求，如果采用异步方式，该方法会立即返回。 <br>
+              content可以指定为<code>null表示不发送数据</code>，其内容可以是DOM对象，输入流或字符串。</p>
+</blockquote>
+
+
+
+<h4 id="五-abort">五、 <code>Abort()</code></h4>
+
+<blockquote>
+  <p>停止当前http请求。对应的XMLHttpRequest对象会复位到未初始化的状态。</p>
+</blockquote>
+
+
+
+<h2 id="三xmlhttprequest对象属性">三、XMLHttpRequest对象属性</h2>
+
+
+
+<h4 id="一-onreadystatechange">一、 <code>onreadystatechange</code></h4>
+
+<blockquote>
+  <p>请求状态改变的事件触发器（readyState变化时会调用这个属性上注册的javascript函数）。</p>
+</blockquote>
+
+
+
+<h4 id="二-readystate">二、 <code>readyState</code></h4>
+
+<blockquote>
+  <p>表示XMLHttpRequest对象的状态： <br>
+  0：未初始化。对象已创建，<code>未调用open</code>； <br>
+  1：<code>open方法成功调用</code>，但Send方法未调用； <br>
+  2：send方法已经调用，尚未开始接受数据； <br>
+  3：<code>正在接受数据</code>。Http响应头信息已经接受，但尚未接收完成； <br>
+  <strong>4</strong>：<code>完成</code>，即响应数据接受完成。</p>
+</blockquote>
+
+
+
+<h4 id="三-responsetext-responsexml">三、 <code>responseText</code> | <code>responseXML</code></h4>
+
+<blockquote>
+  <p>responseText 服务器响应的<code>文本内容</code> <br>
+  responseXML  服务器响应的<code>XML内容</code>对应的DOM对象</p>
+</blockquote>
+
+
+
+<h4 id="四-status">四、 <code>Status</code></h4>
+
+<blockquote>
+  <p>服务器返回的<code>http状态码</code>。 <br>
+  <strong>200</strong>表示“<code>成功</code>”， <br>
+  <strong>404</strong>表示“未找到”， <br>
+  <strong>500</strong>表示“服务器内部错误”等。</p>
+</blockquote>
+
+<p>a.通过xhr.<code>getResponseHeader(“Content-Type”)</code>;可以获取单个响应头信息 <br>
+b.<code>getAllResponseHeaders()</code>;获取整个响应头信息</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs lisp"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>alert(<span class="hljs-name">xhr</span>.getAllResponseHeaders())<span class="hljs-comment">;</span>
+</div></code></pre></div></body></html>

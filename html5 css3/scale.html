@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #15131E;
+        }
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        #box{
+            width: 850px;
+            margin: 100px auto 0;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        #box ul{
+            margin-top: 20px;
+            display: flex;
+            width: 850px;
+            flex-wrap: wrap;
+            justify-content:space-around;
+        }
+        #box ul li{
+            width: 400px;
+            height: 220px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        #box ul li img{
+            position: absolute;
+            top:0;
+            left:0;
+            vertical-align: top;
+            width: 100%;
+            height: 100%;
+            transition: 0.5s;
+        }
+        #box ul li img:first-child{
+            opacity: 0.5;
+        }
+        #box ul li:hover img:nth-child(2){
+            transform: scale(2);
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="images/01.jpg" alt=""><img src="images/01.jpg" alt=""></li>
+        <li><img src="images/02.jpg" alt=""><img src="images/02.jpg" alt=""></li>
+        <li><img src="images/03.jpg" alt=""><img src="images/03.jpg" alt=""></li>
+        <li><img src="images/04.jpg" alt=""><img src="images/04.jpg" alt=""></li>
+        <li><img src="images/05.jpg" alt=""><img src="images/05.jpg" alt=""></li>
+        <li><img src="images/06.jpg" alt=""><img src="images/06.jpg" alt=""></li>
+    </ul>
+</div>
+<script>
+
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

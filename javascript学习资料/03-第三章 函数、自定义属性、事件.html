@@ -1,0 +1,160 @@
+<!DOCTYPE html><html><head><title>03-第三章 函数、自定义属性、事件</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="03-第三章-函数自定义属性事件">03-第三章 函数、自定义属性、事件</h1>
+
+<hr>
+
+
+
+<h2 id="一-变量与属性的区别">一、 变量与属性的区别</h2>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scala"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> a = <span class="hljs-number">123</span>;<span class="hljs-comment">//此为变量</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> <span class="hljs-class"><span class="hljs-keyword">object</span> </span>= document.getElementById(<span class="hljs-symbol">'bo</span>x'); <span class="hljs-comment">//此时object 为节点对象（node）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-class"><span class="hljs-keyword">object</span>.<span class="hljs-title">abc</span> </span>= <span class="hljs-number">888888</span>; <span class="hljs-comment">//为object自定义了abc属性，且此属性的值888888</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-class"><span class="hljs-keyword">object</span>.<span class="hljs-title">abc；</span> <span class="hljs-title">//888888</span> <span class="hljs-title">对象</span>.<span class="hljs-title">属性名</span> <span class="hljs-title">可以获取属性值</span></span>
+</div></code></pre>
+
+<blockquote>
+  <p>属性分节点属性 和js属性 <br>
+  <strong>节点属性</strong> :元素自带属性 <br>
+  <strong>js属性</strong>:js中自定义的属性</p>
+</blockquote>
+
+<p>当<strong>js属性</strong>为<strong>合法节点属性</strong>的时候，可以修改节点属性的值</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs scala"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> <span class="hljs-class"><span class="hljs-keyword">object</span>.<span class="hljs-title">id</span> </span>= <span class="hljs-symbol">'bo</span>x';
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二函数">二、函数</h2>
+
+
+
+<h4 id="1-函数申明">1. 函数申明</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-comment">//一有名函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span><span class="hljs-params">()</span></span>{}<span class="hljs-comment">//此时abc就代表此函数，函数不会自动运行，需要调用运行。</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-comment">//二匿名函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span>{} 
+</div></code></pre>
+
+<p>带名字的函数，需函数名加小括号运行，如<code>abc()</code>; <br>
+//匿名函数，<code>不进行赋值会报错</code></p>
+
+
+
+<h4 id="2-函数表达式">2. 函数表达式</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        <span class="hljs-comment">//一</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">var</span> a = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span>           <span class="hljs-comment">//匿名函数</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-title">a</span><span class="hljs-params">()</span>;               <span class="hljs-comment">//此时用变量名加()来调用</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">var</span> b = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span>      <span class="hljs-comment">//匿名函数</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-title">b</span><span class="hljs-params">()</span>;              <span class="hljs-comment">//此时用变量名加()来调用;</span>
+</div></code></pre>
+
+<p>如果<code>abc()</code>调用会<code>报错</code></p>
+
+<hr>
+
+
+
+<h2 id="三函数对象方法">三、函数/对象方法</h2>
+
+<blockquote>
+  <p>对象可以<code>自定义属性</code></p>
+</blockquote>
+
+<p>2.对象的属性，如果赋值的是一个函数<code>function(){}</code>，我们称之为对象的方法</p>
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> <span class="hljs-keyword">object</span> = document.getElementById(<span class="hljs-string">'box'</span>); <span class="hljs-comment">//此时object 为节点对象（nodelist）</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">object</span>.abc =<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span>;</span> <span class="hljs-comment">//为object自定义了方法</span>
+</div></code></pre>
+
+
+
+<h2 id="四事件属性">四、事件属性</h2>
+
+<blockquote>
+  <p>事件:是当事人，在特定的时间在特定的地点发生了 某事</p>
+</blockquote>
+
+
+
+<h4 id="1js中的事件-元素事件属性-事件函数">1、js中的事件: <code>元素</code>.<code>事件属性</code> = <code>事件函数</code></h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">var</span> <span class="hljs-keyword">object</span> = document.getElementById(<span class="hljs-string">'box'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-keyword">object</span>.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span></span>
+</div></code></pre>
+
+<p>function(){}; 是一个固定的写法，在这个例子中，它被称之为<strong>事件函数</strong>。</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> <span class="hljs-keyword">object</span> = document.getElementById(<span class="hljs-string">'box'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">object</span>.onclick =  <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span><span class="hljs-comment">//</span></span>
+</div></code></pre>
+
+<p>我们也可以用有名函数</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> <span class="hljs-keyword">object</span> = document.getElementById(<span class="hljs-string">'box'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">object</span>.onclick =  fn;<span class="hljs-comment">//</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div></code></pre>
+
+
+
+<h4 id="2javascript中的事件-鼠标事件-键盘事件-表单事件-系统事件">2、javascript中的事件[ <strong>鼠标事件</strong>, <strong>键盘事件</strong>, <strong>表单事件</strong>, <strong>系统事件</strong>]</h4>
+
+<p> <br>
+    <code>onclick</code> —————— 点击（单击）事件 <br>
+     <code>onmouseover</code>   ———– 鼠标滑入事件（会冒泡） <br>
+    <code>onmouseout</code>—————鼠标离开事件（会冒泡） <br>
+    <code>onmouseenter</code>————鼠标滑入事件（不会冒泡，区别后面讲） <br>
+    <code>onmouseleave</code>————鼠标离开事件（不会冒泡，区别后面讲） <br>
+    <code>ondblclick</code> ——————- 双击（单击）事件</p>
+
+<p>更多参考<a href="http://www.w3school.com.cn/tags/html_ref_eventattributes.asp" target="_blank">http://www.w3school.com.cn/tags/html_ref_eventattributes.asp</a></p>
+
+
+
+<h4 id="3函数中的this">3、函数中的this</h4>
+
+<p>事件函数里面的<code>this</code>就是指触发这个事件的元素，例如：</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        obox.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            alert( <span class="hljs-keyword">this</span>); <span class="hljs-comment">//obox,本函数是由obox触发的</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-comment">////</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            alert( <span class="hljs-keyword">this</span> );
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        fn();<span class="hljs-comment">//window,因为fn()属于window，fn()其实是window.fn();是window让fn执行的</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</div></code></pre></div></body></html>

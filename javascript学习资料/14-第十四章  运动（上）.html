@@ -1,0 +1,151 @@
+<!DOCTYPE html><html><head><title>14-第十四章  运动（上）</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="14-第十四章-运动上">14-第十四章  运动（上）</h1>
+
+<hr>
+
+
+
+<h2 id="一requestanimationframe">一requestAnimationFrame()</h2>
+
+<blockquote>
+  <p>当然最原始的你还可以使用window.<code>setTimout()</code>或者window.<code>setInterval()</code>通过不断更新元素的状态位置等来实现动画，前提是画面的更新频率要达到每秒60次才能让肉眼看到流畅的动画效果。 <br>
+  现在又多了一种实现动画的方案，那就是<code>window.requestAnimationFrame()</code>方法。</p>
+</blockquote>
+
+<hr>
+
+<p>1、基本方法使用</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var num = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>function <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span>{
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>  num++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>  document.<span class="hljs-built_in">title</span> = num;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>  requestAnimationFrame(<span class="hljs-function"><span class="hljs-keyword">fn</span>)</span>;<span class="hljs-comment">//在内部根据用户浏览器(电脑性能)情况,重复调用 fn，</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span> <span class="hljs-comment">//requestAnimationFrame(fn);//调用一次fn;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> <span class="hljs-comment">//也可以如下</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span> <span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span></span>;
+</div></code></pre>
+
+<hr>
+
+<p>2、<code>cancelRequestAnimationFrame(</code> timer <code>)</code></p>
+
+<blockquote>
+  <p><code>添加manage定时管理器</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> <span class="hljs-built_in">num</span> = <span class="hljs-number">0</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span> timer;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>function fn(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>  <span class="hljs-built_in">num</span>++;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>  <span class="hljs-built_in">document</span>.title = <span class="hljs-built_in">num</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>  timer = requestAnimationFrame(fn);<span class="hljs-comment">//在内部根据用户浏览器情况,重复调用 fn，</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>   <span class="hljs-keyword">if</span>(<span class="hljs-built_in">num</span>==<span class="hljs-number">250</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>       cancelAnimationFrame( timer );
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span> <span class="hljs-comment">//requestAnimationFrame(fn);//调用一次fn;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span> <span class="hljs-comment">//也可以如下</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span> fn();
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>
+</div></code></pre>
+
+<p>把  <code>requestAnimationFrame(fn)</code> 赋值给 <code>timer</code>，<code>timer</code> 就是<code>定时管理器</code></p>
+
+<hr>
+
+<p>3、<code>RequestAnimationFrame(</code> <code>)</code>兼容</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//requestAnimationFrame 兼容</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-built_in">window</span>.requestAnimationFrame = <span class="hljs-built_in">window</span>.requestAnimationFrame || <span class="hljs-built_in">window</span>.mozRequestAnimationFrame || <span class="hljs-built_in">window</span>.webkitRequestAnimationFrame || <span class="hljs-built_in">window</span>.msRequestAnimationFrame || function (<span class="hljs-function"><span class="hljs-keyword">fn</span>){
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    setTimeout<span class="hljs-params">(<span class="hljs-keyword">fn</span>,<span class="hljs-number">1000</span>/<span class="hljs-number">60</span>)</span>; 
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-comment">//cancelAnimationFrame 兼容</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-built_in">window</span>.cancelAnimationFrame = <span class="hljs-built_in">window</span>.cancelAnimationFrame || <span class="hljs-built_in">window</span>.mozCanceltAnimationFrame || <span class="hljs-built_in">window</span>.webkitCancelAnimationFrame || <span class="hljs-built_in">window</span>.msCancelAnimationFrame || clearTimeout;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="二速度版运动框架">二、速度版运动框架</h2>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        <span class="hljs-keyword">var</span> Obox = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'box'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        move(Obox,<span class="hljs-string">'left'</span>,<span class="hljs-number">20</span>,<span class="hljs-number">-6</span>);<span class="hljs-comment">//调用move函数,指定传递实参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">obj,attr,target,speed</span>)</span>{<span class="hljs-comment">//指定接受形参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            target = <span class="hljs-built_in">parseFloat</span>(target);<span class="hljs-comment">//转化为number</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            <span class="hljs-keyword">var</span> init = <span class="hljs-built_in">parseFloat</span>( getStyle(obj,attr));<span class="hljs-comment">//获取初始样式值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            <span class="hljs-keyword">var</span> time;<span class="hljs-comment">//动画管理器</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rQAF</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                init+= speed;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>                time =  <span class="hljs-built_in">window</span>.requestAnimationFrame(rQAF);<span class="hljs-comment">//调用requestAnimationFramerQAF函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>                <span class="hljs-keyword">if</span>( <span class="hljs-built_in">Math</span>.abs(target-init)&lt;=<span class="hljs-built_in">Math</span>.abs(speed) ){<span class="hljs-comment">//用绝对值判断是否到达目标值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>                   init = target;<span class="hljs-comment">//</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>                    <span class="hljs-built_in">window</span>.cancelAnimationFrame(time);<span class="hljs-comment">//删除requestAnimationFrame动画</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>                obj.style[attr] = init+<span class="hljs-string">'px'</span>;<span class="hljs-comment">//设置样式</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>            })()
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStyle</span>(<span class="hljs-params">obj,attr</span>)</span>{<span class="hljs-comment">//定义获取样式函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle? <span class="hljs-built_in">window</span>.getComputedStyle(obj)[attr]:obj.currentStyle[attr];
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        }
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="三时间版运动框架">三、时间版运动框架</h2>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        move(Obox,<span class="hljs-string">'left'</span>,<span class="hljs-string">'800px'</span>,<span class="hljs-number">1000</span>);<span class="hljs-comment">//调用move函数,指定传递实参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">move</span>(<span class="hljs-params">obj,attr,target,tar_t</span>)</span>{<span class="hljs-comment">//指定接受形参</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            target = <span class="hljs-built_in">parseFloat</span>(target);<span class="hljs-comment">//转化为number</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">var</span> init = <span class="hljs-built_in">parseFloat</span>( getStyle(obj,attr));<span class="hljs-comment">//获取初始样式值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>            <span class="hljs-keyword">var</span> init_t = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<span class="hljs-comment">//获取开始时间</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            <span class="hljs-keyword">var</span> style_val;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>            (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rQAF</span>(<span class="hljs-params"></span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>                <span class="hljs-keyword">var</span> cur_t = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()- init_t;<span class="hljs-comment">//获取动画时长</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>                <span class="hljs-keyword">var</span> prop =cur_t/tar_t;<span class="hljs-comment">//获取动画执行时长与动画预设总时间比值</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>                <span class="hljs-keyword">if</span>( prop&gt;=<span class="hljs-number">1</span> ){<span class="hljs-comment">//动画执行时长与动画预设总时间比值大于等于1时,</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>                   prop=<span class="hljs-number">1</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>                }<span class="hljs-keyword">else</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>                    <span class="hljs-built_in">window</span>.requestAnimationFrame(rQAF);
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>                style_val = (target-init)*prop;<span class="hljs-comment">//根据时间比例获取运动路程比例</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>                obj.style[attr] = init+style_val+<span class="hljs-string">'px'</span>;<span class="hljs-comment">//设置样式</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>            })()
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStyle</span>(<span class="hljs-params">obj,attr</span>)</span>{<span class="hljs-comment">//定义获取样式函数</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle? <span class="hljs-built_in">window</span>.getComputedStyle(obj)[attr]:obj.currentStyle[attr];
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>        }
+</div></code></pre>
+
+<hr></div></body></html>

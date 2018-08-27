@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><title>04-第四章 操作元素属性 CSS样式 []的使用</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="04-第四章-操作元素属性-css样式-的使用">04-第四章 操作元素属性 CSS样式 <code>[]</code>的使用</h1>
+
+
+
+<h2 id="一-cssstyle-操作">一 cssStyle 操作</h2>
+
+
+
+<h4 id="1css样式赋值">1、css样式赋值</h4>
+
+<ul><li>style 对象                   </li>
+<li>复合样式改写  <code>background-color ------&gt; backgroundColor</code></li>
+<li><code>cssText</code> </li>
+<li>style.float的兼容      <code>cssFloat /styleFloat</code></li>
+<li></li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="二-attribute-属性节点">二 attribute 属性节点</h2>
+
+<p>1 .  获取：    <code>getAttribute(名称)</code></p>
+
+<blockquote>
+  <p>优势1<code>.</code>用.和<code>[]</code>的形式无法操作元素的自定义属性    getAttribute可以操作元素的自定义属性</p>
+</blockquote>
+
+<ul><li>设置：    el.<code>setAttribute(名称, 值)</code></li>
+<li>包含：    el.<code>hasAttribute(名称)</code> </li>
+<li>删除：    el.<code>removeAttribute(名称)</code></li>
+</ul>
+
+<p>2 . Attributes :     只读 属性 属性列表集合</p>
+
+<ul><li>e.<code>attributes[index]</code>            第<em>index</em>个属性</li>
+<li>e.<code>attributes.length</code>              属性总个数</li>
+<li>e.<code>attributes[0].name</code>            第一个属性名</li>
+<li>e.<code>attributes[0].value</code>          设置或返回属性的值。 </li>
+<li></li>
+</ul>
+
+<hr>
+
+
+
+<h2 id="三-的运用">三 <code>[]</code>的运用</h2>
+
+<blockquote>
+  <p>当我们需要使用字符串表示属性的时候，或者此时属性会变化的时候</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs processing"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>   obj.style.<span class="hljs-built_in">width</span> = <span class="hljs-string">'ok'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>   <span class="hljs-comment">//可改为</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>   obj.style[<span class="hljs-string">'width'</span>] = <span class="hljs-string">'ok'</span>；
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>   <span class="hljs-comment">//亦可</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>   var <span class="hljs-built_in">str</span> = <span class="hljs-string">'width'</span>；
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>   obj.style[<span class="hljs-built_in">str</span>] = <span class="hljs-string">'ok'</span>
+</div></code></pre></div></body></html>

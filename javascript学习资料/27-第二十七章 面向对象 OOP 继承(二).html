@@ -1,0 +1,214 @@
+<!DOCTYPE html><html><head><title>27-第二十七章 面向对象 OOP 继承(二)</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="27-第二十七章-面向对象-oop-继承二">27-第二十七章 面向对象 OOP 继承(二)</h1>
+
+
+
+<h4 id="一对象-与-函数的关系">一、对象 与 函数的关系</h4>
+
+<hr>
+
+<p>1、<code>Object</code> 函数是Function 的一个实例</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-keyword">Object</span>.<span class="hljs-keyword">constructor</span>  == <span class="hljs-function"><span class="hljs-keyword">Function</span>  <span class="hljs-comment">//true</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div></code></pre>
+
+<hr>
+
+<p>2、 <code>函数</code>即是Function 的实例，也是Object 的实例</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>{}
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    fn.constructor  == <span class="hljs-built_in">Function</span>  <span class="hljs-comment">//true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    fn.constructor  == <span class="hljs-built_in">Object</span>    <span class="hljs-comment">//false </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div></code></pre>
+
+<hr>
+
+<p>3、<code>{}</code> 与 Object 的关系</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = <span class="hljs-comment">{}</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>obj.<span class="hljs-keyword">constructor</span>  === <span class="hljs-keyword">Object</span>   <span class="hljs-comment">//true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div></code></pre>
+
+<p>总结，<code>对象是由函数构造出来的</code></p>
+
+<hr>
+
+
+
+<h4 id="十一原型链">十一、原型链</h4>
+
+<blockquote>
+  <p>obj.prototype.<code>isPrototypeOf(</code>  fn.prototype  <code>)</code>  //fn.prototype 是否继承自obj.prototype</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span><span class="hljs-comment">{}</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-title">var</span>  <span class="hljs-title">obj</span> = <span class="hljs-title">new</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">Object</span>.prototype.isPrototypeOf( fn.prototype ) <span class="hljs-comment">//  true</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">Function</span>.<span class="hljs-title">prototype</span>.<span class="hljs-title">isPrototypeOf</span><span class="hljs-params">( <span class="hljs-keyword">Object</span>.prototype )</span> <span class="hljs-comment">//true</span>
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="十二-对象继承">十二、 对象继承</h4>
+
+<p>在上面例子中 可以发现,给对象的constructor.prototype添加方法属性 对象就会继承 如果要实现一个对象继承其他对象我们这样做</p>
+
+<hr>
+
+<blockquote>
+  <p>一 、利用<code>call()</code>及<code>for in</code> 继承 <br>
+  如</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs gauss"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>function inherit(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>            <span class="hljs-function"><span class="hljs-keyword">fn</span>.<span class="hljs-keyword">call</span><span class="hljs-params">(obj3,'旺财')</span></span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">for</span>(<span class="hljs-built_in">key</span>  in  <span class="hljs-function"><span class="hljs-keyword">fn</span>.prototype){
+</span></div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>                <span class="hljs-keyword">if</span><span class="hljs-params">(!obj3[<span class="hljs-built_in">key</span>])</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>                    obj3[<span class="hljs-built_in">key</span>] = <span class="hljs-keyword">fn</span>.prototype[<span class="hljs-built_in">key</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>                }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>       }
+</div></code></pre>
+
+<hr>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs typescript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inherit</span>(<span class="hljs-params">constructor,obj,ownAttr</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">constructor</span>.call(<span class="hljs-params">obj3,ownAttr</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        for(<span class="hljs-params">key  <span class="hljs-keyword">in</span>  constructor.prototype</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>            <span class="hljs-keyword">if</span>(!obj[key]){
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>                obj[key] =<span class="hljs-keyword">constructor</span>.prototype[key];
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>            }
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>   }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>}
+</div></code></pre>
+
+<hr>
+
+
+
+<h5 id="一-构造函数实例方式继承">一、 构造函数实例方式继承</h5>
+
+<blockquote>
+  <p>一、 利用obj.constructor.prototype 继承对象 <code>自身属性</code>及 <code>继承属性</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">name</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>  <span class="hljs-keyword">this</span>.name = name;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>  fn.prototype.index = <span class="hljs-string">'88'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn2</span>(<span class="hljs-params">age</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>      <span class="hljs-keyword">this</span>.age = age;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>  fn2.prototype  = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">'旺财'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>  <span class="hljs-keyword">var</span> obj2 = <span class="hljs-keyword">new</span> fn2(<span class="hljs-number">66</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>  <span class="hljs-built_in">console</span>.log(obj2.name);<span class="hljs-comment">//旺财</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>  <span class="hljs-built_in">console</span>.log(obj2.index);<span class="hljs-comment">//88</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>   <span class="hljs-built_in">console</span>.log(obj2.age);<span class="hljs-comment">//88</span>
+</div></code></pre>
+
+<hr>
+
+<blockquote>
+  <p>二、利用 prototype 继承对象 <code>自身属性</code>及 <code>继承属性</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">name</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>     <span class="hljs-keyword">this</span>.name = name;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> fn.prototype.index = <span class="hljs-string">'88'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn2</span>(<span class="hljs-params">age</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>      <span class="hljs-keyword">this</span>.age = age;
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>  }
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span> <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">'二狗'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span> fn.prototype  = <span class="hljs-built_in">Object</span>.create(fn.prototype);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span> <span class="hljs-built_in">console</span>.log(obj2.name);<span class="hljs-comment">//二狗</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span> <span class="hljs-built_in">console</span>.log(obj2.index);<span class="hljs-comment">//88</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>
+</div></code></pre>
+
+<hr>
+
+<p>在上面例子中 可以发现,给对象的constructor.prototype添加方法属性 对象就会继承 如果要实现一个对象继承其他对象我们这样做</p>
+
+
+
+<h4 id="二objconstructorprototype-与-对象objproto-的关系-带为非标准属性">二、<code>obj.constructor.prototype</code> 与 对象<code>obj.__proto__</code>  的关系 ,带__为非标准属性</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">name</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>     <span class="hljs-keyword">this</span>.name = name;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">'二狗'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span> <span class="hljs-built_in">console</span>.log( obj.__proto__ === fn.prototype ) <span class="hljs-comment">//true，</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h5 id="三-对象继承对象">三、 对象继承对象</h5>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs sqf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var obj = {<span class="hljs-built_in">name</span> : <span class="hljs-string">'hello'</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>var  obj2 = {age:<span class="hljs-number">30</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>obj2.<span class="hljs-variable">__proto__</span> = obj;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>console.<span class="hljs-built_in">log</span>( obj2.<span class="hljs-built_in">name</span>);<span class="hljs-comment">//hello</span>
+</div></code></pre>
+
+<hr>
+
+<p>继承  构造函数 实例对象</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params">name</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        <span class="hljs-keyword">this</span>.name = name;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> fn(<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    <span class="hljs-keyword">var</span> obj2 = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>        <span class="hljs-attr">age</span>:<span class="hljs-number">30</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        <span class="hljs-attr">__proto__</span>:obj
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    <span class="hljs-built_in">console</span>.log(obj2.name);<span class="hljs-comment">//hello;</span>
+</div></code></pre>
+
+<p>案例：<code>用面向对象改写 限制范围拖拽</code>  <br>
+案例：<code>用面向对象改写 自动轮播</code> </p></div></body></html>

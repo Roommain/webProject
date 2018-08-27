@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        li {
+            list-style-type: none;
+        }
+        #box{
+            position: relative;
+            width: 590px;
+            height: 470px;
+            margin: 50px auto;
+        }
+        #img ul li{
+            opacity: 0;
+            transition: 2s;
+        }
+        #box ul li img{
+            position: absolute;
+            width: 590px;
+            height: 470px;
+        }
+        #box ul li.on{
+            z-index: 1;
+            opacity: 1;
+        }
+        #tlt{
+            position: absolute;
+            z-index: 2;
+            left: 50%;
+            bottom: 10px;
+            width: 82px;
+            height: 14px;
+            margin-left: -40px;
+        }
+        #tlt ul li{
+            float: left;
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+            background-color: #F60;
+            margin:0 3px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 2s;
+        }
+        #tlt ul li.on{
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="img">
+        <ul>
+            <li class="on"><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div id="tlt">
+        <ul class="clearFix">
+            <li class="on"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<script>
+    var box = document.getElementById("box");
+    var tlt = document.getElementById("tlt");
+    var img = document.getElementById("img");
+    var tli = tlt.getElementsByTagName("li");
+    var ili = img.getElementsByTagName("li");
+    var index = 0;
+
+
+    for(var i=0;i<tli.length;i++){
+        (function (i) {
+            tli[i].onclick = function () {
+                if(index !==i ){
+                    change(i)
+                }
+            };
+        })(i);
+    }
+
+    var timer = setInterval(function () {
+        change(index + 1);
+
+    },3000);
+
+    function change(i) {
+        tli[index].classList.remove("on");
+        ili[index].classList.remove("on");
+        index = i;
+        index %= 4;
+        tli[index].classList.add("on");
+        ili[index].classList.add("on");
+    }
+
+    box.onmouseenter = function () {
+        clearInterval(timer);
+    };
+    box.onmouseleave = function () {
+        timer = setInterval(function () {
+            change(index + 1);
+
+        },3000);
+    }
+</script>
+</body>
+</html>

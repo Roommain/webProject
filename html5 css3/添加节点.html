@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearFix:after {
+            content: '';
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        #box{
+            width: 200px;
+            height: 200px;
+            margin:10px auto;
+            box-shadow: inset 10px 10px 10px #75A2A2;
+        }
+        li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+    <ul class="ul">
+        <li>海贼王</li>
+    </ul>
+</div>
+<script type="text/javascript">
+
+    var obox = document.getElementById("box"),
+        oul = obox.getElementsByTagName("ul")[0],
+        node = document.createElement("li"),
+        text = document.createTextNode("火影");
+
+    node.appendChild(text);
+    oul.appendChild(node);
+
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+        *{ margin:0; padding:0; font-family:"Microsoft yahei",serif;}
+        li{ list-style-type: none;}
+        #box{
+            position: relative;
+            width: 420px;
+            height: 540px;
+            background: #0cf;
+            margin: 100px auto;
+        }
+        #box h2{
+            background: #09c;
+            height: 40px;
+            line-height: 40px;
+            color: #fff;
+            font-size: 20px;
+            text-align: center;
+        }
+        #box ul li{
+            overflow: hidden;
+            position: relative;
+            height: 42px;
+            margin:23px 0;
+            transition: height .3s;
+        }
+        #box ul li.wrong{
+            height: 62px;
+        }
+        #box ul li.right{
+            height: 42px;
+        }
+        #box ul li input{
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: 270px;
+            height: 40px;
+            text-indent: 15px;
+            border: 1px solid #ccc;
+            outline: none;
+            margin: 0 auto;
+        }
+        #box ul li input:focus{
+            border: 1px solid pink;
+        }
+        #box ul li.wrong input{
+            border-color: red;
+        }
+        #box ul li.right input{
+            border-color: #00ae00;
+        }
+        #box ul li p.tip{
+            overflow: hidden;
+            height: 20px;
+            line-height: 20px;
+            color: #fb0021;
+            margin-left: 75px;
+            font-size: 12px;
+        }
+        #box ul li p.pass{
+            display: none;
+            position: absolute;
+            right: 46px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background: #4bba68;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bolder;
+            border-radius: 50%;
+            box-shadow: 1px 1px 5px #000;
+        }
+        #box ul li.right p.pass{
+            display: block;
+        }
+        #tip{
+            position: absolute;
+            z-index: 0;
+            top: 40%;
+            left: 50%;
+            margin-left: -75px;
+            margin-top: -20px;
+            width: 150px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #000000;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: bolder;
+            opacity: 0;
+            transition: opacity .3s,top .3s;
+        }
+        #tip.show{
+            z-index: 99;
+            opacity: 1;
+            top: 50%;
+        }
+        #sub{
+            display: block;
+            width: 270px;
+            height: 40px;
+            background: #09c;
+            border: 1px solid #ccc;
+            outline: none;
+            margin: 10px auto 0;
+            color: #fff;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <h2>注册</h2>
+    <ul>
+        <li>
+            <input type="text" name="user" placeholder="请输入您的用户名">
+            <p class="tip">错误：用户名以字母开头，长度为6~16位</p>
+            <p class="pass">√</p>
+        </li>
+        <li>
+            <input type="password" name="pwd" placeholder="请输入您的密码">
+            <p class="tip">错误：密码格式不正确</p>
+            <p class="pass">√</p>
+        </li>
+        <li>
+            <input type="password" placeholder="请再次输入您的密码">
+            <p class="tip">错误：两次密码输入不一致</p>
+            <p class="pass">√</p>
+        </li>
+        <li>
+            <input type="text" name="tel" placeholder="请输入您的手机号">
+            <p class="tip">错误：手机号格式不正确</p>
+            <p class="pass">√</p>
+        </li>
+        <li>
+            <input type="text" name="qq" placeholder="请输入您的QQ号">
+            <p class="tip">错误：QQ号格式不正确</p>
+            <p class="pass">√</p>
+        </li>
+        <li>
+            <input type="text" name="email" placeholder="请输入您的邮箱">
+            <p class="tip">错误：邮箱格式不正确</p>
+            <p class="pass">√</p>
+        </li>
+    </ul>
+    <div id="tip">请先填写密码！！</div>
+    <input id="sub" type="submit" value="提交">
+</div>
+<script>
+
+    var oBox = document.getElementById("box"),
+        aInput = oBox.querySelectorAll("ul li input"),
+        oTip = document.getElementById("tip"),
+        length = aInput.length;
+
+    var reg = {
+        qq : /^[1-9]\d{4,10}$/,
+        tel : /^1[3-9]\d{9}$/,
+        user : /^[a-z]\w{5,15}$/i,
+        pwd : /^[\w~!@#$%^&*()+{}[\]:"|',.?\-/]{6,16}$/,
+        email : /^[1-9a-z]\w+@[0-9a-z\-]{2,}(\.[a-z]{2,}){1,2}$/i
+    };
+
+    for (var i = 0; i < length; i++) {
+        (function(i){
+            aInput[i].onblur = function (ev) {
+                var val = this.value;
+                if ( i === 2 && aInput[1].value ){
+                    if ( val ){
+                        if ( this.value === aInput[1].value ){
+                            //满足规则
+                            this.parentNode.className = "right";
+                        }else{
+                            //不满足规则
+                            this.parentNode.className = "wrong";
+                            aInput[1].focus();//不能一直锁死在再次输入框，万一第一次密码就输入错误了呢！
+                        }
+                    }
+                }else{
+                    if ( val ){
+                        //value有值reg[this.name].test(val)
+                        if (reg[this.name].test(val)){
+                            //满足规则
+                            this.parentNode.className = "right";
+                            if ( i === 1 ){
+                                var pwd2 = aInput[2].value;
+
+                                if ( pwd2 ){
+                                    if ( pwd2 !== val ){
+                                        aInput[2].parentNode.className = "wrong";
+                                        aInput[2].focus();
+                                    }else{
+                                        aInput[2].parentNode.className = "right";
+                                    }
+                                }
+                            }
+                        }else{
+                            //不满足规则
+                            this.parentNode.className = "wrong";
+                            this.focus();
+                        }
+                    }else{
+                        //没有值
+                        this.parentNode.className = "";
+                        if ( i === 1 ){
+                            if ( aInput[2].value ){
+                                aInput[2].parentNode.className = "";
+                                aInput[2].value = "";
+                            }
+                        }
+                    }
+
+                }
+
+            };
+        })(i);
+    }
+
+    //再次输入密码框的获得焦点事件
+    aInput[2].onfocus = function (ev) {
+        var pwdVal = aInput[1].value;
+        if ( !pwdVal ){
+            clearTimeout(this.timer);
+            aInput[1].focus();
+            oTip.className = "show";
+            this.timer = setTimeout(function () {
+                oTip.className = "";
+            },1500);
+        }
+    };
+
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

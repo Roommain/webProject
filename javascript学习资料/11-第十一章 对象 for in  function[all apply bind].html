@@ -1,0 +1,389 @@
+<!DOCTYPE html><html><head><title>11-第十一章  对象(JSON ) for/in   function[all apply bind]</title><meta charset='utf-8'><link href='https://dn-maxiang.qbox.me/res-min/themes/marxico.css' rel='stylesheet'><style>
+.note-content  {font-family: 'Helvetica Neue', Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', SimSun, Song, sans-serif;}
+
+</style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="11-第十一章-对象json-forin-functionall-apply-bind">11-第十一章  对象(JSON ) for/in   function[all apply bind]</h1>
+
+
+
+<h2 id="一json">一JSON</h2>
+
+<hr>
+
+
+
+<h4 id="1-创建对象json">1 、创建对象（JSON）</h4>
+
+<blockquote>
+  <p>对象是Javascript的基本数据结构，对象是引用类型 <br>
+  创建对象的三种方式 <code>对象直接量</code>，<code>new Oject()</code>, <code>Object.create({})</code>[ ES5 ],create创建需要一个对象参数</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs dart"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//直接量</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-keyword">var</span>  obj = {}
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//new</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-keyword">var</span>  obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Object</span>()
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//ES5</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span><span class="hljs-keyword">var</span>  obj = <span class="hljs-built_in">Object</span>.create()
+</div></code></pre>
+
+<ul><li>对象都是一个<code>key(键)</code>:<code>value( 值 )</code>一一对应</li>
+<li>age为对象的<code>key(键)</code>，或obj的age属性</li>
+<li>20为age 的<code>value( 值 )</code></li>
+</ul>
+
+<hr>
+
+<blockquote>
+  <p><code>严格是对象为JSON</code></p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-comment">//对象</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-selector-tag">var</span> obj = {  age: <span class="hljs-number">20</span>,name: <span class="hljs-string">'小黑'</span>, }
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//JSON</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-selector-tag">var</span> obj = {  <span class="hljs-string">'age'</span> : <span class="hljs-number">20</span>,<span class="hljs-string">'name'</span>: <span class="hljs-string">'小黑'</span>, }
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="2-访问json的值">2 、访问JSON的值</h4>
+
+<p>obj<code>.</code>attribute <br>
+<code>obj[</code>attribute<code>]</code></p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs stylus"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-selector-tag">var</span>  obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    age: <span class="hljs-number">20</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    name: <span class="hljs-string">'小黑'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    sex: <span class="hljs-string">'男'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span><span class="hljs-function"><span class="hljs-title">alert</span><span class="hljs-params">( obj.age )</span></span> <span class="hljs-comment">//20</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-comment">//或</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span><span class="hljs-function"><span class="hljs-title">alert</span><span class="hljs-params">( obj[age] )</span></span> <span class="hljs-comment">//20</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3-修改json的属性值">3 、修改JSON的属性值</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs sqf"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var obj = { <span class="hljs-built_in">name</span>: <span class="hljs-string">'小黑'</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>obj.<span class="hljs-built_in">name</span>  = <span class="hljs-string">'二狗'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-comment">//或</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>obj[<span class="hljs-built_in">name</span> ] = <span class="hljs-string">'二狗'</span>;
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="3-添加json属性">3 、添加JSON属性</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = <span class="hljs-comment">{}</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>obj.<span class="hljs-keyword">name</span> = <span class="hljs-string">'hello'</span>;
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="4-删除json属性">4 、删除JSON属性</h4>
+
+<p><code>delete</code>  可以删除对象属性</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> obj = <span class="hljs-comment">{}</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>obj.<span class="hljs-keyword">name</span> = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>delete obj.<span class="hljs-keyword">name</span> 
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-comment">//或</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>delete obj[<span class="hljs-keyword">name</span>] 
+</div></code></pre>
+
+
+
+<h4 id="5-json数字属性">5 、JSON数字属性</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs prolog"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    age: <span class="hljs-number">20</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    name: <span class="hljs-string">'小黑'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    sex: <span class="hljs-string">'男'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>obj[<span class="hljs-number">0</span>] = <span class="hljs-string">'hello'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>obj[<span class="hljs-number">1</span>] = <span class="hljs-string">'AAA'</span>;
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div></code></pre>
+
+
+
+<h4 id="6in-判断对象是否存在某个属性">6、<code>in</code>   判断对象是否存在某个属性</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs actionscript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span>   obj = { hello:<span class="hljs-number">123</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span> alert( <span class="hljs-string">'hello'</span> <span class="hljs-keyword">in</span> obj );<span class="hljs-comment">//true</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="二-for-in遍历json">二 、for  in遍历json</h4>
+
+<p>1、for in 遍历JSON</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-keyword">var</span> person = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-attr">name</span>: <span class="hljs-string">'小黑'</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-attr">sex</span>: <span class="hljs-string">'男'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-keyword">for</span>( <span class="hljs-keyword">var</span> attr <span class="hljs-keyword">in</span> person){<span class="hljs-comment">//attr 为属性，attr不是必须的，可以为任意变量名</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>    <span class="hljs-built_in">console</span>.log( attr );<span class="hljs-comment">//属性名： age,name,sex</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>    <span class="hljs-built_in">console</span>.log( person[attr] )<span class="hljs-comment">//对应的属性值：20 小黑 男</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>}
+</div></code></pre>
+
+<p>2、for in 也可以遍历数组</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs glsl"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>var  arr = [<span class="hljs-number">8</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>];
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-keyword">for</span> ( var <span class="hljs-keyword">index</span> <span class="hljs-keyword">in</span> arr){
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    console.<span class="hljs-built_in">log</span>( <span class="hljs-keyword">index</span> );                       <span class="hljs-comment">//0 1 2 3</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>    console.<span class="hljs-built_in">log</span>( arr[<span class="hljs-keyword">index</span>] );               <span class="hljs-comment">// 8 2 4 6</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}
+</div></code></pre>
+
+<hr>
+
+<p>!!!! for 循环不能遍历JSON</p>
+
+<hr>
+
+
+
+<h2 id="三-json对象仿jquery-链式操作-css-html">三 、JSON对象仿<code>jQuery 链式操作</code> css html</h2>
+
+<hr>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs javascript"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">$</span>(<span class="hljs-params">option</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-keyword">var</span> t = <span class="hljs-keyword">typeof</span> option;
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-keyword">if</span>(t==<span class="hljs-string">'function'</span>){
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-built_in">window</span>.onload = option;
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(t.toLowerCase() == <span class="hljs-string">'string'</span> ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>        <span class="hljs-keyword">var</span> el = option.substring(<span class="hljs-number">1</span>,option.length);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        <span class="hljs-comment">//alert(option.length);</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>        el = <span class="hljs-built_in">document</span>.getElementById(el);
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>    <span class="hljs-keyword">var</span> obj = {
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>        <span class="hljs-attr">css</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">attr,val</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>            el.style[attr] = val;
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>            <span class="hljs-keyword">return</span> obj;
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>        },
+</div><div class="hljs-line"><span class="hljs-comment line-number">18.</span>        <span class="hljs-attr">html</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">val</span>)</span>{
+</div><div class="hljs-line"><span class="hljs-comment line-number">19.</span>            el.innerHTML = val;
+</div><div class="hljs-line"><span class="hljs-comment line-number">20.</span>            <span class="hljs-keyword">return</span> obj;
+</div><div class="hljs-line"><span class="hljs-comment line-number">21.</span>        }
+</div><div class="hljs-line"><span class="hljs-comment line-number">22.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">23.</span>    <span class="hljs-keyword">return</span> obj;
+</div><div class="hljs-line"><span class="hljs-comment line-number">24.</span>}       
+</div><div class="hljs-line"><span class="hljs-comment line-number">25.</span>$(<span class="hljs-string">'#box'</span>).css(<span class="hljs-string">'backgroundColor'</span>,<span class="hljs-string">'red'</span>).html(<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">26.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h2 id="四jsonparse-对象化-jsonstringify-对象字符化">四、JSON.parse()    对象化  / JSON.stringify() 对象字符化</h2>
+
+
+
+<h4 id="1jsonparse">1、<code>JSON.parse()</code></h4>
+
+<blockquote>
+  <p><code>JSON.parse(</code>obj <code>)</code>方法解析一个JSON<code>字符串</code>，构造由字符串描述的JavaScript值或对象。可以提供可选的reviver函数以在返回之前对所得到的对象执行变换。</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs q"><div class="hljs-line"><span class="hljs-comment line-number">1.</span><span class="hljs-built_in">var</span> obj =  '{
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>    <span class="hljs-string">"age"</span>: <span class="hljs-number">20</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    <span class="hljs-string">"name"</span>: <span class="hljs-string">"小黑"</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-string">"sex"</span>: <span class="hljs-string">"男"</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>}';
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>JSON.<span class="hljs-built_in">parse</span>( obj );
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span><span class="hljs-comment">//解析后的值为 </span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>obj =  {
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>    age: <span class="hljs-number">20</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>    name: <span class="hljs-string">"小黑"</span>,
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>    sex: <span class="hljs-string">"男"</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>};
+</div><div class="hljs-line"><span class="hljs-comment line-number">17.</span>
+</div></code></pre>
+
+<hr>
+
+
+
+<h4 id="1jsonstringify">1、<code>JSON.stringify()</code></h4>
+
+<blockquote>
+  <p><code>JSON.stringify(</code> obj <code>)</code>与<code>JSON.parse()</code>进行的是反操作</p>
+</blockquote>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs elixir"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>JSON.stringify({});                        <span class="hljs-regexp">//</span> <span class="hljs-string">'{}'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>JSON.stringify(<span class="hljs-keyword">true</span>);                      <span class="hljs-regexp">//</span> <span class="hljs-string">'true'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>JSON.stringify(<span class="hljs-string">"foo"</span>);                     <span class="hljs-regexp">//</span> <span class="hljs-string">'"foo"'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>JSON.stringify([<span class="hljs-number">1</span>, <span class="hljs-string">"false"</span>, <span class="hljs-keyword">false</span>]);       <span class="hljs-regexp">//</span> <span class="hljs-string">'[1,"false",false]'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>JSON.stringify({ <span class="hljs-symbol">x:</span> <span class="hljs-number">5</span> });                  <span class="hljs-regexp">//</span> <span class="hljs-string">'{"x":5}'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>JSON.stringify({<span class="hljs-symbol">x:</span> <span class="hljs-number">5</span>, <span class="hljs-symbol">y:</span> <span class="hljs-number">6</span>});              
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span><span class="hljs-regexp">//</span> <span class="hljs-string">"{"</span>x<span class="hljs-string">":5,"</span>y<span class="hljs-string">":6}"</span>
+</div></code></pre>
+
+<hr>
+
+<hr>
+
+
+
+<h2 id="七function-call-applay-bind方法">七、Function <code>call()</code> <code>applay()</code> <code>bind()</code>方法</h2>
+
+<blockquote>
+  <p>函数的<code>call()</code>,<code>apply()</code>,<code>bind()</code>方法都是用于<code>改变</code>函数内部<code>this指向</code> <br>
+  用法<code>Function.call()</code>,<code>Function.apply()</code>,<code>Function.bind()</code>,</p>
+</blockquote>
+
+<hr>
+
+
+
+<h4 id="1-call和apply都用于函数调用">1 、<code>call()</code>和<code>apply</code>都用于函数调用</h4>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs rust"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>function <span class="hljs-function"><span class="hljs-keyword">fn</span></span>(){  alert(this) }
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span><span class="hljs-function"><span class="hljs-keyword">fn</span></span>();<span class="hljs-comment">//window</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span><span class="hljs-function"><span class="hljs-keyword">fn</span>.<span class="hljs-title">call</span></span>(<span class="hljs-symbol">'hello</span>');<span class="hljs-comment">//'hello'</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span><span class="hljs-function"><span class="hljs-keyword">fn</span>.<span class="hljs-title">apply</span></span>('<span class="hljs-number">8888</span>');<span class="hljs-comment">//'8888'</span>
+</div></code></pre>
+
+<p><strong>区别</strong>： <br>
+<code>call(</code> thisvalue, val1，val2，….<code>)</code></p>
+
+<ul><li><code>thisvalue</code> 是函数内部<code>this的值</code></li>
+<li>后面是参数列表</li>
+</ul>
+
+<p><code>apply(</code> thisvalue, [val1，val2，….]<code>)</code></p>
+
+<ul><li><code>thisvalue</code> 是函数内部<code>this的值</code></li>
+<li>后面是参数<code>数组</code>，所有参数放数组里面</li>
+</ul>
+
+<hr>
+
+
+
+<h4 id="2-bind都用于创建中">2 、<code>bind()</code>都用于创建中</h4>
+
+<p>1 )、适用匿名函数</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs elixir"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>        var <span class="hljs-keyword">fn</span> = function (a,b ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>            console.log(this,a,b);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>        }.bind(<span class="hljs-string">'hello'</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>        <span class="hljs-keyword">fn</span>();
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>        <span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">7.</span>        var <span class="hljs-keyword">fn</span> = function (a,b ){
+</div><div class="hljs-line"><span class="hljs-comment line-number">8.</span>            console.log(this,a,b);
+</div><div class="hljs-line"><span class="hljs-comment line-number">9.</span>        }.bind(<span class="hljs-string">'hello'</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">10.</span>        <span class="hljs-keyword">fn</span>(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);
+</div><div class="hljs-line"><span class="hljs-comment line-number">11.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">12.</span>        <span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span><span class="hljs-regexp">//</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">13.</span>        obj.onclick = function(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">14.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">15.</span>        }.bind()
+</div><div class="hljs-line"><span class="hljs-comment line-number">16.</span>
+</div></code></pre>
+
+<p>2 )、有名函数，有些特殊</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>      console.log(this);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    }
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span>    <span class="hljs-title">fn</span>.<span class="hljs-title">bind</span><span class="hljs-params">(<span class="hljs-string">'hello'</span>)</span><span class="hljs-params">()</span>;
+</div></code></pre>
+
+<p>3）、自执行函数</p>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs clojure"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>(<span class="hljs-name">function</span> abc(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>   console.log(<span class="hljs-name">this</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>}.bind(<span class="hljs-name">'hello'</span>)())<span class="hljs-comment">;</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs clojure"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>(<span class="hljs-name">function</span> abc(){
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span>    console.log(<span class="hljs-name">this</span>)<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">4.</span> }.bind(<span class="hljs-name">'hello'</span>))()<span class="hljs-comment">;</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">5.</span>
+</div><div class="hljs-line"><span class="hljs-comment line-number">6.</span>
+</div></code></pre>
+
+
+
+<pre class="prettyprint with-line-number hljs-dark"><code class="hljs delphi"><div class="hljs-line"><span class="hljs-comment line-number">1.</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">abc</span><span class="hljs-params">()</span><span class="hljs-comment">{
+</span></span></div><div class="hljs-line"><span class="hljs-comment line-number">2.</span>        console.log(this);
+</div><div class="hljs-line"><span class="hljs-comment line-number">3.</span> }).<span class="hljs-title">bind</span><span class="hljs-params">(<span class="hljs-string">'hello'</span>)</span><span class="hljs-params">()</span>;
+</div></code></pre>
+
+<hr></div></body></html>
