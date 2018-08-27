@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>学习javascript和html5</title>
 </head>
 <body>
 <h2>学习javascript和html5以及项目首页</h2>
