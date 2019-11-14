@@ -25,7 +25,7 @@
 <a href="https://htmlpreview.github.io/?https://github.com/Roommain/webProject/blob/master/js%E5%AD%A6%E4%B9%A0/%E6%97%A0%E7%BC%9D%E8%BD%AE%E6%92%AD.html">无缝轮播</a><br>
 <a href="https://htmlpreview.github.io/?https://github.com/Roommain/webProject/blob/master/js%E5%AD%A6%E4%B9%A0/%E7%82%B9%E5%87%BB%E6%B7%BB%E5%8A%A0.html">添加节点</a><br>
 <a href="https://htmlpreview.github.io/?https://github.com/Roommain/webProject/blob/master/js%E5%AD%A6%E4%B9%A0/%E8%B4%AD%E7%89%A9%E8%BD%A6.html">购物车</a><br>
-<a href="https://htmlpreview.github.io/?https://github.com/Roommain/webProject/blob/master/js%E5%AD%A6%E4%B9%A0/%E8%BD%AE%E6%92%AD%E5%9B%BE.html">淡入淡出轮播图</a>
+<a href="https://htmlpreview.github.io/?https://github.com/Roommain/webProject/blob/master/js%E5%AD%A6%E4%B9%A0/%E8%BD%AE%E6%92%AD%E5%9B%BE.html">淡入淡出轮播图</a><br>
 <a href="https://htmlpreview.github.io/?https://github.com/Roommain/resume/blob/master/build/index.html">简历</a>
 </body>
 </html>
